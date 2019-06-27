@@ -1,8 +1,8 @@
 {
   "name": "NA-Ireland-Ionic-4",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Paul N.",
+  "homepage": "https://www.na-ireland.org",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
