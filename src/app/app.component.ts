@@ -22,6 +22,16 @@ export class AppComponent {
       title: 'Meeting List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'Just For Today',
+      url: '/jft',
+      icon: 'list'
+    },
+    {
+      title: 'Cleantime Calculator',
+      url: '/datetime',
+      icon: 'list'
     }
   ];
 

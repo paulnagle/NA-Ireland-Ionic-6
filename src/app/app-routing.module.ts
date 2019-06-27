@@ -14,6 +14,14 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
+  },
+  {
+    path: 'jft',
+    loadChildren: './jft/jft.module#JftPageModule'
+  },
+  {
+    path: 'datetime',
+    loadChildren: './datetime/datetime.module#DatetimePageModule'
   }
 ];
 
