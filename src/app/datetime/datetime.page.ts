@@ -33,7 +33,7 @@ export class DatetimePage implements OnInit {
     minute = minute % 60;
     this.cleanTimeInDays = Math.floor(hour / 24);
     hour = hour % 24;
-    return this.cleanTimeInDays
+    return this.cleanTimeInDays;
 
   }
 
