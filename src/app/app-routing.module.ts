@@ -13,7 +13,6 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    title: 'Meeting List',
     loadChildren: './list/list.module#ListPageModule'
   }
 ];
