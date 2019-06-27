@@ -13,6 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'list',
+    title: 'Meeting List',
     loadChildren: './list/list.module#ListPageModule'
   }
 ];
@@ -23,4 +24,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
