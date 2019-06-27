@@ -4,12 +4,15 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      {{'HOME' | translate}}
+      {{'JUSTFORTODAY' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content text-center padding class="home">
-  <h1>{{'HOME_TITLE' | translate}}</h1>
-  <img style="width: 100%; " src="assets/web_hi_res_512.png" />
+<ion-content>
+  <ion-card>
+	  <ion-card-content>
+      <div [innerHtml]="jft"></div>
+	  </ion-card-content>
+	</ion-card>
 </ion-content>
