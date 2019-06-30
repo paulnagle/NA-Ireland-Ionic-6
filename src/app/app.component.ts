@@ -37,6 +37,11 @@ export class AppComponent {
       title: 'Contact',
       url: '/contact',
       icon: 'contact'
+    },
+    {
+      title: 'Map Search',
+      url: '/map',
+      icon: 'map'
     }
   ];
 

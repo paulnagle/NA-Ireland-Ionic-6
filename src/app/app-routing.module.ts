@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'contact',
     loadChildren: './contact/contact.module#ContactPageModule'
+  },
+  {
+    path: 'map',
+    loadChildren: './map/map.module#MapPageModule'
   }
 ];
 

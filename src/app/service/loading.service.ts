@@ -10,7 +10,7 @@ export class LoadingService {
 
   constructor(public loadingController: LoadingController) { }
 
-  async present(text) {
+  async present(text: string) {
     this.isLoading = true;
     return await this.loadingController.create({
       duration: 5000,
