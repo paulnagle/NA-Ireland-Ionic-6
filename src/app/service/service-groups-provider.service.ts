@@ -10,7 +10,6 @@ export class ServiceGroupsProviderService {
     console.log('Hello ServiceGroupsProvider Provider');
   }
 
-
   getApiUrlServiceGroups: any = 'https://bmlt.nasouth.ie/main_server/client_interface/json/?switcher=GetServiceBodies';
 
   getAllServiceGroups() {
