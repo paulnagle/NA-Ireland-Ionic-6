@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'datetime',
     loadChildren: './datetime/datetime.module#DatetimePageModule'
+  },
+  {
+    path: 'contact',
+    loadChildren: './contact/contact.module#ContactPageModule'
   }
 ];
 

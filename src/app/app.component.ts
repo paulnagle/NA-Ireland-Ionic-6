@@ -32,6 +32,11 @@ export class AppComponent {
       title: 'Cleantime Calculator',
       url: '/datetime',
       icon: 'calendar'
+    },
+    {
+      title: 'Contact',
+      url: '/contact',
+      icon: 'contact'
     }
   ];
 
