@@ -10,7 +10,7 @@ export class JftService {
     console.log('Hello JftProvider Provider');
   }
 
-  getJFTUrl: any = 'http://jftna.org/jft/';
+  getJFTUrl: any = 'https://jftna.org/jft/';
 
   getJFT() {
     return this.http.get(this.getJFTUrl, { responseType: 'text' });

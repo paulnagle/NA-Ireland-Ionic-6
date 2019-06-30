@@ -29,7 +29,7 @@ export class ListPage {
     public plt: Platform) {
 
     this.HTMLGrouping = 'area';
-    this.loadingCtrl.present();
+    this.loadingCtrl.present('Loading meetings...');
     this.meetingsListAreaGrouping = 'service_body_bigint';
     this.meetingsListCityGrouping = 'location_sub_province';
     this.getServiceGroupNames();
