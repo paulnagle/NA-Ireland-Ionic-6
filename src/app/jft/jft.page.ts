@@ -15,7 +15,7 @@ export class JftPage implements OnInit {
   constructor(
     private thisJftService: JftService,
     public loadingCtrl: LoadingService) {
-    this.loadingCtrl.present();
+    this.loadingCtrl.present('Loading JFT...');
     this.getJFT();
   }
 
@@ -25,8 +25,7 @@ export class JftPage implements OnInit {
       .subscribe((data) => {
         this.jft = data;
         this.loadingCtrl.dismiss();
-      }
-      );
+      });
   }
 
   ngOnInit() {

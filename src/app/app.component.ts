@@ -26,12 +26,12 @@ export class AppComponent {
     {
       title: 'Just For Today',
       url: '/jft',
-      icon: 'list'
+      icon: 'book'
     },
     {
       title: 'Cleantime Calculator',
       url: '/datetime',
-      icon: 'list'
+      icon: 'calendar'
     }
   ];
 
