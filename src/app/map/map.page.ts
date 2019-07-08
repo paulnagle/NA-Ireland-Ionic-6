@@ -34,7 +34,7 @@ import {
   MyLocation,
   Geocoder,
   GeocoderResult
-} from '@ionic-native/google-maps';
+} from '@ionic-native/google-maps/ngx';
 import { ModalOptions } from '@ionic/core';
 import { MapmodalPage } from '../mapmodal/mapmodal.page';
 
@@ -43,7 +43,8 @@ declare const google: any;
 
 
 @Component({
-  templateUrl: 'map.page.html'
+  templateUrl: './map.page.html',
+  styleUrls: ['./map.page.scss']
 })
 
 
@@ -95,33 +96,30 @@ export class MapPage implements OnInit {
     private platform: Platform,
     private translate: TranslateService,
     private zone: NgZone,
-    private modalCtrl: ModalController,
+    public modalCtrl: ModalController
   ) {
-
+    console.log("Map page constructor");
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    console.log('ngOnInit');
+    // this.storage.get('timeDisplay')
+    //   .then(timeDisplay => {
+    //     if (timeDisplay) {
+    //       this.timeDisplay = timeDisplay;
+    //     } else {
+    //       this.timeDisplay = '24hr';
+    //     }
+    //   });
+    await this.loadMap();
   }
-
-  ionViewDidLoad() {
-    this.storage.get('timeDisplay')
-      .then(timeDisplay => {
-        if (timeDisplay) {
-          this.timeDisplay = timeDisplay;
-        } else {
-          this.timeDisplay = '24hr';
-        }
-      });
-
-    this.loadMap();
-  }
-
 
   loadMap() {
-    this.translate.get('LOCATING').subscribe(value => { this.presentLoader(value); });
+    console.log('loadMap()');
+    //   this.translate.get('LOCATING').subscribe(value => { this.presentLoader(value); });
 
     // This code is necessary for browser
     this.platform.ready().then(() => {
@@ -198,7 +196,7 @@ export class MapPage implements OnInit {
     this.map.on(GoogleMapsEvent.CAMERA_MOVE_END).subscribe((params: any[]) => {
       if (this.mapDragInProgress === false) {
         this.cameraMoveInProgress = false;
-        this.translate.get('FINDING_MTGS').subscribe(value => { this.presentLoader(value); });
+        //      this.translate.get('FINDING_MTGS').subscribe(value => { this.presentLoader(value); });
 
         // if the map has only moved by less than 10%, then we dont get more meetings,
         // those will have been eagerly loaded earlier
@@ -221,7 +219,7 @@ export class MapPage implements OnInit {
     });
 
     this.map.on('trigger_initial_search_changed').subscribe((params: any[]) => {
-      this.translate.get('FINDING_MTGS').subscribe(value => { this.presentLoader(value); });
+      //      this.translate.get('FINDING_MTGS').subscribe(value => { this.presentLoader(value); });
       const mapPositionTarget: ILatLng = this.map.getCameraTarget();
       const mapPositionZoom = this.map.getCameraZoom();
       const mapVisiblePosition = this.map.getVisibleRegion();
@@ -494,7 +492,8 @@ export class MapPage implements OnInit {
   }
 
 
-  async openMeetingModal(meetingID) {
+  openMeetingModal(meetingID) {
+    console.log('openMeetingModal()');
     this.MeetingListProvider.getSingleMeetingByID(meetingID).subscribe((meeting) => {
       this.meeting = meeting;
       this.meeting.filter((i: { start_time_set: any; start_time: any; }) => i.start_time_set = this.convertTo12Hr(i.start_time));
@@ -504,6 +503,13 @@ export class MapPage implements OnInit {
   }
 
   async openModal(meeting) {
+
+    // const myModalOptions: ModalOptions = {
+    //   //   enableBackdropDismiss: true,
+    //   showBackdrop: true,
+    //   cssClass: 'mymodal'
+    // };
+
     const modal = await this.modalCtrl.create({
       component: MapmodalPage,
       componentProps: {

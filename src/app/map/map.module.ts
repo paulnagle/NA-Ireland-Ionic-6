@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-import { MapmodalPageModule } from '../mapmodal/mapmodal.module';
+import { MapmodalPage } from '../mapmodal/mapmodal.page';
 import { MapPage } from './map.page';
 
 const routes: Routes = [
@@ -19,9 +19,14 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    MapmodalPageModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MapPage]
+  declarations: [
+    MapPage,
+    MapmodalPage
+  ],
+  entryComponents: [
+    MapmodalPage
+  ]
 })
 export class MapPageModule { }

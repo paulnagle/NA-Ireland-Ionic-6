@@ -8,7 +8,7 @@
     </ion-title>
   </ion-toolbar>
 
-  <ion-toolbar color="primary">
+  <ion-toolbar color="secondary">
     <ion-searchbar [(ngModel)]="autocomplete.input" (ionInput)="updateSearchResults()" placeholder="search">
     </ion-searchbar>
   </ion-toolbar>
@@ -23,6 +23,6 @@
     </ion-item>
   </ion-list>
 
-  <div class="map" id="map_canvas"></div>
+  <div id="map_canvas"></div>
 
 </ion-content>

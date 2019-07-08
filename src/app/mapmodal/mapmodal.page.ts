@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ModalController, NavParams } from '@ionic/angular';
 import { MeetingListProviderService } from '../service/meeting-list-provider.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
@@ -8,10 +8,10 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-mapmodal',
   templateUrl: './mapmodal.page.html',
-  styleUrls: ['./mapmodal.page.scss'],
+  styleUrls: ['./mapmodal.page.scss']
 })
 
-export class MapmodalPage {
+export class MapmodalPage implements OnInit {
 
   timeDisplay: any;
   text: string;
@@ -20,10 +20,11 @@ export class MapmodalPage {
 
   constructor(
     private translate: TranslateService,
-    private navParams: NavParams,
     private storage: Storage,
     private MeetingListProvider: MeetingListProviderService,
+    private navParams: NavParams,
     private modalController: ModalController) {
+    console.log('mapModal constructor');
     this.storage.get('timeDisplay')
       .then(timeDisplay => {
         if (timeDisplay) {
@@ -32,11 +33,14 @@ export class MapmodalPage {
           this.timeDisplay = '24hr';
         }
       });
-    this.meetingList = this.navParams.get('data');
+    this.meetingList = this.navParams.data.data;
   }
 
-  private dismiss() {
-    this.modalController.dismiss();
+  ngOnInit() {
+  }
+
+  async dismiss() {
+    await this.modalController.dismiss();
   }
 
   public openMapsLink(destLatitude: string, destLongitude: string) {
