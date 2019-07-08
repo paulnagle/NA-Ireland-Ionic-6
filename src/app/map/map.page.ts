@@ -98,7 +98,7 @@ export class MapPage implements OnInit {
     private zone: NgZone,
     public modalCtrl: ModalController
   ) {
-    console.log("Map page constructor");
+    console.log('Map page constructor');
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
