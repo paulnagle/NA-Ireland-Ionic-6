@@ -98,14 +98,16 @@ export class MapPage implements OnInit {
     private zone: NgZone,
     public modalCtrl: ModalController
   ) {
-    console.log("Map page constructor");
-    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-    this.autocomplete = { input: '' };
-    this.autocompleteItems = [];
+    console.log('Map page constructor');
+
   }
+
 
   async ngOnInit() {
     console.log('ngOnInit');
+    this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
+    this.autocomplete = { input: '' };
+    this.autocompleteItems = [];
     // this.storage.get('timeDisplay')
     //   .then(timeDisplay => {
     //     if (timeDisplay) {
@@ -114,38 +116,39 @@ export class MapPage implements OnInit {
     //       this.timeDisplay = '24hr';
     //     }
     //   });
+    await this.platform.ready();
     await this.loadMap();
+
   }
 
   loadMap() {
     console.log('loadMap()');
     //   this.translate.get('LOCATING').subscribe(value => { this.presentLoader(value); });
 
-    // This code is necessary for browser
-    this.platform.ready().then(() => {
-      Environment.setEnv({
-        API_KEY_FOR_BROWSER_RELEASE: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA',
-        API_KEY_FOR_BROWSER_DEBUG: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA'
-      });
 
-      if (LocationService.hasPermission()) {
-        LocationService.getMyLocation().then((myLocation: MyLocation) => {
-          console.log('Location found');
-          this.mapLatitude = this.eagerMapLat = myLocation.latLng.lat;
-          this.mapLongitude = this.eagerMapLng = myLocation.latLng.lng;
-          this.drawMap();
-        }, (reason) => {
-          console.log('Location error : ', JSON.stringify(reason));
-          this.eagerMapLat = this.mapLatitude;
-          this.eagerMapLng = this.mapLongitude;
-          this.drawMap();
-        });
-      } else {
+    Environment.setEnv({
+      API_KEY_FOR_BROWSER_RELEASE: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA',
+      API_KEY_FOR_BROWSER_DEBUG: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA'
+    });
+
+    if (LocationService.hasPermission()) {
+      LocationService.getMyLocation().then((myLocation: MyLocation) => {
+        console.log('Location found');
+        this.mapLatitude = this.eagerMapLat = myLocation.latLng.lat;
+        this.mapLongitude = this.eagerMapLng = myLocation.latLng.lng;
+        this.drawMap();
+      }, (reason) => {
+        console.log('Location error : ', JSON.stringify(reason));
         this.eagerMapLat = this.mapLatitude;
         this.eagerMapLng = this.mapLongitude;
         this.drawMap();
-      }
-    });
+      });
+    } else {
+      this.eagerMapLat = this.mapLatitude;
+      this.eagerMapLng = this.mapLongitude;
+      this.drawMap();
+    }
+
   }
 
 
@@ -352,7 +355,7 @@ export class MapPage implements OnInit {
 
               this.data = {
                 position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
-                icon: 'assets/markercluster/FFFFFF-0.png'
+                icon: './assets/markercluster/FFFFFF-0.png'
               };
               this.markers.push(this.data);
 
@@ -367,7 +370,7 @@ export class MapPage implements OnInit {
               position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
               ID: this.ids,
               disableAutoPan: true,
-              icon: 'assets/markercluster/MarkerRed.png'
+              icon: './assets/markercluster/MarkerRed.png'
             };
             this.markers.push(this.data);
           }
