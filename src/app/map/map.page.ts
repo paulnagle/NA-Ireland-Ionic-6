@@ -125,7 +125,6 @@ export class MapPage implements OnInit {
     console.log('loadMap()');
     //   this.translate.get('LOCATING').subscribe(value => { this.presentLoader(value); });
 
-
     Environment.setEnv({
       API_KEY_FOR_BROWSER_RELEASE: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA',
       API_KEY_FOR_BROWSER_DEBUG: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA'
