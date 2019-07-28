@@ -38,7 +38,6 @@ import {
 import { ModalOptions } from '@ionic/core';
 import { MapmodalPage } from '../mapmodal/mapmodal.page';
 
-
 declare const google: any;
 
 
@@ -354,7 +353,7 @@ export class MapPage implements OnInit {
 
               this.data = {
                 position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
-                icon: './assets/markercluster/FFFFFF-0.png'
+                icon: './assets/markers/FFFFFF-0.png'
               };
               this.markers.push(this.data);
 
@@ -369,7 +368,7 @@ export class MapPage implements OnInit {
               position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
               ID: this.ids,
               disableAutoPan: true,
-              icon: './assets/markercluster/MarkerRed.png'
+              icon: './assets/markers/MarkerRed.png'
             };
             this.markers.push(this.data);
           }
@@ -396,7 +395,7 @@ export class MapPage implements OnInit {
       position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
       ID: this.meetingList[i].id_bigint,
       disableAutoPan: true,
-      icon: 'assets/markercluster/MarkerBlue.png'
+      icon: './assets/markers/MarkerBlue.png'
     };
     this.markers.push(this.data);
 

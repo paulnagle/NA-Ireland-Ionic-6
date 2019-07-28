@@ -28,6 +28,7 @@ export class JftPage implements OnInit {
     this.http.get('https://www.jftna.org/jft/', {}, {})
       .then(data => {
         this.jft = data.data;
+        this.loadingCtrl.dismiss();
       }, error => {
         console.log(error);
       })
@@ -36,7 +37,7 @@ export class JftPage implements OnInit {
         console.log(error.status);
         console.log(error.error);
         console.log(error.headers);
-
+        this.loadingCtrl.dismiss();
       });
   }
 
