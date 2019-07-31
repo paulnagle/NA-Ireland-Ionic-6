@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^7.2.2",
     "@angular/platform-browser-dynamic": "^7.2.2",
     "@angular/router": "^7.2.2",
+    "@ionic-native/base64": "^5.11.0",
     "@ionic-native/core": "^5.10.0",
     "@ionic-native/geolocation": "^5.8.0",
     "@ionic-native/google-maps": "^5.5.0",
@@ -31,6 +32,7 @@
     "@ionic/storage": "^2.2.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
+    "com-badrit-base64": "^0.2.0",
     "cordova-android": "^8.0.0",
     "cordova-browser": "^6.0.0",
     "cordova-ios": "^5.0.1",
@@ -99,7 +101,8 @@
       },
       "cordova-plugin-advanced-http": {
         "OKHTTP_VERSION": "3.10.0"
-      }
+      },
+      "com-badrit-base64": {}
     },
     "platforms": [
       "ios",
