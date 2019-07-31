@@ -37,6 +37,7 @@ import {
 } from '@ionic-native/google-maps/ngx';
 import { ModalOptions } from '@ionic/core';
 import { MapmodalPage } from '../mapmodal/mapmodal.page';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 declare const google: any;
 
@@ -85,6 +86,15 @@ export class MapPage implements OnInit {
   mapDragInProgress = false;
   cameraMoveInProgress = false;
   markerCluster: MarkerCluster;
+  Base64MarkerRed: string;
+  Base64MarkerBlue: string;
+  Base64MarkerZero: string;
+
+  Base64ClusterMarkerM1: string;
+  Base64ClusterMarkerM2: string;
+  Base64ClusterMarkerM3: string;
+  Base64ClusterMarkerM4: string;
+  Base64ClusterMarkerM5: string;
 
   searchMarker: Marker;
 
@@ -95,7 +105,8 @@ export class MapPage implements OnInit {
     private platform: Platform,
     private translate: TranslateService,
     private zone: NgZone,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private base64: Base64
   ) {
     console.log('Map page constructor');
 
@@ -104,6 +115,48 @@ export class MapPage implements OnInit {
 
   async ngOnInit() {
     console.log('ngOnInit');
+
+    const filePathMarkerRed = './assets/markers/MarkerRed.png';
+    this.base64.encodeFile(filePathMarkerRed).then((base64imageR: string) => {
+      this.Base64MarkerRed = base64imageR;
+    });
+
+    const filePathMarkerBlue = './assets/markers/MarkerBlue.png';
+    this.base64.encodeFile(filePathMarkerBlue).then((base64imageB: string) => {
+      this.Base64MarkerBlue = base64imageB;
+    });
+
+    const filePathMarkerZero = './assets/markers/FFFFFF-0.png';
+    this.base64.encodeFile(filePathMarkerZero).then((base64imageZ: string) => {
+      this.Base64MarkerZero = base64imageZ;
+    });
+
+    const filePathCusterMarkerM1 = './assets/markercluster/m1.png';
+    this.base64.encodeFile(filePathCusterMarkerM1).then((base64imageM1: string) => {
+      this.Base64ClusterMarkerM1 = base64imageM1;
+    });
+
+    const filePathCusterMarkerM2 = './assets/markercluster/m2.png';
+    this.base64.encodeFile(filePathCusterMarkerM2).then((base64imageM2: string) => {
+      this.Base64ClusterMarkerM2 = base64imageM2;
+    });
+
+    const filePathCusterMarkerM3 = './assets/markercluster/m3.png';
+    this.base64.encodeFile(filePathCusterMarkerM3).then((base64imageM3: string) => {
+      this.Base64ClusterMarkerM3 = base64imageM3;
+    });
+
+    const filePathCusterMarkerM4 = './assets/markercluster/m4.png';
+    this.base64.encodeFile(filePathCusterMarkerM4).then((base64imageM4: string) => {
+      this.Base64ClusterMarkerM4 = base64imageM4;
+    });
+
+    const filePathCusterMarkerM5 = './assets/markercluster/m5.png';
+    this.base64.encodeFile(filePathCusterMarkerM5).then((base64imageM5: string) => {
+      this.Base64ClusterMarkerM5 = base64imageM5;
+    });
+
+
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
@@ -256,11 +309,11 @@ export class MapPage implements OnInit {
     };
 
     const markerClusterIconOptions: MarkerClusterIcon[] = [
-      { min: 3, max: 10, url: './assets/markercluster/m1.png', anchor: { x: 16, y: 16 }, label: markerLabelOptions },
-      { min: 11, max: 50, url: './assets/markercluster/m2.png', anchor: { x: 16, y: 16 }, label: markerLabelOptions },
-      { min: 51, max: 100, url: './assets/markercluster/m3.png', anchor: { x: 24, y: 24 }, label: markerLabelOptions },
-      { min: 101, max: 500, url: './assets/markercluster/m4.png', anchor: { x: 24, y: 24 }, label: markerLabelOptions },
-      { min: 501, url: './assets/markercluster/m5.png', anchor: { x: 32, y: 32 }, label: markerLabelOptions }
+      { min: 3, max: 10, url: this.Base64ClusterMarkerM1, anchor: { x: 16, y: 16 }, label: markerLabelOptions },
+      { min: 11, max: 50, url: this.Base64ClusterMarkerM2, anchor: { x: 16, y: 16 }, label: markerLabelOptions },
+      { min: 51, max: 100, url: this.Base64ClusterMarkerM3, anchor: { x: 24, y: 24 }, label: markerLabelOptions },
+      { min: 101, max: 500, url: this.Base64ClusterMarkerM4, anchor: { x: 24, y: 24 }, label: markerLabelOptions },
+      { min: 501, url: this.Base64ClusterMarkerM5, anchor: { x: 32, y: 32 }, label: markerLabelOptions }
     ];
 
     const markerClusterOptions: MarkerClusterOptions = {
@@ -323,6 +376,7 @@ export class MapPage implements OnInit {
 
 
   populateMarkers() {
+
     this.markers = [];
     let i: number;
     let areColocated = false;
@@ -353,7 +407,7 @@ export class MapPage implements OnInit {
 
               this.data = {
                 position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
-                icon: './assets/markers/FFFFFF-0.png'
+                icon: this.Base64MarkerZero
               };
               this.markers.push(this.data);
 
@@ -368,9 +422,11 @@ export class MapPage implements OnInit {
               position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
               ID: this.ids,
               disableAutoPan: true,
-              icon: './assets/markers/MarkerRed.png'
+              icon: this.Base64MarkerRed
             };
             this.markers.push(this.data);
+
+
           }
         }
       }
@@ -395,10 +451,9 @@ export class MapPage implements OnInit {
       position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
       ID: this.meetingList[i].id_bigint,
       disableAutoPan: true,
-      icon: './assets/markers/MarkerBlue.png'
+      icon: this.Base64MarkerBlue
     };
     this.markers.push(this.data);
-
   }
 
 
