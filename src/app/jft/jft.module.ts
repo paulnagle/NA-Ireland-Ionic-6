@@ -6,6 +6,7 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { JftPage } from './jft.page';
+import { JftService } from '../service/jft.service';
 
 const routes: Routes = [
   {
@@ -23,7 +24,8 @@ const routes: Routes = [
     TranslateModule
   ],
   providers: [
-    HTTP
+    HTTP,
+    JftService
   ],
   declarations: [JftPage]
 })

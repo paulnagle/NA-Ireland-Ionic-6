@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '../service/loading.service';
-import { HTTP } from '@ionic-native/http/ngx';
+import { JftService } from '../service/jft.service';
 
 @Component({
   selector: 'app-jft',
@@ -15,7 +15,7 @@ export class JftPage implements OnInit {
 
   constructor(
     public loadingCtrl: LoadingService,
-    private http: HTTP) { }
+    public JftProvider: JftService) { }
 
   ngOnInit() {
     console.log('jft.page ngOnInit()');
@@ -24,21 +24,12 @@ export class JftPage implements OnInit {
   }
 
   getJFT() {
+    console.log('in jft page getJFT');
+    this.JftProvider.getJFT().then((data) => {
+      this.jft = data;
+      this.loadingCtrl.dismiss();
+    });
 
-    this.http.get('https://www.jftna.org/jft/', {}, {})
-      .then(data => {
-        this.jft = data.data;
-        this.loadingCtrl.dismiss();
-      }, error => {
-        console.log(error);
-      })
-      .catch(error => {
-
-        console.log(error.status);
-        console.log(error.error);
-        console.log(error.headers);
-        this.loadingCtrl.dismiss();
-      });
   }
 
 }
