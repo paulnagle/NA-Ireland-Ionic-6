@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Speakers
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let conventionArray of conventionList">
+    <ion-list *ngFor="let convention of conventionArray.Conventions">
+      <ion-card>
+        <ion-card-content>
+          <h1>{{ convention.convention_name }}</h1>
+          <ion-list *ngFor="let speaker of convention.speakers">
+            <button ion-button small (click)="openWithInAppBrowser(speaker.fileName)">{{ speaker.Title }}</button>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </ion-list>
+</ion-content>

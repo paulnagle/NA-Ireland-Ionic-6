@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'map',
     loadChildren: './map/map.module#MapPageModule'
+  },
+  {
+    path: 'speakers',
+    loadChildren: './speakers/speakers.module#SpeakersPageModule'
   }
 ];
 

@@ -42,6 +42,11 @@ export class AppComponent {
       title: 'Map Search',
       url: '/map',
       icon: 'map'
+    },
+    {
+      title: 'Speakers',
+      url: '/speakers',
+      icon: 'microphone'
     }
   ];
 
