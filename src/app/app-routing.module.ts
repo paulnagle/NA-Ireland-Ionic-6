@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'speakers',
     loadChildren: './speakers/speakers.module#SpeakersPageModule'
+  },
+  {
+    path: 'events',
+    loadChildren: './events/events.module#EventsPageModule'
   }
 ];
 
