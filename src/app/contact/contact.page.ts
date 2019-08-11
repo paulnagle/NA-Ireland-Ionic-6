@@ -12,6 +12,11 @@ export class ContactPage implements OnInit {
   loader = null;
   serviceGroupNames: any;
 
+  sourceCodeLink = 'https://github.com/paulnagle/NA-Ireland-Ionic-4';
+  sourceBugs = 'https://github.com/paulnagle/NA-Ireland-Ionic-4/issues';
+  bmltLink = 'https://bmlt.app/';
+  fbGroupLink = 'https://www.facebook.com/groups/149214049107349/';
+
   constructor(
     private ServiceGroupsProvider: ServiceGroupsProviderService,
     public loadingCtrl: LoadingService

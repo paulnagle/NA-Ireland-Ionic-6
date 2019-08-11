@@ -34,7 +34,7 @@ export class AppComponent {
     {
       title: 'Cleantime Calculator',
       url: '/datetime',
-      icon: 'calendar'
+      icon: 'calculator'
     },
     {
       title: 'Speakers',
