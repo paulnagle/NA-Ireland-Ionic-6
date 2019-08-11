@@ -28,7 +28,7 @@ export class ContactPage implements OnInit {
 
   public openLink(url) {
     window.open(url, '_system');
-  };
+  }
 
   ngOnInit() {
   }
