@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { MeetingListProviderService } from '../service/meeting-list-provider.service';
 import { ServiceGroupsProviderService } from '../service/service-groups-provider.service';
@@ -10,7 +10,7 @@ import { firstBy } from 'thenby';
   templateUrl: 'list.page.html',
   styleUrls: ['list.page.scss']
 })
-export class ListPage {
+export class ListPage implements OnInit {
 
   meetingList: any;
   meetingListArea: any;
@@ -27,8 +27,10 @@ export class ListPage {
     private ServiceGroupsProvider: ServiceGroupsProviderService,
     public loadingCtrl: LoadingService,
     public plt: Platform) {
+  }
 
-    this.HTMLGrouping = 'area';
+  ngOnInit() {
+    this.HTMLGrouping = 'city';
     this.loadingCtrl.present('Loading meetings...');
     this.meetingsListAreaGrouping = 'service_body_bigint';
     this.meetingsListCityGrouping = 'location_sub_province';
@@ -55,7 +57,7 @@ export class ListPage {
   }
 
   getServiceNameFromID(id) {
-    const obj = this.serviceGroupNames.find(function(obj) { return obj.id === id; });
+    const obj = this.serviceGroupNames.find(function (obj) { return obj.id === id; });
     return obj.name;
   }
 
@@ -91,8 +93,8 @@ export class ListPage {
 
   groupMeetingList(meetingList, groupingOption) {
     // A function to convert a flat json list to an javascript array
-    const groupJSONList = function(inputArray, key) {
-      return inputArray.reduce(function(ouputArray, currentValue) {
+    const groupJSONList = function (inputArray, key) {
+      return inputArray.reduce(function (ouputArray, currentValue) {
         (ouputArray[currentValue[key]] = ouputArray[currentValue[key]] || []).push(currentValue);
         return ouputArray;
       }, {});
@@ -101,7 +103,7 @@ export class ListPage {
     const groupedByGroupingOne = groupJSONList(meetingList, groupingOption);
 
     // Make the array a proper javascript array, index by number
-    const groupedByGroupingOneAsArray = Object.keys(groupedByGroupingOne).map(function(key) {
+    const groupedByGroupingOneAsArray = Object.keys(groupedByGroupingOne).map(function (key) {
       return groupedByGroupingOne[key];
     });
 

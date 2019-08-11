@@ -21,12 +21,16 @@
           <div *ngIf="detail.url">
             <ion-item text-wrap>
               <ion-icon name="globe" item-left></ion-icon>
-              <ion-button (click)='openLink(detail.url)'>{{detail.url}}</ion-button>
+              <ion-button (click)='openLink(detail.url)'>
+                <ion-ripple-effect></ion-ripple-effect>
+                {{detail.url}}
+              </ion-button>
             </ion-item>
           </div>
 
           <div *ngIf="detail.helpline">
             <ion-item text-wrap>
+              <ion-ripple-effect></ion-ripple-effect>
               <ion-icon name="call" item-left></ion-icon>
               <a href="tel:{{detail.helpline}}">{{detail.helpline}} </a>
             </ion-item>
@@ -34,6 +38,7 @@
 
           <div *ngIf="detail.contact_email">
             <ion-item text-wrap>
+              <ion-ripple-effect></ion-ripple-effect>
               <ion-icon name="mail" item-left></ion-icon>
               <a href="mailto:{{detail.contact_email}}">{{detail.contact_email}} </a>
             </ion-item>
