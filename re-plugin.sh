@@ -1,6 +1,9 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then 
+
+if [ -z "$1" ]
+then
+
     rm -rf www
 
     ionic cordova platform rm ios

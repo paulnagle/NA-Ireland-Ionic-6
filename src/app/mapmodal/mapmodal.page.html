@@ -5,7 +5,7 @@
     </ion-title>
   </ion-toolbar>
   <ion-buttons end>
-    <button ion-button (click)="dismiss()">Close</button>
+    <ion-button (click)="dismiss()">Close</ion-button>
   </ion-buttons>
 </ion-header>
 
@@ -65,9 +65,9 @@
               </div>
             </ion-col>
             <ion-col>
-              <button ion-button (click)="openMapsLink(meeting.latitude , meeting.longitude)">
+              <ion-button (click)="openMapsLink(meeting.latitude , meeting.longitude)">
                 <ion-icon name="map"> </ion-icon>&nbsp;Map
-              </button>
+              </ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>

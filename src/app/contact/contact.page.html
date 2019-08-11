@@ -21,7 +21,7 @@
           <div *ngIf="detail.url">
             <ion-item text-wrap>
               <ion-icon name="globe" item-left></ion-icon>
-              <button ion-button small (click)='openLink(detail.url)'>{{detail.url}}</button>
+              <ion-button (click)='openLink(detail.url)'>{{detail.url}}</ion-button>
             </ion-item>
           </div>
 
@@ -42,7 +42,7 @@
           <div *ngIf="detail.description">
             <ion-item text-wrap>
               <ion-icon name="information-circle" item-left></ion-icon>
-              {{detail.description}}
+              <ion-note>{{detail.description}}</ion-note>
             </ion-item>
           </div>
 

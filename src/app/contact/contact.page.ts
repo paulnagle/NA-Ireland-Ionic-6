@@ -15,22 +15,22 @@ export class ContactPage implements OnInit {
   constructor(
     private ServiceGroupsProvider: ServiceGroupsProviderService,
     public loadingCtrl: LoadingService
-  ) {
+  ) { }
+
+  ngOnInit() {
+    this.loadingCtrl.present('Loading details...');
     this.getServiceGroupContactDetails();
   }
 
   getServiceGroupContactDetails() {
     this.ServiceGroupsProvider.getAllServiceGroups().subscribe((serviceGroupData) => {
       this.serviceGroupNames = serviceGroupData;
-
+      this.loadingCtrl.dismiss();
     });
   }
 
   public openLink(url) {
     window.open(url, '_system');
-  }
-
-  ngOnInit() {
   }
 
 }
