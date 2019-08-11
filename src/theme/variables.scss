@@ -3,6 +3,25 @@
 
 /** Ionic CSS Variables **/
 :root {
+  --ion-background-color: #ffffff;
+
+ion-card {
+    --background: #ffffff;
+    --color: #ffffff;
+}
+
+ion-card-header {
+    --color: #ffffff;
+}
+
+ion-card-title {
+    --color: #ffffff;
+}
+
+ion-card-subtitle {
+    --color: #ffffff;
+  }
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -205,3 +224,4 @@
   --ion-color-shade: var(--ion-color-saturday-shade) !important;
   --ion-color-tint: var(--ion-color-saturday-tint) !important;
 }
+

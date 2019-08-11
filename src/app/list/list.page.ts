@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
 import { MeetingListProviderService } from '../service/meeting-list-provider.service';
 import { ServiceGroupsProviderService } from '../service/service-groups-provider.service';
 import { LoadingService } from '../service/loading.service';
@@ -25,8 +24,7 @@ export class ListPage implements OnInit {
   constructor(
     private MeetingListProvider: MeetingListProviderService,
     private ServiceGroupsProvider: ServiceGroupsProviderService,
-    public loadingCtrl: LoadingService,
-    public plt: Platform) {
+    public loadingCtrl: LoadingService) {
   }
 
   ngOnInit() {
@@ -37,16 +35,8 @@ export class ListPage implements OnInit {
     this.getServiceGroupNames();
   }
 
-  // TODO:
   public openMapsLink(destLatitude, destLongitude) {
-    // ios
-    if (this.plt.is('ios')) {
-      window.open('https://www.google.com/maps/search/?api=1&query=' + destLatitude + ',' + destLongitude + ')', '_system');
-    }
-    // android
-    if (this.plt.is('android')) {
-      window.open('https://www.google.com/maps/search/?api=1&query=' + destLatitude + ',' + destLongitude + ')', '_system');
-    }
+    window.open('https://www.google.com/maps/search/?api=1&query=' + destLatitude + ',' + destLongitude, '_system');
   }
 
   getServiceGroupNames() {
