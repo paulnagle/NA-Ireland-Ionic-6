@@ -22,7 +22,7 @@
         <ion-list no-padding>
           <div *ngIf="detail.url">
             <ion-item text-wrap>
-              <ion-icon name="globe" item-left></ion-icon>&nbsp;
+              <ion-icon name="globe" slot="start"></ion-icon>
               <ion-button (click)='openLink(detail.url)'>
                 <ion-ripple-effect></ion-ripple-effect>
                 {{detail.url}}
@@ -33,7 +33,7 @@
           <div *ngIf="detail.helpline">
             <ion-item text-wrap>
               <ion-ripple-effect></ion-ripple-effect>
-              <ion-icon name="call" item-left></ion-icon>&nbsp;
+              <ion-icon name="call" slot="start"></ion-icon>
               <a href="tel:{{detail.helpline}}">{{detail.helpline}} </a>
             </ion-item>
           </div>
@@ -41,14 +41,14 @@
           <div *ngIf="detail.contact_email">
             <ion-item text-wrap>
               <ion-ripple-effect></ion-ripple-effect>
-              <ion-icon name="mail" item-left></ion-icon>&nbsp;
+              <ion-icon name="mail" slot="start"></ion-icon>
               <a href="mailto:{{detail.contact_email}}">{{detail.contact_email}} </a>
             </ion-item>
           </div>
 
           <div *ngIf="detail.description">
             <ion-item text-wrap>
-              <ion-icon name="information-circle" item-left></ion-icon>&nbsp;
+              <ion-icon name="information-circle" slot="start"></ion-icon>
               {{detail.description}}
             </ion-item>
           </div>
@@ -60,11 +60,12 @@
 
   <br>
   <h3> App Details </h3>
+  <br>
   <ion-card>
     <ion-card-content>
       <ion-card-title>App source code</ion-card-title>
       <ion-item text-wrap>
-        <ion-icon name="globe" item-left></ion-icon>
+        <ion-icon name="globe" slot="start"></ion-icon>
         <ion-button small (click)='openLink(sourceCodeLink)'>https://github.com</ion-button>
       </ion-item>
     </ion-card-content>
@@ -74,7 +75,7 @@
     <ion-card-content>
       <ion-card-title>Report a bug</ion-card-title>
       <ion-item text-wrap>
-        <ion-icon name="globe" item-left></ion-icon>
+        <ion-icon name="globe" slot="start"></ion-icon>
         <ion-button small (click)='openLink(sourceBugs)'>https://github.com</ion-button>
       </ion-item>
     </ion-card-content>
@@ -85,15 +86,15 @@
       <ion-card-title>Find out more about the BMLT system</ion-card-title>
       <ion-list no-padding>
         <ion-item text-wrap>
-          <ion-icon name="logo-facebook" item-left></ion-icon>
+          <ion-icon name="logo-facebook" slot="start"></ion-icon>
           <ion-button small (click)="openLink(fbGroupLink)">
-            <ion-icon name="logo-facebook" item-left></ion-icon>&nbsp;Join the BMLT facebook group
+            <ion-icon name="logo-facebook" slot="start"></ion-icon>Join the BMLT facebook group
           </ion-button>
         </ion-item>
         <ion-item text-wrap>
-          <ion-icon name="globe" item-left></ion-icon>
+          <ion-icon name="globe" slot="start"></ion-icon>
           <ion-button small (click)="openLink(bmltLink)">
-            <ion-icon name="globe" item-left></ion-icon>&nbsp;Visit the BMLT website
+            <ion-icon name="globe" slot="start"></ion-icon>Visit the BMLT website
           </ion-button>
         </ion-item>
       </ion-list>

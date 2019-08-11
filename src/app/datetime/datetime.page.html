@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="outer-content">
+<ion-content>
 
   <ion-item>
     <ion-label>Enter Clean Date -> </ion-label>
@@ -18,17 +18,23 @@
 
   <ion-card>
     <ion-card-header>Clean time in days</ion-card-header>
-    <ion-card-content><h1>{{ getCleanTime() }} days</h1></ion-card-content>
+    <ion-card-content>
+      <h1>{{ getCleanTime() }} days</h1>
+    </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>Clean time in weeks</ion-card-header>
-    <ion-card-content><h1>{{ getCleanTimeWeeks() }} weeks</h1></ion-card-content>
+    <ion-card-content>
+      <h1>{{ getCleanTimeWeeks() }} weeks</h1>
+    </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>Clean time in years</ion-card-header>
-    <ion-card-content><h1>{{ getCleanTimeYears() }} years</h1></ion-card-content>
+    <ion-card-content>
+      <h1>{{ getCleanTimeYears() }} years</h1>
+    </ion-card-content>
   </ion-card>
 
 </ion-content>
