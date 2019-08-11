@@ -16,7 +16,10 @@
         <ion-card-content>
           <h1>{{ convention.convention_name }}</h1>
           <ion-list *ngFor="let speaker of convention.speakers">
-            <ion-button expand="block" (click)="openWithInAppBrowser(speaker.fileName)">{{ speaker.Title }}</ion-button>
+            <ion-button expand="block" (click)="openWithInAppBrowser(speaker.fileName)">
+              <ion-ripple-effect></ion-ripple-effect>
+              {{ speaker.Title }}
+            </ion-button>
           </ion-list>
         </ion-card-content>
       </ion-card>

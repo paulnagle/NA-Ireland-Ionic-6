@@ -22,6 +22,11 @@ export class AppComponent {
       icon: 'list'
     },
     {
+      title: 'Map Search',
+      url: '/map',
+      icon: 'map'
+    },
+    {
       title: 'Just For Today',
       url: '/jft',
       icon: 'book'
@@ -32,16 +37,6 @@ export class AppComponent {
       icon: 'calendar'
     },
     {
-      title: 'Contact',
-      url: '/contact',
-      icon: 'contact'
-    },
-    {
-      title: 'Map Search',
-      url: '/map',
-      icon: 'map'
-    },
-    {
       title: 'Speakers',
       url: '/speakers',
       icon: 'microphone'
@@ -50,6 +45,11 @@ export class AppComponent {
       title: 'Events',
       url: '/events',
       icon: 'calendar'
+    },
+    {
+      title: 'Contact',
+      url: '/contact',
+      icon: 'contact'
     }
   ];
 
