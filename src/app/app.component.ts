@@ -17,6 +17,11 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      title: 'Settings',
+      url: '/settings',
+      icon: 'settings'
+    },
+    {
       title: 'Meeting List',
       url: '/list',
       icon: 'list'

@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{'SETTINGS' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <ion-item>
+      <ion-label>{{'LANGUAGE' | translate}}</ion-label>
+      <ion-select [(ngModel)]="language" (ionChange)=selectLanguage()>
+        <ion-select-option value="en">{{'ENGLISH' | translate}}</ion-select-option>
+        <ion-select-option value="ie">{{'IRISH' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{'TIMEDISPLAY' | translate}}</ion-label>
+      <ion-select [(ngModel)]="timeDisplay" (ionChange)=selectTimeDisplay()>
+        <ion-select-option value="12hr">{{'12HR' | translate}}</ion-select-option>
+        <ion-select-option value="24hr">{{'24HR' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{'DISTANCE_UNIT' | translate}}</ion-label>
+      <ion-select [(ngModel)]="distanceUnit" (ionChange)=selectDistanceUnit()>
+        <ion-select-option value="miles">{{'MILES' | translate}}</ion-select-option>
+        <ion-select-option value="kms">{{'KMS' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

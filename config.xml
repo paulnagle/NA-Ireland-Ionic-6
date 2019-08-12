@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ie.nasouth.apple" version="5.0.30" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ie.nasouth.apple" version="5.0.32" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>NA Ireland</name>
     <description>NA Ireland</description>
     <author email="info@na-ireland.org" href="http://www.na-ireland.org/">NA Ireland</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -104,7 +104,6 @@
     </plugin>
     <plugin name="com-badrit-base64" spec="^0.2.0" />
     <plugin name="cordova-plugin-insomnia" spec="^4.3.0" />
-    <allow-navigation href="http://localhost:8100" sessionid="d3248381" />
     <engine name="ios" spec="^5.0.1" />
     <engine name="android" spec="^8.0.0" />
     <engine name="browser" spec="^6.0.0" />
