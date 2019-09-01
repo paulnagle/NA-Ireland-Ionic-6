@@ -96,6 +96,9 @@ export class MapPage implements OnInit {
   Base64ClusterMarkerM4: string;
   Base64ClusterMarkerM5: string;
 
+  filePathMarkerRed: string;
+  filePathMarkerBlue: string;
+  filePathMarkerZero: string;
   searchMarker: Marker;
 
   constructor(
@@ -116,18 +119,18 @@ export class MapPage implements OnInit {
   async ngOnInit() {
     console.log('ngOnInit');
 
-    const filePathMarkerRed = './assets/markers/MarkerRed.png';
-    this.base64.encodeFile(filePathMarkerRed).then((base64imageR: string) => {
+    this.filePathMarkerRed = './assets/markers/MarkerRed.png';
+    this.base64.encodeFile(this.filePathMarkerRed).then((base64imageR: string) => {
       this.Base64MarkerRed = base64imageR;
     });
 
-    const filePathMarkerBlue = './assets/markers/MarkerBlue.png';
-    this.base64.encodeFile(filePathMarkerBlue).then((base64imageB: string) => {
+    this.filePathMarkerBlue = './assets/markers/MarkerBlue.png';
+    this.base64.encodeFile(this.filePathMarkerBlue).then((base64imageB: string) => {
       this.Base64MarkerBlue = base64imageB;
     });
 
-    const filePathMarkerZero = './assets/markers/FFFFFF-0.png';
-    this.base64.encodeFile(filePathMarkerZero).then((base64imageZ: string) => {
+    this.filePathMarkerZero = './assets/markers/FFFFFF-0.png';
+    this.base64.encodeFile(this.filePathMarkerZero).then((base64imageZ: string) => {
       this.Base64MarkerZero = base64imageZ;
     });
 
@@ -183,6 +186,7 @@ export class MapPage implements OnInit {
     });
 
     if (LocationService.hasPermission()) {
+      console.log('Location permission OK');
       LocationService.getMyLocation().then((myLocation: MyLocation) => {
         console.log('Location found');
         this.mapLatitude = this.eagerMapLat = myLocation.latLng.lat;
@@ -195,6 +199,7 @@ export class MapPage implements OnInit {
         this.drawMap();
       });
     } else {
+      console.log('No location permission given');
       this.eagerMapLat = this.mapLatitude;
       this.eagerMapLng = this.mapLongitude;
       this.drawMap();
@@ -204,7 +209,7 @@ export class MapPage implements OnInit {
 
 
   drawMap() {
-
+    console.log('drawMap');
     const options: GoogleMapOptions = {
       building: true,
       controls: {
@@ -235,6 +240,8 @@ export class MapPage implements OnInit {
   }
 
   onMapReady() {
+    console.log('onMapeady');
+
     this.map.on(GoogleMapsEvent.MAP_DRAG_START).subscribe((params: any[]) => {
       this.mapDragInProgress = true;
     });
@@ -292,7 +299,6 @@ export class MapPage implements OnInit {
       this.getMeetings(params);
     });
 
-
     if (this.platform.is('ios')) {
       this.map.set('trigger_initial_search', 'go');
     }
@@ -307,14 +313,24 @@ export class MapPage implements OnInit {
       color: 'white',
       italic: false
     };
-
-    const markerClusterIconOptions: MarkerClusterIcon[] = [
-      { min: 3, max: 10, url: this.Base64ClusterMarkerM1, anchor: { x: 16, y: 16 }, label: markerLabelOptions },
-      { min: 11, max: 50, url: this.Base64ClusterMarkerM2, anchor: { x: 16, y: 16 }, label: markerLabelOptions },
-      { min: 51, max: 100, url: this.Base64ClusterMarkerM3, anchor: { x: 24, y: 24 }, label: markerLabelOptions },
-      { min: 101, max: 500, url: this.Base64ClusterMarkerM4, anchor: { x: 24, y: 24 }, label: markerLabelOptions },
-      { min: 501, url: this.Base64ClusterMarkerM5, anchor: { x: 32, y: 32 }, label: markerLabelOptions }
-    ];
+    let markerClusterIconOptions: MarkerClusterIcon[];
+    if (this.platform.is('ios')) {
+      markerClusterIconOptions = [
+        { min: 3, max: 10, url: this.Base64ClusterMarkerM1, anchor: { x: 16, y: 16 }, label: markerLabelOptions },
+        { min: 11, max: 50, url: this.Base64ClusterMarkerM2, anchor: { x: 16, y: 16 }, label: markerLabelOptions },
+        { min: 51, max: 100, url: this.Base64ClusterMarkerM3, anchor: { x: 24, y: 24 }, label: markerLabelOptions },
+        { min: 101, max: 500, url: this.Base64ClusterMarkerM4, anchor: { x: 24, y: 24 }, label: markerLabelOptions },
+        { min: 501, url: this.Base64ClusterMarkerM5, anchor: { x: 32, y: 32 }, label: markerLabelOptions }
+      ];
+    } else {
+      markerClusterIconOptions = [
+        { min: 3, max: 10, url: './assets/markercluster/m1.png', anchor: { x: 16, y: 16 }, label: markerLabelOptions },
+        { min: 11, max: 50, url: './assets/markercluster/m2.png', anchor: { x: 16, y: 16 }, label: markerLabelOptions },
+        { min: 51, max: 100, url: './assets/markercluster/m3.png', anchor: { x: 24, y: 24 }, label: markerLabelOptions },
+        { min: 101, max: 500, url: './assets/markercluster/m4.png', anchor: { x: 24, y: 24 }, label: markerLabelOptions },
+        { min: 501, url: './assets/markercluster/m5.png', anchor: { x: 32, y: 32 }, label: markerLabelOptions }
+      ];
+    }
 
     const markerClusterOptions: MarkerClusterOptions = {
       markers: this.markers,
@@ -404,11 +420,17 @@ export class MapPage implements OnInit {
             this.ids = this.meetingList[i].id_bigint;
             do {
               this.ids += '&meeting_ids[]=' + this.meetingList[i + 1].id_bigint;
-
-              this.data = {
-                position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
-                icon: this.Base64MarkerZero
-              };
+              if (this.platform.is('ios')) {
+                this.data = {
+                  position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
+                  icon: this.Base64MarkerZero
+                };
+              } else {
+                this.data = {
+                  position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
+                  icon: this.filePathMarkerZero
+                };
+              }
               this.markers.push(this.data);
 
               i++;
@@ -418,12 +440,21 @@ export class MapPage implements OnInit {
               }
             } while (this.meetingsAreCoLocated(this.meetingList[i], this.meetingList[i + 1]));
 
-            this.data = {
-              position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
-              ID: this.ids,
-              disableAutoPan: true,
-              icon: this.Base64MarkerRed
-            };
+            if (this.platform.is('ios')) {
+              this.data = {
+                position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
+                ID: this.ids,
+                disableAutoPan: true,
+                icon: this.Base64MarkerRed
+              };
+            } else {
+              this.data = {
+                position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
+                ID: this.ids,
+                disableAutoPan: true,
+                icon: this.filePathMarkerRed
+              };
+            }
             this.markers.push(this.data);
 
 
@@ -447,12 +478,21 @@ export class MapPage implements OnInit {
 
 
   pushStandaloneMeeting(i: number) {
-    this.data = {
-      position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
-      ID: this.meetingList[i].id_bigint,
-      disableAutoPan: true,
-      icon: this.Base64MarkerBlue
-    };
+    if (this.platform.is('ios')) {
+      this.data = {
+        position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
+        ID: this.meetingList[i].id_bigint,
+        disableAutoPan: true,
+        icon: this.Base64MarkerBlue
+      };
+    } else {
+      this.data = {
+        position: { lat: this.meetingList[i].latitude, lng: this.meetingList[i].longitude },
+        ID: this.meetingList[i].id_bigint,
+        disableAutoPan: true,
+        icon: this.filePathMarkerBlue
+      };
+    }
     this.markers.push(this.data);
   }
 
@@ -580,7 +620,7 @@ export class MapPage implements OnInit {
   }
 
   public openMapsLink(destLatitude: string, destLongitude: string) {
-    window.open('https://www.google.com/maps/search/?api=1&query=' + destLatitude + ',' + destLongitude + ')', '_system');
+    window.open('https://www.google.com/maps/search/?api=1&query=' + destLatitude + '%2C' + destLongitude + ')', '_system');
   }
 
 }
