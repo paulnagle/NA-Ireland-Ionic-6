@@ -26,15 +26,26 @@
   <ion-card>
     <ion-card-header>Clean time in weeks</ion-card-header>
     <ion-card-content>
-      <h1>{{ getCleanTimeWeeks() }} weeks</h1>
+      <h1>{{ cleanTimeInWeeks }} weeks</h1>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>Clean time in years</ion-card-header>
     <ion-card-content>
-      <h1>{{ getCleanTimeYears() }} years</h1>
+      <h1>{{ cleanTimeInYears }} years</h1>
     </ion-card-content>
   </ion-card>
+
+  <div *ngIf="tag != 'none'">
+    <ion-card>
+      <ion-card-header>Clean time birthday!</ion-card-header>
+      <ion-card-content>
+        <h1>{{ tag }}</h1>
+        <ion-img [src]='keytagImage'></ion-img>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
 
 </ion-content>

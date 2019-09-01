@@ -4,23 +4,33 @@
 /** Ionic CSS Variables **/
 :root {
   --ion-background-color: #ffffff;
-
+  
 ion-card {
-    --background: #ffffff;
-    --color: #ffffff;
+    --background: #eeeeee;
+    --color: #ffffff;    
+    border: 1px solid #4c8dff;
 }
 
 ion-card-header {
-    --color: #ffffff;
+    --color: #3880ff;
 }
 
 ion-card-title {
-    --color: #ffffff;
+    --color: #1d3030;
 }
 
 ion-card-subtitle {
-    --color: #ffffff;
-  }
+    --color: #000000;
+}
+
+ion-card-content {
+    color: #2F4F4F;
+}
+
+ion-item {
+    --background: #eeeeee;
+    --color: #2F4F4F;
+}
 
   /** primary **/
   --ion-color-primary: #3880ff;
@@ -94,71 +104,54 @@ ion-card-subtitle {
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
+  --ion-color-sunday: #ff7e79;
+  --ion-color-sunday-rgb: 255,126,121;
+  --ion-color-sunday-contrast: #000000;
+  --ion-color-sunday-contrast-rgb: 0,0,0;
+  --ion-color-sunday-shade: #e06f6a;
+  --ion-color-sunday-tint: #ff8b86;
 
+  --ion-color-monday: #ffd479;
+  --ion-color-monday-rgb: 255,212,121;
+  --ion-color-monday-contrast: #000000;
+  --ion-color-monday-contrast-rgb: 0,0,0;
+  --ion-color-monday-shade: #e0bb6a;
+  --ion-color-monday-tint: #ffd886;
 
+  --ion-color-tuesday: #fffc79;
+  --ion-color-tuesday-rgb: 255,252,121;
+  --ion-color-tuesday-contrast: #000000;
+  --ion-color-tuesday-contrast-rgb: 0,0,0;
+  --ion-color-tuesday-shade: #e0de6a;
+  --ion-color-tuesday-tint: #fffc86;
 
+  --ion-color-wednesday: #d4fb79;
+  --ion-color-wednesday-rgb: 212,251,121;
+  --ion-color-wednesday-contrast: #000000;
+  --ion-color-wednesday-contrast-rgb: 0,0,0;
+  --ion-color-wednesday-shade: #bbdd6a;
+  --ion-color-wednesday-tint: #d8fb86;
 
-    --ion-color-sunday: #ff7e79;
-    --ion-color-sunday-rgb: 255,126,121;
-    --ion-color-sunday-contrast: #000000;
-    --ion-color-sunday-contrast-rgb: 0,0,0;
-    --ion-color-sunday-shade: #e06f6a;
-    --ion-color-sunday-tint: #ff8b86;
+  --ion-color-thursday: #73fcd6;
+  --ion-color-thursday-rgb: 115,252,214;
+  --ion-color-thursday-contrast: #000000;
+  --ion-color-thursday-contrast-rgb: 0,0,0;
+  --ion-color-thursday-shade: #65debc;
+  --ion-color-thursday-tint: #81fcda;
 
-  
-    --ion-color-monday: #ffd479;
-    --ion-color-monday-rgb: 255,212,121;
-    --ion-color-monday-contrast: #000000;
-    --ion-color-monday-contrast-rgb: 0,0,0;
-    --ion-color-monday-shade: #e0bb6a;
-    --ion-color-monday-tint: #ffd886;
+  --ion-color-friday: #73fdff;
+  --ion-color-friday-rgb: 115,253,255;
+  --ion-color-friday-contrast: #000000;
+  --ion-color-friday-contrast-rgb: 0,0,0;
+  --ion-color-friday-shade: #65dfe0;
+  --ion-color-friday-tint: #81fdff;
 
-
-  
-    --ion-color-tuesday: #fffc79;
-    --ion-color-tuesday-rgb: 255,252,121;
-    --ion-color-tuesday-contrast: #000000;
-    --ion-color-tuesday-contrast-rgb: 0,0,0;
-    --ion-color-tuesday-shade: #e0de6a;
-    --ion-color-tuesday-tint: #fffc86;
-
-
-  
-    --ion-color-wednesday: #d4fb79;
-    --ion-color-wednesday-rgb: 212,251,121;
-    --ion-color-wednesday-contrast: #000000;
-    --ion-color-wednesday-contrast-rgb: 0,0,0;
-    --ion-color-wednesday-shade: #bbdd6a;
-    --ion-color-wednesday-tint: #d8fb86;
-
-
-
-  
-    --ion-color-thursday: #73fcd6;
-    --ion-color-thursday-rgb: 115,252,214;
-    --ion-color-thursday-contrast: #000000;
-    --ion-color-thursday-contrast-rgb: 0,0,0;
-    --ion-color-thursday-shade: #65debc;
-    --ion-color-thursday-tint: #81fcda;
-
-
-
-  
-    --ion-color-friday: #73fdff;
-    --ion-color-friday-rgb: 115,253,255;
-    --ion-color-friday-contrast: #000000;
-    --ion-color-friday-contrast-rgb: 0,0,0;
-    --ion-color-friday-shade: #65dfe0;
-    --ion-color-friday-tint: #81fdff;
-
-
-  
-    --ion-color-saturday: #73fa79;
-    --ion-color-saturday-rgb: 115,250,121;
-    --ion-color-saturday-contrast: #000000;
-    --ion-color-saturday-contrast-rgb: 0,0,0;
-    --ion-color-saturday-shade: #65dc6a;
-    --ion-color-saturday-tint: #81fb86;
+  --ion-color-saturday: #73fa79;
+  --ion-color-saturday-rgb: 115,250,121;
+  --ion-color-saturday-contrast: #000000;
+  --ion-color-saturday-contrast-rgb: 0,0,0;
+  --ion-color-saturday-shade: #65dc6a;
+  --ion-color-saturday-tint: #81fb86;
   
 }
 
@@ -224,4 +217,3 @@ ion-card-subtitle {
   --ion-color-shade: var(--ion-color-saturday-shade) !important;
   --ion-color-tint: var(--ion-color-saturday-tint) !important;
 }
-
