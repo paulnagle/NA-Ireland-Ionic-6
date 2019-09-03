@@ -18,13 +18,11 @@ export class JftPage implements OnInit {
     public JftProvider: JftService) { }
 
   ngOnInit() {
-    console.log('jft.page ngOnInit()');
     this.loadingCtrl.present('Loading JFT...');
     this.getJFT();
   }
 
   getJFT() {
-    console.log('in jft page getJFT');
     this.JftProvider.getJFT().then((data) => {
       this.jft = data;
       this.loadingCtrl.dismiss();
