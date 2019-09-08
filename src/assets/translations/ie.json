@@ -12,7 +12,7 @@
     "SETTINGS": "Socruithe",
     "GOOGLE_MAPS": "Léarscáileanna Cruinnithe",
     "SPEAKERS": "Cainteoirí",
-    "DATETIME": "Am glan",
+    "DATETIME": "Am Glan",
     "HOME_TITLE": "Narcotics Anonymous na hÉireann",
     "HOME_MESSAGE": "Failte",
     "CONTACT": "Teagmháil",
@@ -36,5 +36,14 @@
     "24HR": "24 uair",
     "MILES": "Mílte",
     "KMS": "Kms",
-    "FINDING_MTGS": "Finding meetings.."
+    "FINDING_MTGS": "Finding meetings..",
+    "DAYCLEAN": " Lá Glan",
+    "DAYSCLEAN": " Laethanta Glan",
+    "MONTHSCLEAN": " Míonna Glan",
+    "YEARCLEAN": " Blian Glan",
+    "YEARSCLEAN": " Blianta Glan",
+    "DAYS": " laethanta",
+    "WEEKS": " seachtaine",
+    "YEARS": " blianta",
+    "BIRTHDAY": "Lá Breithe Am Glan!"
 }

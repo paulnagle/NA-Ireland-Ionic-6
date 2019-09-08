@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,9 @@ import { HttpClient } from '@angular/common/http';
 export class ServiceGroupsProviderService {
 
   constructor(public http: HttpClient) {
-    console.log('Hello ServiceGroupsProvider Provider');
   }
 
-  getApiUrlServiceGroups: any = 'https://bmlt.nasouth.ie/main_server/client_interface/json/?switcher=GetServiceBodies';
+  getApiUrlServiceGroups = environment.getApiUrlServiceGroups;
 
   getAllServiceGroups() {
     return this.http.get(this.getApiUrlServiceGroups);

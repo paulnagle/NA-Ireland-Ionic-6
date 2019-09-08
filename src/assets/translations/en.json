@@ -36,5 +36,14 @@
     "24HR": "24 Hour",
     "MILES": "Miles",
     "KMS": "Kms",
-    "FINDING_MTGS": "Finding meetings.."
+    "FINDING_MTGS": "Finding meetings..",
+    "DAYCLEAN": " Day Clean",
+    "DAYSCLEAN": " Days Clean",
+    "MONTHSCLEAN": " Months Clean",
+    "YEARCLEAN": " Year Clean",
+    "YEARSCLEAN": " Years Clean",
+    "DAYS": " days",
+    "WEEKS": " weeks",
+    "YEARS": " years",
+    "BIRTHDAY": "Clean Time Birthday!"
 }

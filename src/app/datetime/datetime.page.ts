@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-datetime',
@@ -26,6 +25,7 @@ export class DatetimePage implements OnInit {
   cleanTimeInWeeks = 0;
 
   tag;
+  tagTime;
   keytagImage;
 
   constructor() {
@@ -71,59 +71,57 @@ export class DatetimePage implements OnInit {
   }
 
   cleanTimeTag() {
-
-    console.group('cleanTimeTag');
-    console.log('todayDay : ', this.todayDay);
-    console.log('cleanDay : ', this.cleanDay);
-    console.log('todayMonth : ', this.todayMonth);
-    console.log('cleanMonth : ', this.cleanMonth);
-    console.log('todayYear : ', this.todayYear);
-    console.log('cleanYear : ', this.cleanYear);
-    console.groupEnd();
-
     // One day
     if (this.cleanTimeInDays === 1) {
-      this.tag = 'One day clean';
+      this.tagTime = '1';
+      this.tag = 'DAYCLEAN';
       this.keytagImage = './assets/keytags/1-day.png';
 
       // 30 days
     } else if (this.cleanTimeInDays === 30) {
-      this.tag = '30 days clean';
+      this.tagTime = '30';
+      this.tag = 'DAYSCLEAN';
       this.keytagImage = './assets/keytags/30-days.png';
 
       // 60 days
     } else if (this.cleanTimeInDays === 60) {
-      this.tag = '60 days clean';
+      this.tagTime = '60';
+      this.tag = 'DAYSCLEAN';
       this.keytagImage = './assets/keytags/60-days.png';
 
       // 90 days
     } else if (this.cleanTimeInDays === 90) {
-      this.tag = '90 days clean';
+      this.tagTime = '90';
+      this.tag = 'DAYSCLEAN';
       this.keytagImage = './assets/keytags/90-days.png';
 
       // 6 months
       // TODO: FIX THIS
     } else if (this.cleanTimeInDays === 182) {
-      this.tag = '6 months clean';
+      this.tagTime = '6';
+      this.tag = 'MONTHSCLEAN';
       this.keytagImage = './assets/keytags/6-months.png';
 
       // 9 months
       // TODO: FIX THIS
     } else if (this.cleanTimeInDays === 274) {
-      this.tag = '9 months clean';
+      this.tagTime = '9';
+      this.tag = 'MONTHSCLEAN';
       this.keytagImage = './assets/keytags/9-months.png';
 
       // 1 year
     } else if ((this.todayDay === this.cleanDay) &&
       (this.todayMonth === this.cleanMonth) &&
       ((this.todayYear - 1) === this.cleanYear)) {
-      this.tag = '1 Year clean';
+      this.tagTime = '1';
+      this.tag = 'YEARCLEAN';
       this.keytagImage = './assets/keytags/1-year.png';
 
       // 18 months
       // TODO: Fix this
     } else if (this.cleanTimeInDays === 547) {
-      this.tag = '18 Months clean';
+      this.tagTime = '18';
+      this.tag = 'MONTHSCLEAN';
       this.keytagImage = './assets/keytags/18-months.png';
 
       // Multiple years
@@ -131,7 +129,8 @@ export class DatetimePage implements OnInit {
       (this.todayMonth === this.cleanMonth) &&
       (this.cleanYear !== this.todayYear) &&
       ((this.todayYear - this.cleanYear) > 1)) {
-      this.tag = this.cleanTimeInYears + ' years clean';
+      this.tagTime = this.cleanTimeInYears;
+      this.tag = this.cleanTimeInYears + 'YEARSCLEAN';
       this.keytagImage = './assets/keytags/x-years.png';
 
     } else {

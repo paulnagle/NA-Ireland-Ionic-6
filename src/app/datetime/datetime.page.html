@@ -11,6 +11,16 @@
 
 <ion-content>
 
+  <div *ngIf="tag != 'none'">
+    <ion-card>
+      <ion-card-header>{{'BIRTHDAY' | translate}}</ion-card-header>
+      <ion-card-content>
+        <h1>{{ tagTime }} {{ tag | translate }}</h1>
+        <ion-img [src]='keytagImage'></ion-img>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
   <ion-item>
     <ion-label>Enter Clean Date -> </ion-label>
     <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="myDate"></ion-datetime>
@@ -19,33 +29,22 @@
   <ion-card>
     <ion-card-header>Clean time in days</ion-card-header>
     <ion-card-content>
-      <h1>{{ getCleanTime() }} days</h1>
+      <h1>{{ getCleanTime() }} {{'DAYS' | translate}}</h1>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>Clean time in weeks</ion-card-header>
     <ion-card-content>
-      <h1>{{ cleanTimeInWeeks }} weeks</h1>
+      <h1>{{ cleanTimeInWeeks }} {{'WEEKS' | translate}}</h1>
     </ion-card-content>
   </ion-card>
 
   <ion-card>
     <ion-card-header>Clean time in years</ion-card-header>
     <ion-card-content>
-      <h1>{{ cleanTimeInYears }} years</h1>
+      <h1>{{ cleanTimeInYears }} {{'YEARS' | translate}}</h1>
     </ion-card-content>
   </ion-card>
-
-  <div *ngIf="tag != 'none'">
-    <ion-card>
-      <ion-card-header>Clean time birthday!</ion-card-header>
-      <ion-card-content>
-        <h1>{{ tag }}</h1>
-        <ion-img [src]='keytagImage'></ion-img>
-      </ion-card-content>
-    </ion-card>
-  </div>
-
 
 </ion-content>

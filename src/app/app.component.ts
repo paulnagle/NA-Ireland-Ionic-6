@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-root',
@@ -89,23 +90,23 @@ export class AppComponent {
   }
 
   setupPush() {
-    // I recommend to put these into your environment.ts
-    this.oneSignal.startInit('3502dfab-4518-41fb-b0d4-f8f62469115e');
+    const oneSignalIosAppId = environment.oneSignalIosId;
+    this.oneSignal.startInit(oneSignalIosAppId);
 
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
 
     // Notifcation was received in general
     this.oneSignal.handleNotificationReceived().subscribe(data => {
-      let msg = data.payload.body;
-      let title = data.payload.title;
-      let additionalData = data.payload.additionalData;
+      const msg = data.payload.body;
+      const title = data.payload.title;
+      const additionalData = data.payload.additionalData;
       this.showAlert(title, msg, additionalData.task);
     });
 
     // Notification was really clicked/opened
     this.oneSignal.handleNotificationOpened().subscribe(data => {
       // Just a note that the data is a different place here!
-      let additionalData = data.notification.payload.additionalData;
+      const additionalData = data.notification.payload.additionalData;
 
       this.showAlert('Notification opened', 'You already read this before', additionalData.task);
     });
