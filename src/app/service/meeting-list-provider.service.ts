@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
 export class MeetingListProviderService {
 
   meetings: any;
-  irelandBMLT: any = 'https://bmlt.nasouth.ie/main_server/client_interface/json/';
-  tomatoBMLT: any = 'https://tomato.na-bmlt.org/main_server/client_interface/json/';
+  irelandBMLT = environment.irelandBMLT;
+  tomatoBMLT = environment.tomatoBMLT;
 
   constructor(public http: HttpClient) {
     console.log('Hello MeetingListProvider Provider');
