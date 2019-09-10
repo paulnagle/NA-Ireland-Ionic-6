@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-datetime',
@@ -27,47 +28,38 @@ export class DatetimePage implements OnInit {
   tag;
   tagTime;
   keytagImage;
+  wait = true;
 
-  constructor() {
-    // today:
-    this.todayDate = new Date();
-    this.todayDate.setHours(0, 0, 0, 0);
-
-    this.todayInMilliseconds = Date.parse(this.todayDate);
-    this.todayDay = this.todayDate.getDate();
-    this.todayMonth = this.todayDate.getMonth();
-    this.todayYear = this.todayDate.getFullYear();
-
-    // Initial display of the date picker
-    this.myDate = new Date().toISOString();
-
-    this.tag = 'none';
+  constructor(private storage: Storage) {
+    console.log('constructor');
   }
 
   getCleanTime() {
-    const oneDay = 1000 * 60 * 60 * 24;
-    const oneWeek = oneDay * 7;
-    const oneYear = oneDay * 365;
+    if (!this.wait) {
+      console.log('Calling getCleanTime');
+      const oneDay = 1000 * 60 * 60 * 24;
+      const oneWeek = oneDay * 7;
+      const oneYear = oneDay * 365;
 
-    this.myDate = this.myDate.substring(0, 10);
+      const cleanDateInMilliseconds = Date.parse(this.myDate);
+      console.log('Setting cleanDate in storage to ', cleanDateInMilliseconds);
+      this.storage.set('cleanDate', cleanDateInMilliseconds);
 
-    const cleanDateInMilliseconds = Date.parse(this.myDate);
+      this.cleanTimeDate = new Date(cleanDateInMilliseconds);
+      this.cleanDay = this.cleanTimeDate.getDate();
+      this.cleanMonth = this.cleanTimeDate.getMonth();
+      this.cleanYear = this.cleanTimeDate.getFullYear();
 
-    this.cleanTimeDate = new Date(cleanDateInMilliseconds);
-    this.cleanDay = this.cleanTimeDate.getDate();
-    this.cleanMonth = this.cleanTimeDate.getMonth();
-    this.cleanYear = this.cleanTimeDate.getFullYear();
+      this.cleanTimeInMilliseconds = (this.todayInMilliseconds - cleanDateInMilliseconds) + oneDay; // ??
+      this.cleanTimeInDays = Math.floor(this.cleanTimeInMilliseconds / oneDay);
+      this.cleanTimeInWeeks = Math.floor(this.cleanTimeInMilliseconds / oneWeek);
+      this.cleanTimeInYears = Math.floor(this.cleanTimeInMilliseconds / oneYear);
 
-    this.cleanTimeInMilliseconds = (this.todayInMilliseconds - cleanDateInMilliseconds) + oneDay; // ??
-    this.cleanTimeInDays = Math.floor(this.cleanTimeInMilliseconds / oneDay);
-    this.cleanTimeInWeeks = Math.floor(this.cleanTimeInMilliseconds / oneWeek);
-    this.cleanTimeInYears = Math.floor(this.cleanTimeInMilliseconds / oneYear);
+      if (this.cleanTimeInDays !== 0) {
+        this.cleanTimeTag();
+      }
 
-    if (this.cleanTimeInDays !== 0) {
-      this.cleanTimeTag();
     }
-    return this.cleanTimeInDays;
-
   }
 
   cleanTimeTag() {
@@ -130,7 +122,7 @@ export class DatetimePage implements OnInit {
       (this.cleanYear !== this.todayYear) &&
       ((this.todayYear - this.cleanYear) > 1)) {
       this.tagTime = this.cleanTimeInYears;
-      this.tag = this.cleanTimeInYears + 'YEARSCLEAN';
+      this.tag = 'YEARSCLEAN';
       this.keytagImage = './assets/keytags/x-years.png';
 
     } else {
@@ -141,6 +133,32 @@ export class DatetimePage implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ngOnInit');
+    let cleanDate;
+    this.storage.ready().then(() => {
+      this.storage.get('cleanDate')
+        .then(value => {
+          if (value) {
+            cleanDate = new Date(value).toISOString();
+          } else {
+            cleanDate = new Date().toISOString();
+          }
+
+          this.todayDate = new Date();
+          this.todayDate.setHours(0, 0, 0, 0);
+
+          this.todayInMilliseconds = Date.parse(this.todayDate);
+          this.todayDay = this.todayDate.getDate();
+          this.todayMonth = this.todayDate.getMonth();
+          this.todayYear = this.todayDate.getFullYear();
+
+          this.myDate = cleanDate.substring(0, 10);
+
+          this.tag = 'none';
+          this.wait = false;
+          this.getCleanTime();
+        });
+    });
   }
 
 }

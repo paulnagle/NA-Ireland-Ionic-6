@@ -11,6 +11,11 @@
 
 <ion-content>
 
+  <ion-item>
+    <ion-label>Enter Clean Date -> </ion-label>
+    <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="myDate" (ionChange)=getCleanTime()></ion-datetime>
+  </ion-item>
+
   <div *ngIf="tag != 'none'">
     <ion-card>
       <ion-card-header>{{'BIRTHDAY' | translate}}</ion-card-header>
@@ -21,15 +26,10 @@
     </ion-card>
   </div>
 
-  <ion-item>
-    <ion-label>Enter Clean Date -> </ion-label>
-    <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="myDate"></ion-datetime>
-  </ion-item>
-
   <ion-card>
     <ion-card-header>Clean time in days</ion-card-header>
     <ion-card-content>
-      <h1>{{ getCleanTime() }} {{'DAYS' | translate}}</h1>
+      <h1>{{ cleanTimeInDays }} {{'DAYS' | translate}}</h1>
     </ion-card-content>
   </ion-card>
 
@@ -43,7 +43,7 @@
   <ion-card>
     <ion-card-header>Clean time in years</ion-card-header>
     <ion-card-content>
-      <h1>{{ cleanTimeInYears }} {{'YEARS' | translate}}</h1>
+      <h1>{{ cleanTimeInYears }}&nbsp;{{'YEARS' | translate}}</h1>
     </ion-card-content>
   </ion-card>
 

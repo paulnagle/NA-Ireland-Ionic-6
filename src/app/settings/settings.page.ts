@@ -34,7 +34,7 @@ export class SettingsPage implements OnInit {
         if (timeDisplay) {
           this.timeDisplay = timeDisplay;
         } else {
-          this.timeDisplay = "24hr";
+          this.timeDisplay = '24hr';
         }
       });
 
@@ -43,7 +43,7 @@ export class SettingsPage implements OnInit {
         if (distanceUnit) {
           this.distanceUnit = distanceUnit;
         } else {
-          this.distanceUnit = "24hr";
+          this.distanceUnit = 'kms';
         }
       });
 
