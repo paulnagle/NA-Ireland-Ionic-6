@@ -25,3 +25,11 @@ $ ionic cordova run -l
 To build for app store distribution, I have found that the best thing to do is to run the re-plugin.sh script.
 
 After this, a platforms directory will be created with folder for android that contains an Android Studio project, and a folder for ios that contains an xcode project.
+
+To install OneSignal in the ios folder, run the following
+
+```
+$ cd platforms/ios
+$ pod repo update
+$ pod install
+```
