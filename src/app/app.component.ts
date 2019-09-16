@@ -83,7 +83,10 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleBlackTranslucent();
+
+      this.statusBar.overlaysWebView(true);
+      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#ffffff');
       this.splashScreen.hide();
       this.setupPush();
     });
@@ -91,7 +94,8 @@ export class AppComponent {
 
   setupPush() {
     const oneSignalIosAppId = environment.oneSignalIosId;
-    this.oneSignal.startInit(oneSignalIosAppId);
+    const oneSignalAndroidSenderId = environment.oneSignalAndroidSenderId;
+    this.oneSignal.startInit(oneSignalIosAppId, oneSignalAndroidSenderId);
 
     this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
 
