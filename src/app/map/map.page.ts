@@ -163,14 +163,14 @@ export class MapPage implements OnInit {
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
     this.autocomplete = { input: '' };
     this.autocompleteItems = [];
-    // this.storage.get('timeDisplay')
-    //   .then(timeDisplay => {
-    //     if (timeDisplay) {
-    //       this.timeDisplay = timeDisplay;
-    //     } else {
-    //       this.timeDisplay = '24hr';
-    //     }
-    //   });
+    this.storage.get('timeDisplay')
+      .then(timeDisplay => {
+        if (timeDisplay) {
+          this.timeDisplay = timeDisplay;
+        } else {
+          this.timeDisplay = '24hr';
+        }
+      });
     await this.platform.ready();
     await this.loadMap();
 
@@ -178,38 +178,42 @@ export class MapPage implements OnInit {
 
   loadMap() {
     console.log('loadMap()');
-    //   this.translate.get('LOCATING').subscribe(value => { this.presentLoader(value); });
 
     Environment.setEnv({
       API_KEY_FOR_BROWSER_RELEASE: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA',
       API_KEY_FOR_BROWSER_DEBUG: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA'
     });
 
+    this.translate.get('LOCATING').subscribe(value => {
+      console.log('1. Translated text = ', value);
+      this.presentLoader(value);
+    });
+
     if (LocationService.hasPermission()) {
-      console.log('Location permission OK');
       LocationService.getMyLocation().then((myLocation: MyLocation) => {
-        console.log('Location found');
+        console.log('location found');
         this.mapLatitude = this.eagerMapLat = myLocation.latLng.lat;
         this.mapLongitude = this.eagerMapLng = myLocation.latLng.lng;
         this.drawMap();
+        this.dismissLoader();
       }, (reason) => {
-        console.log('Location error : ', JSON.stringify(reason));
+        console.log('location not found');
         this.eagerMapLat = this.mapLatitude;
         this.eagerMapLng = this.mapLongitude;
         this.drawMap();
+        this.dismissLoader();
       });
     } else {
-      console.log('No location permission given');
+      console.log('location not found');
       this.eagerMapLat = this.mapLatitude;
       this.eagerMapLng = this.mapLongitude;
       this.drawMap();
+      this.dismissLoader();
     }
-
   }
 
 
   drawMap() {
-    console.log('drawMap');
     const options: GoogleMapOptions = {
       building: true,
       controls: {
@@ -240,7 +244,6 @@ export class MapPage implements OnInit {
   }
 
   onMapReady() {
-    console.log('onMapeady');
 
     this.map.on(GoogleMapsEvent.MAP_DRAG_START).subscribe((params: any[]) => {
       this.mapDragInProgress = true;
@@ -257,7 +260,10 @@ export class MapPage implements OnInit {
     this.map.on(GoogleMapsEvent.CAMERA_MOVE_END).subscribe((params: any[]) => {
       if (this.mapDragInProgress === false) {
         this.cameraMoveInProgress = false;
-        //      this.translate.get('FINDING_MTGS').subscribe(value => { this.presentLoader(value); });
+        this.translate.get('FINDING_MTGS').subscribe(value => {
+          console.log('2. Translated text = ', value);
+          this.presentLoader(value);
+        });
 
         // if the map has only moved by less than 10%, then we dont get more meetings,
         // those will have been eagerly loaded earlier
@@ -280,7 +286,10 @@ export class MapPage implements OnInit {
     });
 
     this.map.on('trigger_initial_search_changed').subscribe((params: any[]) => {
-      //      this.translate.get('FINDING_MTGS').subscribe(value => { this.presentLoader(value); });
+      this.translate.get('FINDING_MTGS').subscribe(value => {
+        console.log('3. Translated text = ', value);
+        this.presentLoader(value);
+      });
       const mapPositionTarget: ILatLng = this.map.getCameraTarget();
       const mapPositionZoom = this.map.getCameraZoom();
       const mapVisiblePosition = this.map.getVisibleRegion();
@@ -380,9 +389,7 @@ export class MapPage implements OnInit {
         this.meetingList = JSON.parse('[]');
       } else {
         this.meetingList = data;
-        // tslint:disable-next-line: max-line-length
         this.meetingList = this.meetingList.filter((meeting: { latitude }) => meeting.latitude = parseFloat(meeting.latitude));
-        // tslint:disable-next-line: max-line-length
         this.meetingList = this.meetingList.filter((meeting: { longitude }) => meeting.longitude = parseFloat(meeting.longitude));
       }
       this.populateMarkers();
@@ -456,8 +463,6 @@ export class MapPage implements OnInit {
               };
             }
             this.markers.push(this.data);
-
-
           }
         }
       }
@@ -562,14 +567,14 @@ export class MapPage implements OnInit {
   presentLoader(loaderText: any) {
     if (!this.loader) {
       this.loader = this.loadingCtrl.present(loaderText);
-      this.loader.present();
     }
   }
 
 
   dismissLoader() {
     if (this.loader) {
-      this.loader.dismiss();
+      console.log('Dismissing loader..');
+      this.loader = this.loadingCtrl.dismiss();
       this.loader = null;
     }
   }

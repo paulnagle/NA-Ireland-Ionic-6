@@ -11,13 +11,14 @@ export class LoadingService {
   constructor(public loadingController: LoadingController) { }
 
   async present(text: string) {
+    console.log('loader.present() called');
     this.isLoading = true;
     return await this.loadingController.create({
-      duration: 5000,
+      spinner: 'circles',
       message: text
     }).then(a => {
       a.present().then(() => {
-        console.log('presented');
+        console.log('loader.present() presented');
         if (!this.isLoading) {
           a.dismiss().then(() => console.log('abort presenting'));
         }
@@ -26,6 +27,7 @@ export class LoadingService {
   }
 
   async dismiss() {
+    console.log('loader.dismiss() called');
     this.isLoading = false;
     return await this.loadingController.dismiss().then(() => console.log('dismissed'));
   }
