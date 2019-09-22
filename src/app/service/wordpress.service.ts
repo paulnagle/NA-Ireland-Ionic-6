@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http/ngx';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,10 @@ export class WordpressService {
     private http: HTTP
   ) { }
 
-  wordpressApiUrl = 'https://www.na-ireland.org/wp-json/wp/v2/posts?categories=9';
+  wordpressApiUrl = environment.wordpressApiUrl;
 
   async getEvents() {
     const data = await this.http.get(this.wordpressApiUrl, {}, {});
-    console.log('Returned wp data');
     return JSON.parse(data.data);
   }
 }

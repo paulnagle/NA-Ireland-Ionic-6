@@ -107,12 +107,11 @@ export class AppComponent {
       this.showAlert(title, msg, additionalData.task);
     });
 
-    // Notification was really clicked/opened
+    // Notification was clicked/opened
     this.oneSignal.handleNotificationOpened().subscribe(data => {
-      // Just a note that the data is a different place here!
       const additionalData = data.notification.payload.additionalData;
 
-      this.showAlert('Notification opened', 'You already read this before', additionalData.task);
+      this.showAlert('NA Ireland', data.notification.payload.body, additionalData.task);
     });
 
     this.oneSignal.endInit();

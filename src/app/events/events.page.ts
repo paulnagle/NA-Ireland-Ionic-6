@@ -22,7 +22,6 @@ export class EventsPage implements OnInit {
 
   public getEvents() {
     this.wp.getEvents().then((data) => {
-      console.log('Got wp data');
       this.eventsData = data;
       this.loadingCtrl.dismiss();
     });
