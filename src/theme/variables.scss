@@ -29,7 +29,11 @@ ion-card-content {
 
 ion-item {
     --background: #eeeeee;
-    --color: #2F4F4F;
+    --color: #3880ff;
+}
+
+ion-menu ion-item {
+  --background: #ffffff;  
 }
 
   /** primary **/
@@ -217,3 +221,4 @@ ion-item {
   --ion-color-shade: var(--ion-color-saturday-shade) !important;
   --ion-color-tint: var(--ion-color-saturday-tint) !important;
 }
+
