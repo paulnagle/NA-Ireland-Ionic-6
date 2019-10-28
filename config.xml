@@ -3,7 +3,7 @@
     <name>NA Ireland</name>
     <description>NA Ireland</description>
     <author email="info@na-ireland.org" href="https://www.na-ireland.org/">NA Ireland</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

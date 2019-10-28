@@ -89,6 +89,10 @@
     "CONTACT.NAWSAPP": "NAWS Meeting Search App",
     "CONTACT.NAWSBLURB": "Tá sonraí ar chruinnithe teileafóin agus idirlín ag aip Cuardaigh Cruinnithe NAWS freisin",
 
-    "EVENTS.MOREDETAILS": "Níos mó sonraí..."
+    "EVENTS.MOREDETAILS": "Níos mó sonraí...",
+
+    "GROUP.COUNTY": "Contae",
+    "GROUP.AREA": "Limistéar",
+    "GROUP.GROUPBY": "Socraigh le"
 
 }

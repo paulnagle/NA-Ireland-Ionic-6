@@ -89,7 +89,9 @@
     "CONTACT.NAWSAPP": "NAWS Meeting Search App",
     "CONTACT.NAWSBLURB": "The NAWS Meeting Search app also contains details of phone and internet meetings",
 
-    "EVENTS.MOREDETAILS": "More details..."
+    "EVENTS.MOREDETAILS": "More details...",
 
-
+    "GROUP.COUNTY": "County",
+    "GROUP.AREA": "Area",
+    "GROUP.GROUPBY": "Group by"
 }
