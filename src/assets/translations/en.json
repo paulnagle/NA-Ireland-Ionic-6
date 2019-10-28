@@ -87,6 +87,9 @@
     "CONTACT.JOINFACE": "Join the BMLT facebook group",
     "CONTACT.VISITWEB": "Visit the BMLT website",
     "CONTACT.NAWSAPP": "NAWS Meeting Search App",
-    "CONTACT.NAWSBLURB": "The NAWS Meeting Search app also contains details of phone and internet meetings"
+    "CONTACT.NAWSBLURB": "The NAWS Meeting Search app also contains details of phone and internet meetings",
+
+    "EVENTS.MOREDETAILS": "More details..."
+
 
 }

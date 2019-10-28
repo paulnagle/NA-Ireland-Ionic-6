@@ -78,7 +78,6 @@
     "CANCEL": "Stad",
     "DONE": "Deanta",
 
-
     "CONTACT.LOADING": "Ag lódáil..",
     "CONTACT.DETAILS": "NA na hEireann sonraí teagmhála",
     "CONTACT.APPDETAILS": "Sonraí",
@@ -88,5 +87,8 @@
     "CONTACT.JOINFACE": "Bí ar an ngrúpa facebook BMLT",
     "CONTACT.VISITWEB": "Téigh go dtí suíomh gréasáin BMLT",
     "CONTACT.NAWSAPP": "NAWS Meeting Search App",
-    "CONTACT.NAWSBLURB": "Tá sonraí ar chruinnithe teileafóin agus idirlín ag aip Cuardaigh Cruinnithe NAWS freisin"
+    "CONTACT.NAWSBLURB": "Tá sonraí ar chruinnithe teileafóin agus idirlín ag aip Cuardaigh Cruinnithe NAWS freisin",
+
+    "EVENTS.MOREDETAILS": "Níos mó sonraí..."
+
 }
