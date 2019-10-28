@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { environment } from 'src/environments/environment.prod';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -67,6 +68,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private translate: TranslateService,
+    private router: Router,
     private storage: Storage
   ) {
     this.initializeApp();
@@ -125,7 +127,7 @@ export class AppComponent {
         {
           text: `Action: ${task}`,
           handler: () => {
-            // E.g: Navigate to a specific screen
+            this.router.navigateByUrl('/events');
           }
         }
       ]

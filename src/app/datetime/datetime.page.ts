@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { TranslateService } from '@ngx-translate/core';
+import { Config } from '@ionic/angular';
 
 @Component({
   selector: 'app-datetime',
@@ -30,9 +32,16 @@ export class DatetimePage implements OnInit {
   keytagImage;
   wait = true;
 
-  constructor(private storage: Storage) {
-    console.log('constructor');
-  }
+  monthNames = [];
+  monthShortNames = [];
+  cancelText;
+  doneText;
+
+  constructor(
+    private storage: Storage,
+    private translate: TranslateService,
+    private config: Config
+  ) { }
 
   getCleanTime() {
     if (!this.wait) {
@@ -158,6 +167,91 @@ export class DatetimePage implements OnInit {
           this.wait = false;
           this.getCleanTime();
         });
+    });
+
+    this.translate.get('JANUARY').subscribe(value1 => {
+      this.monthNames.push(value1);
+      this.translate.get('FEBRUARY').subscribe(value2 => {
+        this.monthNames.push(value2);
+        this.translate.get('MARCH').subscribe(value3 => {
+          this.monthNames.push(value3);
+          this.translate.get('APRIL').subscribe(value4 => {
+            this.monthNames.push(value4);
+            this.translate.get('MAYL').subscribe(value5 => {
+              this.monthNames.push(value5);
+              this.translate.get('JUNE').subscribe(value6 => {
+                this.monthNames.push(value6);
+                this.translate.get('JULY').subscribe(value7 => {
+                  this.monthNames.push(value7);
+                  this.translate.get('AUGUST').subscribe(value8 => {
+                    this.monthNames.push(value8);
+                    this.translate.get('SPETEMBER').subscribe(value9 => {
+                      this.monthNames.push(value9);
+                      this.translate.get('OCTOBER').subscribe(value10 => {
+                        this.monthNames.push(value10);
+                        this.translate.get('NOVEMBER').subscribe(value11 => {
+                          this.monthNames.push(value11);
+                          this.translate.get('DECEMBER').subscribe(value12 => {
+                            this.monthNames.push(value12);
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+
+    console.log(this.monthNames);
+
+    this.translate.get('JAN').subscribe(value1 => {
+      this.monthShortNames.push(value1);
+      this.translate.get('FEB').subscribe(value2 => {
+        this.monthShortNames.push(value2);
+        this.translate.get('MAR').subscribe(value3 => {
+          this.monthShortNames.push(value3);
+          this.translate.get('AP').subscribe(value4 => {
+            this.monthShortNames.push(value4);
+            this.translate.get('MAYS').subscribe(value5 => {
+              this.monthShortNames.push(value5);
+              this.translate.get('JUN').subscribe(value6 => {
+                this.monthShortNames.push(value6);
+                this.translate.get('JUL').subscribe(value7 => {
+                  this.monthShortNames.push(value7);
+                  this.translate.get('AUG').subscribe(value8 => {
+                    this.monthShortNames.push(value8);
+                    this.translate.get('SEP').subscribe(value9 => {
+                      this.monthShortNames.push(value9);
+                      this.translate.get('OCT').subscribe(value10 => {
+                        this.monthShortNames.push(value10);
+                        this.translate.get('NOV').subscribe(value11 => {
+                          this.monthShortNames.push(value11);
+                          this.translate.get('DEC').subscribe(value12 => {
+                            this.monthShortNames.push(value12);
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+    console.log(this.monthShortNames);
+
+    this.translate.get('cancelText').subscribe(value => {
+      this.cancelText = value;
+    });
+
+    this.translate.get('doneText').subscribe(value => {
+      this.doneText = value;
     });
   }
 

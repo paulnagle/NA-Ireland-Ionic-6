@@ -12,8 +12,16 @@
 <ion-content>
 
   <ion-item>
-    <ion-label>Enter Clean Date -> </ion-label>
-    <ion-datetime displayFormat="DD MMM YYYY" [(ngModel)]="myDate" (ionChange)=getCleanTime()></ion-datetime>
+    <ion-label>{{'ENTERCLEANDATE' | translate}}-> </ion-label>
+    <ion-datetime
+      displayFormat="DD MMM YYYY"
+      [monthShortNames]="monthShortNames"
+      [monthNames]="monthNames"
+      [cancelText]="cancelText"
+      [doneText]="doneText"
+      [(ngModel)]="myDate"
+      (ionChange)=getCleanTime()>
+    </ion-datetime>
   </ion-item>
 
   <div *ngIf="tag != 'none'">
