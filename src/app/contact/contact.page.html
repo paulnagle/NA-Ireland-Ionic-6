@@ -11,7 +11,7 @@
 
 <ion-content>
 
-  <h3> NA Ireland Contact Details </h3>
+  <h1> {{ 'CONTACT.DETAILS' | translate }} </h1>
 
   <ion-list *ngFor="let detail of serviceGroupNames">
     <ion-card>
@@ -59,11 +59,11 @@
   </ion-list>
 
   <br>
-  <h3> App Details </h3>
+  <h1> {{ 'CONTACT.APPDETAILS' | translate }} </h1>
   <br>
   <ion-card>
     <ion-card-content>
-      <ion-card-title>App source code</ion-card-title>
+      <ion-card-title>{{ 'CONTACT.APPSOURCE' | translate }}</ion-card-title>
       <ion-item text-wrap>
         <ion-icon name="globe" slot="start"></ion-icon>
         <ion-button small (click)='openLink(sourceCodeLink)'>https://github.com</ion-button>
@@ -73,7 +73,7 @@
 
   <ion-card>
     <ion-card-content>
-      <ion-card-title>Report a bug</ion-card-title>
+      <ion-card-title>{{ 'CONTACT.REPORTBUG' | translate }}</ion-card-title>
       <ion-item text-wrap>
         <ion-icon name="globe" slot="start"></ion-icon>
         <ion-button small (click)='openLink(sourceBugs)'>https://github.com</ion-button>
@@ -83,22 +83,45 @@
 
   <ion-card>
     <ion-card-content>
-      <ion-card-title>Find out more about the BMLT system</ion-card-title>
+      <ion-card-title>{{ 'CONTACT.MOREBMLT' | translate }}</ion-card-title>
       <ion-list no-padding>
         <ion-item text-wrap>
           <ion-icon name="logo-facebook" slot="start"></ion-icon>
           <ion-button small (click)="openLink(fbGroupLink)">
-            <ion-icon name="logo-facebook" slot="start"></ion-icon>Join the BMLT facebook group
+            <ion-icon name="logo-facebook" slot="start"></ion-icon>{{ 'CONTACT.JOINFACE' | translate }}
           </ion-button>
         </ion-item>
         <ion-item text-wrap>
           <ion-icon name="globe" slot="start"></ion-icon>
           <ion-button small (click)="openLink(bmltLink)">
-            <ion-icon name="globe" slot="start"></ion-icon>Visit the BMLT website
+            <ion-icon name="globe" slot="start"></ion-icon>{{ 'CONTACT.VISITWEB' | translate }}
           </ion-button>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>{{ 'CONTACT.NAWSAPP' | translate }}</ion-card-title>
+      <p> {{ 'CONTACT.NAWSBLURB' | translate }} </p>
+      <ion-list no-padding>
+        <ion-item text-wrap>
+          <ion-icon name="logo-apple" slot="start"></ion-icon>
+          <ion-button small (click)="openLink(naMeetingSearchAppIOS)">
+            <ion-icon name="logo-apple" slot="start"></ion-icon>Apple Store
+          </ion-button>
+        </ion-item>
+        <ion-item text-wrap>
+          <ion-icon name="logo-android" slot="start"></ion-icon>
+          <ion-button small (click)="openLink(naMeetingSearchAppANDROID)">
+            <ion-icon name="logo-android" slot="start"></ion-icon>Google Store
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
 
 </ion-content>

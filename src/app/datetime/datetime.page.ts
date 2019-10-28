@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
-import { Config } from '@ionic/angular';
 
 @Component({
   selector: 'app-datetime',
@@ -39,8 +38,7 @@ export class DatetimePage implements OnInit {
 
   constructor(
     private storage: Storage,
-    private translate: TranslateService,
-    private config: Config
+    private translate: TranslateService
   ) { }
 
   getCleanTime() {
