@@ -177,7 +177,6 @@ export class MapPage implements OnInit {
   }
 
   loadMap() {
-    console.log('loadMap()');
 
     Environment.setEnv({
       API_KEY_FOR_BROWSER_RELEASE: 'AIzaSyAiowBMk_xPfnzaq7wZzcbyuCDpKqzZkyA',
@@ -185,26 +184,22 @@ export class MapPage implements OnInit {
     });
 
     this.translate.get('LOCATING').subscribe(value => {
-      console.log('1. Translated text = ', value);
       this.presentLoader(value);
     });
 
     if (LocationService.hasPermission()) {
       LocationService.getMyLocation().then((myLocation: MyLocation) => {
-        console.log('location found');
         this.mapLatitude = this.eagerMapLat = myLocation.latLng.lat;
         this.mapLongitude = this.eagerMapLng = myLocation.latLng.lng;
         this.drawMap();
         this.dismissLoader();
       }, (reason) => {
-        console.log('location not found');
         this.eagerMapLat = this.mapLatitude;
         this.eagerMapLng = this.mapLongitude;
         this.drawMap();
         this.dismissLoader();
       });
     } else {
-      console.log('location not found');
       this.eagerMapLat = this.mapLatitude;
       this.eagerMapLng = this.mapLongitude;
       this.drawMap();
@@ -261,7 +256,6 @@ export class MapPage implements OnInit {
       if (this.mapDragInProgress === false) {
         this.cameraMoveInProgress = false;
         this.translate.get('FINDING_MTGS').subscribe(value => {
-          console.log('2. Translated text = ', value);
           this.presentLoader(value);
         });
 
@@ -287,7 +281,6 @@ export class MapPage implements OnInit {
 
     this.map.on('trigger_initial_search_changed').subscribe((params: any[]) => {
       this.translate.get('FINDING_MTGS').subscribe(value => {
-        console.log('3. Translated text = ', value);
         this.presentLoader(value);
       });
       const mapPositionTarget: ILatLng = this.map.getCameraTarget();

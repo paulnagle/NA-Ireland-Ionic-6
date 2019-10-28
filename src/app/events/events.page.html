@@ -12,7 +12,7 @@
 <ion-content>
   <ion-card *ngFor="let post of eventsData">
     <ion-card-header>
-      <ion-card-subtitle>NA Ireland</ion-card-subtitle>
+      <ion-card-subtitle>{{ 'HOME_TITLE' | translate}}</ion-card-subtitle>
       <ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -22,7 +22,7 @@
       <ion-col text-right>
         <ion-button color="primary" (click)="openLink(post.link)">
           <ion-ripple-effect></ion-ripple-effect>
-          More details...
+          {{ 'EVENTS.MOREDETAILS' | translate}}
         </ion-button>
       </ion-col>
     </ion-row>

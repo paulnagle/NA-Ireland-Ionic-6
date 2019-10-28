@@ -76,6 +76,22 @@
     "NOVEMBER":  "November",
     "DECEMBER":  "December",
     "CANCEL": "Cancel",
-    "DONE": "Done"
+    "DONE": "Done",
 
+    "CONTACT.LOADING": "Loading..",
+    "CONTACT.DETAILS": "NA Ireland Contact Details",
+    "CONTACT.APPDETAILS": "App Details",
+    "CONTACT.APPSOURCE": "App source code",
+    "CONTACT.REPORTBUG": "Report a bug",
+    "CONTACT.MOREBMLT": "Find out more about the BMLT system",
+    "CONTACT.JOINFACE": "Join the BMLT facebook group",
+    "CONTACT.VISITWEB": "Visit the BMLT website",
+    "CONTACT.NAWSAPP": "NAWS Meeting Search App",
+    "CONTACT.NAWSBLURB": "The NAWS Meeting Search app also contains details of phone and internet meetings",
+
+    "EVENTS.MOREDETAILS": "More details...",
+
+    "GROUP.COUNTY": "County",
+    "GROUP.AREA": "Area",
+    "GROUP.GROUPBY": "Group by"
 }

@@ -4,10 +4,10 @@
 /** Ionic CSS Variables **/
 :root {
   --ion-background-color: #ffffff;
-  
+
 ion-card {
     --background: #eeeeee;
-    --color: #ffffff;    
+    --color: #ffffff;
     border: 1px solid #4c8dff;
 }
 
@@ -29,19 +29,19 @@ ion-card-content {
 
 ion-item {
     --background: #eeeeee;
-    --color: #3880ff;
+    --color: #009;
 }
 
 ion-menu ion-item {
-  --background: #ffffff;  
+  --background: #ffffff;
 }
 
 .icon-inner {
-  --color: #3880ff; 
+  --color: #3880ff;
 }
 
   /** primary **/
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #009;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
@@ -160,7 +160,7 @@ ion-menu ion-item {
   --ion-color-saturday-contrast-rgb: 0,0,0;
   --ion-color-saturday-shade: #65dc6a;
   --ion-color-saturday-tint: #81fb86;
-  
+
 }
 
 .ion-color-sunday {
@@ -225,4 +225,3 @@ ion-menu ion-item {
   --ion-color-shade: var(--ion-color-saturday-shade) !important;
   --ion-color-tint: var(--ion-color-saturday-tint) !important;
 }
-

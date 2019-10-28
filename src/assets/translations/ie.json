@@ -76,5 +76,23 @@
     "NOVEMBER":  "Samhain",
     "DECEMBER":  "Nollag",
     "CANCEL": "Stad",
-    "DONE": "Deanta"
+    "DONE": "Deanta",
+
+    "CONTACT.LOADING": "Ag lódáil..",
+    "CONTACT.DETAILS": "NA na hEireann sonraí teagmhála",
+    "CONTACT.APPDETAILS": "Sonraí",
+    "CONTACT.APPSOURCE": "Cód foinse",
+    "CONTACT.REPORTBUG": "Fadhb a thuairisciú",
+    "CONTACT.MOREBMLT": "Faigh tuilleadh eolais faoin gcóras BMLT",
+    "CONTACT.JOINFACE": "Bí ar an ngrúpa facebook BMLT",
+    "CONTACT.VISITWEB": "Téigh go dtí suíomh gréasáin BMLT",
+    "CONTACT.NAWSAPP": "NAWS Meeting Search App",
+    "CONTACT.NAWSBLURB": "Tá sonraí ar chruinnithe teileafóin agus idirlín ag aip Cuardaigh Cruinnithe NAWS freisin",
+
+    "EVENTS.MOREDETAILS": "Níos mó sonraí...",
+
+    "GROUP.COUNTY": "Contae",
+    "GROUP.AREA": "Limistéar",
+    "GROUP.GROUPBY": "Socraigh le"
+
 }

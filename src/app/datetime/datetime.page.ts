@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
-import { Config } from '@ionic/angular';
 
 @Component({
   selector: 'app-datetime',
@@ -39,8 +38,7 @@ export class DatetimePage implements OnInit {
 
   constructor(
     private storage: Storage,
-    private translate: TranslateService,
-    private config: Config
+    private translate: TranslateService
   ) { }
 
   getCleanTime() {
@@ -214,7 +212,7 @@ export class DatetimePage implements OnInit {
         this.monthShortNames.push(value2);
         this.translate.get('MAR').subscribe(value3 => {
           this.monthShortNames.push(value3);
-          this.translate.get('AP').subscribe(value4 => {
+          this.translate.get('APR').subscribe(value4 => {
             this.monthShortNames.push(value4);
             this.translate.get('MAYS').subscribe(value5 => {
               this.monthShortNames.push(value5);
@@ -246,11 +244,11 @@ export class DatetimePage implements OnInit {
     });
     console.log(this.monthShortNames);
 
-    this.translate.get('cancelText').subscribe(value => {
+    this.translate.get('CANCEL').subscribe(value => {
       this.cancelText = value;
     });
 
-    this.translate.get('doneText').subscribe(value => {
+    this.translate.get('DONE').subscribe(value => {
       this.doneText = value;
     });
   }
