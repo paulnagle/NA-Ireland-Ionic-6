@@ -60,6 +60,14 @@
               </ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
+
+            <div *ngIf="group2.isTempClosed === 'TEMPCLOSED'">
+              <ion-chip  color="danger">
+                <ion-label>Temporarily closed</ion-label>
+                <ion-icon name="close"></ion-icon>
+              </ion-chip>
+            </div>
+
               <div *ngIf="group2.location_text">{{group2.location_text}}<br></div>
               <div *ngIf="group2.location_street">{{group2.location_street}}<br></div>
               <div *ngIf="group2.location_city_subsection">{{group2.location_city_subsection}}<br></div>
@@ -76,10 +84,28 @@
               <div *ngIf="group2.bus_lines">{{'BUS' | translate}} : {{group2.bus_lines  }}<br></div>
               <div *ngIf="group2.formats"><i>{{'FORMATS' | translate}} : {{group2.formats  }}</i><br></div>
               <br>
-              <ion-button expand="block" (click)="openMapsLink(group2.latitude , group2.longitude)">
-                <ion-ripple-effect></ion-ripple-effect>
-                <ion-icon name="map" slot="start"> </ion-icon>{{'MAP' | translate}}
-              </ion-button>
+
+              <div *ngIf="!group2.virtual_meeting_link  || group2.isHybrid === 'HYBRID'">
+                <ion-button expand="block"  (click)="openMapsLink(group2.latitude , group2.longitude)">
+                  <ion-ripple-effect></ion-ripple-effect>
+                  <ion-icon name="map"> </ion-icon>&nbsp;{{'MAP' | translate}}
+                </ion-button>
+              </div>
+  
+              <div *ngIf="group2.virtual_meeting_link">
+                <ion-button expand="block"   (click)="openLink(group2.virtual_meeting_link)">
+                  <ion-ripple-effect></ion-ripple-effect>
+                  <ion-icon name="cloud"> </ion-icon>&nbsp;{{'VIRTUAL_LINK' | translate }}
+                </ion-button>
+              </div>
+
+              <div *ngIf="group2.phone_meeting_number">
+                <ion-button expand="block"  *ngIf="group2.phone_meeting_number" (click)="dialNum(group2.phone_meeting_number)">
+                  <ion-ripple-effect></ion-ripple-effect>
+                  <ion-icon name="call" > </ion-icon>&nbsp;{{'PHONE_MEETING' | translate }}
+                </ion-button> 
+              </div>
+
             </ion-card-content>
           </ion-card>
         </ion-list>
@@ -127,6 +153,14 @@
               </ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
+
+              <div *ngIf="group2.isTempClosed === 'TEMPCLOSED'">
+                <ion-chip  color="danger">
+                  <ion-label>Temporarily closed</ion-label>
+                  <ion-icon name="close"></ion-icon>
+                </ion-chip>
+              </div>
+
               <div *ngIf="group2.location_text">{{group2.location_text}}<br></div>
               <div *ngIf="group2.location_street">{{group2.location_street}}<br></div>
               <div *ngIf="group2.location_city_subsection">{{group2.location_city_subsection}}<br></div>
@@ -143,10 +177,28 @@
               <div *ngIf="group2.bus_lines">{{'BUS' | translate}} : {{group2.bus_lines  }}<br></div>
               <div *ngIf="group2.formats"><i>{{'FORMATS' | translate}} : {{group2.formats  }}</i><br></div>
               <br>
-              <ion-button expand="block" (click)="openMapsLink(group2.latitude , group2.longitude)">
-                <ion-ripple-effect></ion-ripple-effect>
-                <ion-icon name="map" slot="start"> </ion-icon>{{'MAP' | translate}}
-              </ion-button>
+
+              <div *ngIf="!group2.virtual_meeting_link  || group2.isHybrid === 'HYBRID'">
+                <ion-button expand="block" (click)="openMapsLink(group2.latitude , group2.longitude)">
+                  <ion-ripple-effect></ion-ripple-effect>
+                  <ion-icon name="map"> </ion-icon>&nbsp;{{'MAP' | translate}}
+                </ion-button>
+              </div>
+  
+              <div *ngIf="group2.virtual_meeting_link">
+                <ion-button expand="block" (click)="openLink(group2.virtual_meeting_link)">
+                  <ion-ripple-effect></ion-ripple-effect>
+                  <ion-icon name="cloud"> </ion-icon>&nbsp;{{'VIRTUAL_LINK' | translate }}
+                </ion-button>
+              </div>
+
+              <div *ngIf="group2.virtual_meeting_link">
+                <ion-button expand="block" *ngIf="group2.phone_meeting_number" (click)="dialNum(group2.phone_meeting_number)">
+                  <ion-ripple-effect></ion-ripple-effect>
+                  <ion-icon name="call" > </ion-icon>&nbsp;{{'PHONE_MEETING' | translate }}
+                </ion-button> 
+              </div>
+
             </ion-card-content>
           </ion-card>
         </ion-list>

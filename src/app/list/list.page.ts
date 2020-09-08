@@ -51,6 +51,15 @@ export class ListPage implements OnInit {
     window.open('https://www.google.com/maps/search/?api=1&query=' + destLatitude + ',' + destLongitude, '_system');
   }
 
+  public openLink(url) {
+    window.open(url, '_system');
+  }
+
+  public dialNum(url) {
+    const telUrl = 'tel:' + url;
+    window.open(telUrl, '_system');
+  }
+
   getServiceGroupNames() {
     this.ServiceGroupsProvider.getAllServiceGroups().subscribe((serviceGroupData) => {
       this.serviceGroupNames = serviceGroupData;
@@ -67,6 +76,8 @@ export class ListPage implements OnInit {
     this.MeetingListProvider.getMeetingsSortedByDay().subscribe((data) => {
       this.meetingList = data;
       this.meetingList = this.meetingList.filter(meeting => meeting.service_body_bigint = this.getServiceNameFromID(meeting.service_body_bigint));
+      this.meetingList = this.meetingList.filter(meeting => meeting.isHybrid = this.isHybrid(meeting));
+      this.meetingList = this.meetingList.filter(meeting => meeting.isTempClosed = this.isTempClosed(meeting));
       this.meetingList = this.meetingList.filter(meeting => meeting.start_time = this.convertTo12Hr(meeting.start_time));
 
       this.meetingListArea = this.meetingList.concat();
@@ -134,6 +145,22 @@ export class ListPage implements OnInit {
       return timeString;
     } else {
       return timeString.slice(0, -3);
+    }
+  }
+
+  isHybrid(meeting) {
+    if (meeting.formats.match(/HY/i)) {
+      return 'HYBRID';
+    } else {
+      return 'NOT-HYBRID';
+    }
+  }
+
+  isTempClosed(meeting) {
+    if (meeting.formats.match(/TC/i) || meeting.formats.match(/C19/i)) {
+      return 'TEMPCLOSED';
+    } else {
+      return 'NOT-TEMPCLOSED';
     }
   }
 

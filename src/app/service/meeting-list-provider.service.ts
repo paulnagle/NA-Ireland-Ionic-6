@@ -27,7 +27,7 @@ export class MeetingListProviderService {
       + '?switcher=GetSearchResults&geo_width_km='
       + radius + '&long_val='
       + long + '&lat_val='
-      + lat + '&sort_keys=longitude,latitude&callingApp=na-italia.org';
+      + lat + '&sort_keys=longitude,latitude&callingApp=na-ireland-ionic';
 
     return this.http.get(getApiUrlCircleMap);
   }
@@ -45,7 +45,7 @@ export class MeetingListProviderService {
       + long
       + '&lat_val='
       + lat
-      + '&sort_keys=longitude,latitude&callingApp=ionic-bmltapp';
+      + '&sort_keys=longitude,latitude&callingApp=na-ireland-ionic';
     return this.http.get(getAutoRadiusMeetingsURL);
   }
 
@@ -59,7 +59,7 @@ export class MeetingListProviderService {
       + long
       + '&lat_val='
       + lat
-      + '&sort_keys=longitude,latitude&callingApp=ionic-bmltapp';
+      + '&sort_keys=longitude,latitude&callingApp=na-ireland-ionic';
     return this.http.get(getRadiusMeetingsURL);
   }
 
@@ -72,7 +72,7 @@ export class MeetingListProviderService {
       + long
       + '&lat_val='
       + lat
-      + '&sort_keys=longitude,latitude&callingApp=ionic-bmltapp';
+      + '&sort_keys=longitude,latitude&callingApp=na-ireland-ionic';
     return this.http.get(getAddressMeetingsURL);
   }
 
@@ -84,7 +84,7 @@ export class MeetingListProviderService {
       + long
       + '&lat_val='
       + lat
-      + '&sort_keys=longitude,latitude&callingApp=ionic-bmltapp';
+      + '&sort_keys=longitude,latitude&callingApp=na-ireland-ionic';
     return this.http.get(getAddressMeetingsURL);
   }
 
@@ -92,7 +92,7 @@ export class MeetingListProviderService {
     const getMeetingsByAreaURL: string = this.tomatoBMLT
       + '?switcher=GetSearchResults&services='
       + areaID
-      + '&sort_keys=weekday_tinyint,start_time&callingApp=ionic-bmltapp';
+      + '&sort_keys=weekday_tinyint,start_time&callingApp=na-ireland-ionic';
     return this.http.get(getMeetingsByAreaURL);
   }
 

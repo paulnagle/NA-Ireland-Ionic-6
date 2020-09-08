@@ -45,6 +45,14 @@
       </ion-card-header>
 
       <ion-card-content>
+
+        <div *ngIf="isTempClosed(meeting)">
+          <ion-chip  color="danger">
+            <ion-label>Temporarily closed</ion-label>
+            <ion-icon name="close"></ion-icon>
+          </ion-chip>
+        </div>
+
         <div *ngIf="meeting.location_text">{{meeting.location_text}}<br></div>
         <div *ngIf="meeting.location_street">{{meeting.location_street}}<br></div>
         <div *ngIf="meeting.location_city_subsection">{{meeting.location_city_subsection}}<br></div>
@@ -61,10 +69,26 @@
         <div *ngIf="meeting.bus_lines">{{'BUS' | translate}} : {{meeting.bus_lines  }}<br></div>
         <div *ngIf="meeting.formats"><i>{{'FORMATS' | translate}} : {{meeting.formats  }}</i><br></div>
 
-        <ion-button expand="block" (click)="openMapsLink(meeting.latitude , meeting.longitude)">
-          <ion-ripple-effect></ion-ripple-effect>
-          <ion-icon name="map" slot="start"> </ion-icon>{{'MAP' | translate}}
-        </ion-button>
+        <div *ngIf="!meeting.virtual_meeting_link || isHybrid(meeting)">
+          <ion-button expand="block" (click)="openMapsLink(v.latitude , meeting.longitude)">
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-icon name="map"> </ion-icon>&nbsp;{{'MAP' | translate}}
+          </ion-button>
+        </div>
+
+        <div *ngIf="meeting.virtual_meeting_link">
+          <ion-button expand="block" (click)="openLink(meeting.virtual_meeting_link)">
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-icon name="cloud"> </ion-icon>&nbsp;{{'VIRTUAL_LINK' | translate }}
+          </ion-button>
+        </div>
+
+        <div *ngIf="meeting.virtual_meeting_link">
+          <ion-button expand="block" *ngIf="meeting.phone_meeting_number" (click)="dialNum(meeting.phone_meeting_number)">
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-icon name="call" > </ion-icon>&nbsp;{{'PHONE_MEETING' | translate }}
+          </ion-button> 
+        </div>
 
       </ion-card-content>
     </ion-card>
