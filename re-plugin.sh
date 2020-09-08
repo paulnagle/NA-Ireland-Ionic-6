@@ -19,6 +19,7 @@ then
     ionic cordova plugin rm com-badrit-base64
     ionic cordova plugin rm cordova-plugin-insomnia
     ionic cordova plugin rm onesignal-cordova-plugin
+    ionic cordova plugin rm cordova-plugin-ionic-webview
 
     rm -rf platform/*
 
@@ -36,6 +37,7 @@ then
     ionic cordova plugin add com-badrit-base64
     ionic cordova plugin add cordova-plugin-insomnia
     ionic cordova plugin add onesignal-cordova-plugin
+    ionic cordova plugin add cordova-plugin-ionic-webview@latest
 fi
 
 ionic cordova prepare ios --prod

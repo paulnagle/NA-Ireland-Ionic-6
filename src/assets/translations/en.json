@@ -93,5 +93,8 @@
 
     "GROUP.COUNTY": "County",
     "GROUP.AREA": "Area",
-    "GROUP.GROUPBY": "Group by"
+    "GROUP.GROUPBY": "Group by",
+
+    "VIRTUAL_LINK": "Click to join online meeting",
+    "PHONE_MEETING": "Click to phone into meeting"
 }

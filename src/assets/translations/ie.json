@@ -93,6 +93,9 @@
 
     "GROUP.COUNTY": "Contae",
     "GROUP.AREA": "Limistéar",
-    "GROUP.GROUPBY": "Socraigh le"
+    "GROUP.GROUPBY": "Socraigh le",
+
+    "VIRTUAL_LINK": "Click to join online meeting",
+    "PHONE_MEETING": "Click to phone into meeting"
 
 }

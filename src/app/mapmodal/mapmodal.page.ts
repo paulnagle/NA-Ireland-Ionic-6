@@ -47,5 +47,29 @@ export class MapmodalPage implements OnInit {
     window.open('https://www.google.com/maps/search/?api=1&query=' + destLatitude + ',' + destLongitude + ')', '_system');
   }
 
+  public openLink(url) {
+    window.open(url, '_system');
+  }
+
+  public dialNum(url) {
+    const telUrl = 'tel:' + url;
+    window.open(telUrl, '_system');
+  }
+
+  isHybrid(meeting) {
+    if (meeting.formats.match(/HY/i)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isTempClosed(meeting) {
+    if (meeting.formats.match(/TC/i) || meeting.formats.match(/C19/i)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }
