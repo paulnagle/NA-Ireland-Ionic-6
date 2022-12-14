@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{'EVENTS' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let post of eventsData">
+    <ion-card-header>
+      <ion-card-subtitle>{{ 'HOME_TITLE' | translate}}</ion-card-subtitle>
+      <ion-card-title [innerHTML]="post.title.rendered"></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div [innerHTML]="post.excerpt.rendered"></div>
+    </ion-card-content>
+    <ion-row>
+      <ion-col text-right>
+        <ion-button color="primary" (click)="openLink(post.link)">
+          <ion-ripple-effect></ion-ripple-effect>
+          {{ 'EVENTS.MOREDETAILS' | translate}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

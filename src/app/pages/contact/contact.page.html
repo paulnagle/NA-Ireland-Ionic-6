@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{'CONTACT' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1> {{ 'CONTACT.DETAILS' | translate }} </h1>
+
+  <ion-list *ngFor="let detail of serviceGroupNames">
+    <ion-card>
+      <ion-card-content>
+
+        <ion-card-title>{{detail.name}}</ion-card-title>
+
+        <ion-list no-padding>
+          <div *ngIf="detail.url">
+            <ion-item text-wrap>
+              <ion-icon name="globe" slot="start"></ion-icon>
+              <ion-button (click)='openLink(detail.url)'>
+                <ion-ripple-effect></ion-ripple-effect>
+                {{detail.url}}
+              </ion-button>
+            </ion-item>
+          </div>
+
+          <div *ngIf="detail.helpline">
+            <ion-item text-wrap>
+              <ion-ripple-effect></ion-ripple-effect>
+              <ion-icon name="call" slot="start"></ion-icon>
+              <a href="tel:{{detail.helpline}}">{{detail.helpline}} </a>
+            </ion-item>
+          </div>
+
+          <div *ngIf="detail.contact_email">
+            <ion-item text-wrap>
+              <ion-ripple-effect></ion-ripple-effect>
+              <ion-icon name="mail" slot="start"></ion-icon>
+              <a href="mailto:{{detail.contact_email}}">{{detail.contact_email}} </a>
+            </ion-item>
+          </div>
+
+          <div *ngIf="detail.description">
+            <ion-item text-wrap>
+              <ion-icon name="information-circle" slot="start"></ion-icon>
+              {{detail.description}}
+            </ion-item>
+          </div>
+
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <br>
+  <h1> {{ 'CONTACT.APPDETAILS' | translate }} </h1>
+  <br>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>{{ 'CONTACT.APPSOURCE' | translate }}</ion-card-title>
+      <ion-item text-wrap>
+        <ion-icon name="globe" slot="start"></ion-icon>
+        <ion-button small (click)='openLink(sourceCodeLink)'>https://github.com</ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>{{ 'CONTACT.REPORTBUG' | translate }}</ion-card-title>
+      <ion-item text-wrap>
+        <ion-icon name="globe" slot="start"></ion-icon>
+        <ion-button small (click)='openLink(sourceBugs)'>https://github.com</ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>{{ 'CONTACT.MOREBMLT' | translate }}</ion-card-title>
+      <ion-list no-padding>
+        <ion-item text-wrap>
+          <ion-icon name="logo-facebook" slot="start"></ion-icon>
+          <ion-button small (click)="openLink(fbGroupLink)">
+            <ion-icon name="logo-facebook" slot="start"></ion-icon>{{ 'CONTACT.JOINFACE' | translate }}
+          </ion-button>
+        </ion-item>
+        <ion-item text-wrap>
+          <ion-icon name="globe" slot="start"></ion-icon>
+          <ion-button small (click)="openLink(bmltLink)">
+            <ion-icon name="globe" slot="start"></ion-icon>{{ 'CONTACT.VISITWEB' | translate }}
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>{{ 'CONTACT.NAWSAPP' | translate }}</ion-card-title>
+      <p> {{ 'CONTACT.NAWSBLURB' | translate }} </p>
+      <ion-list no-padding>
+        <ion-item text-wrap>
+          <ion-icon name="logo-apple" slot="start"></ion-icon>
+          <ion-button small (click)="openLink(naMeetingSearchAppIOS)">
+            <ion-icon name="logo-apple" slot="start"></ion-icon>Apple Store
+          </ion-button>
+        </ion-item>
+        <ion-item text-wrap>
+          <ion-icon name="logo-android" slot="start"></ion-icon>
+          <ion-button small (click)="openLink(naMeetingSearchAppANDROID)">
+            <ion-icon name="logo-android" slot="start"></ion-icon>Google Store
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

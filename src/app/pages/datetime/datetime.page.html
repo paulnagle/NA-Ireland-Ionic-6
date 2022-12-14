@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{'DATETIME' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label>{{'ENTERCLEANDATE' | translate}} </ion-label>
+    </ion-item>
+    <ion-item>
+    <ion-datetime
+      displayFormat="DD MMM YYYY"
+      display-timezone="utc"
+      max="{{maxDisplayDate}}"
+      presentation="date"
+      [cancelText]="cancelText"
+      [doneText]="doneText"
+      [(ngModel)]="myDate"
+      (ionChange)=getCleanTime()>
+    </ion-datetime>
+  </ion-item>
+
+  <ion-card *ngIf="cleanHumanized">
+    <ion-card-content>
+      <h1>{{ cleanHumanized.years}} {{ 'YEARS' | translate}}, {{ cleanHumanized.months }}  {{'MONTHS' | translate }}, {{ cleanHumanized.days }} {{ 'DAYS' | translate}}</h1>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="tag != 'none'">
+    <ion-card>
+      <ion-card-header>{{'BIRTHDAY' | translate}}</ion-card-header>
+      <ion-card-content>
+        <h1>{{ tagTime }} {{ tag | translate }}</h1>
+        <ion-img [src]='keytagImage'></ion-img>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>
