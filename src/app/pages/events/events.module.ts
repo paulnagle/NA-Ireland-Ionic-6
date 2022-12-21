@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { WordpressService } from '../../services/wordpress.service';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @NgModule({
   imports: [
@@ -22,6 +23,8 @@ import { WordpressService } from '../../services/wordpress.service';
   providers: [
     StorageService,
     HTTP,
-    WordpressService]
+    WordpressService,
+    InAppBrowser
+  ]
 })
 export class EventsPageModule {}

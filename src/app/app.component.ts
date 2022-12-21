@@ -16,7 +16,7 @@ export class AppComponent {
     { title: 'HOME', url: '/home', icon: 'home' },
     { title: 'SETTINGS', url: '/settings', icon: 'settings' },
     { title: 'MEETINGLIST', url: '/list', icon: 'list' },
-    { title: 'GOOGLE_MAPS', url: '/map', icon: 'map' },
+    { title: 'GOOGLE_MAPS', url: '/map-search', icon: 'map' },
     { title: 'JUSTFORTODAY', url: '/jft', icon: 'book' },
     { title: 'DATETIME', url: '/datetime', icon: 'stopwatch' },
     { title: 'SPEAKERS', url: '/speakers', icon: 'mic' },
@@ -45,9 +45,9 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.statusBar.overlaysWebView(false);
       this.statusBar.styleDefault();
       this.statusBar.backgroundColorByHexString('#ffffff');
-      this.statusBar.overlaysWebView(false);
       this.splashScreen.hide();
     });
   }

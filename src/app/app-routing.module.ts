@@ -13,10 +13,10 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule) },
   { path: 'jft', loadChildren: () => import('./pages/jft/jft.module').then( m => m.JftPageModule) },
   { path: 'list', loadChildren: () => import('./pages/list/list.module').then( m => m.ListPageModule) },
-  { path: 'map', loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule) },
-  { path: 'mapmodal', loadChildren: () => import('./pages/mapmodal/mapmodal.module').then( m => m.MapmodalPageModule) },
   { path: 'speakers', loadChildren: () => import('./pages/speakers/speakers.module').then( m => m.SpeakersPageModule) },
-  { path: 'settings', loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule) }
+  { path: 'settings', loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule) },
+  { path: 'map-search', loadChildren: () => import('./pages/map-search/map-search.module').then( m => m.MapSearchPageModule) },
+  { path: 'modal', loadChildren: () => import('./pages/modal/modal.module').then( m => m.ModalPageModule) }
 ];
 
 @NgModule({

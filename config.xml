@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ie.nasouth.apple" version="6.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="ie.nasouth.apple" version="6.1.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>NA Ireland</name>
     <description>NA Ireland</description>
     <author email="info@na-ireland.org" href="https://www.na-ireland.org/">NA Ireland</author>
@@ -18,6 +18,7 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
+    <preference name="android-compileSdkVersion" value="32" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDwPqrrBYFrtCIJ0IUL81tiIVwYJqUMKCw" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyA7ddO5YUH8xukCrGiabEjZdPmm3HmPG-0" />
     <platform name="android">
@@ -102,6 +103,12 @@
         <splash height="1242" src="resources/ios/splash/Default-Landscape-2688h~iphone.png" width="2688" />
         <splash height="1792" src="resources/ios/splash/Default-1792h~iphone.png" width="828" />
         <splash height="828" src="resources/ios/splash/Default-Landscape-1792h~iphone.png" width="1792" />
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+            <string>We use your location to determine your distance from NA meetings.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysAndWhenInUseUsageDescription">
+            <string>We use your location to determine your distance from NA meetings.</string>
+        </edit-config>
     </platform>
     <plugin name="cordova-plugin-device" spec="2.0.2" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />

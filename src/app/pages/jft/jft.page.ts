@@ -25,13 +25,14 @@ export class JftPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadingCtrl.present('Getting today\'s Just For Today');
     this.jft = this.getJFT();
   }
   
   getJFT() {
     this.JftProvider.getEnglishJFT().then((data) => {
       this.jft = data;
-      // this.loadingCtrl.dismiss();
+      this.loadingCtrl.dismiss();
     });
   }
 

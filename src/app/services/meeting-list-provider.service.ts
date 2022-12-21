@@ -10,6 +10,7 @@ export class MeetingListProviderService {
   meetings: any;
   irelandBMLT = environment.irelandBMLT;
   tomatoBMLT = environment.tomatoBMLT;
+  tomatoIrelandBMLT = environment.tomatoIrelandBMLT;
 
   constructor(public http: HttpClient) {
     console.log('Hello MeetingListProvider Provider');
@@ -20,6 +21,10 @@ export class MeetingListProviderService {
 
   getMeetings() {
     return this.http.get(this.getApiUrlMap);
+  }
+
+  getAllMeetings() {
+    return this.http.get(this.getApiUrlDay);
   }
 
   getCircleMeetings(lat: string, long: string, radius: string) {
@@ -53,12 +58,9 @@ export class MeetingListProviderService {
     const getRadiusMeetingsURL: string = this.tomatoBMLT
       + '?switcher=GetSearchResults'
       + '&data_field_key=longitude,latitude,id_bigint'
-      + '&geo_width_km='
-      + radius
-      + '&long_val='
-      + long
-      + '&lat_val='
-      + lat
+      + '&geo_width_km=' + radius
+      + '&long_val=' + long
+      + '&lat_val=' + lat
       + '&sort_keys=longitude,latitude&callingApp=na-ireland-ionic';
     return this.http.get(getRadiusMeetingsURL);
   }
@@ -89,11 +91,23 @@ export class MeetingListProviderService {
   }
 
   getMeetingsByAreaProvider(areaID: string) {
-    const getMeetingsByAreaURL: string = this.tomatoBMLT
+    const getMeetingsByAreaURL: string = this.irelandBMLT
       + '?switcher=GetSearchResults&services='
       + areaID
       + '&sort_keys=weekday_tinyint,start_time&callingApp=na-ireland-ionic';
     return this.http.get(getMeetingsByAreaURL);
+  }
+
+  getCounties() {
+    const getCountiesURL: string = this.irelandBMLT
+      + '?switcher=GetSearchResults&services[]=1&services[]=3&services[]=5&services[]=2&services[]=4&data_field_key=location_sub_province&sort_keys=location_sub_province';
+    return this.http.get(getCountiesURL);
+  }
+
+  getMeetingsByCountyProvider(countyName: string) {
+    const getCountyMeetingsURL: string = this.irelandBMLT
+      + '?switcher=GetSearchResults&services[]=1&services[]=3&services[]=5&services[]=2&services[]=4&data_field_key=location_sub_province&sort_keys=location_sub_province';
+    return this.http.get(getCountyMeetingsURL);
   }
 
   getSingleMeetingByID(id: string) {
@@ -103,4 +117,7 @@ export class MeetingListProviderService {
     return this.http.get(getSingleMeetingByIDURL);
   }
 
+    getIrishTomatoMeetings() {
+      return this.http.get(this.tomatoIrelandBMLT);
+    }
 }

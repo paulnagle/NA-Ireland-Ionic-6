@@ -21,7 +21,8 @@ add_plugins() {
     ionic cordova plugin add cordova-plugin-splashscreen
     ionic cordova plugin add cordova-plugin-statusbar
     # ionic cordova plugin add cordova-plugin-googlemaps
-    ionic cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps.git#0b8ea76ad34fb2a202a9de1b9d0e051a82ad9443
+    ionic cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps
+    # ionic cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps.git#0b8ea76ad34fb2a202a9de1b9d0e051a82ad9443
     ionic cordova plugin add com-badrit-base64
     ionic cordova plugin add cordova-plugin-ionic-webview
     ionic cordova plugin add cordova-plugin-inappbrowser
@@ -117,11 +118,11 @@ build_for() {
     red_text ">>>> Building for ${PLATFORM}"
     install_npm_deps
     red_text ">>>> ionic cordova platform add ${PLATFORM} --confirm --no-interactive"
-    if [[ ${PLATFORM} == "android" ]]; then
-        ionic cordova platform add android@11 --confirm --no-interactive 
-    else
+    # if [[ ${PLATFORM} == "android" ]]; then
+    #     ionic cordova platform add android@11 --confirm --no-interactive 
+    # else
         ionic cordova platform add "${PLATFORM}" --confirm --no-interactive
-    fi
+    # fi
     red_text ">>>> add_plugins"
     add_plugins
     if [[ "${PLATFORM}" != "browser" ]]; then 

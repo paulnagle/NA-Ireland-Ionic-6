@@ -2,10 +2,10 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { firstBy } from 'thenby';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
-import { VirtFormatsProvider } from '../../providers/virt-formats.service';
-import { TomatoFormatsService } from '../../providers/tomato-formats.service';
-import { MeetingListProvider } from '../../providers/meeting-list.service';
-import { LoadingService } from 'src/app/providers/loading.service';
+import { VirtFormatsProvider } from '../../services/virt-formats.service';
+import { FormatsService } from '../../services/formats.service';
+import { MeetingListProviderService } from '../../services/meeting-list-provider.service';
+import { LoadingService } from '../../services/loading.service';
 import * as moment from 'moment';
 import 'moment-timezone';
 
@@ -47,8 +47,8 @@ export class MeetingListComponent implements OnInit, OnChanges {
     private storage: Storage,
     private translate: TranslateService,
     private virtFormatsProvider: VirtFormatsProvider,
-    private meetingListProvider: MeetingListProvider,
-    private tomatoFormatsService: TomatoFormatsService,
+    private meetingListProvider: MeetingListProviderService,
+    private formatsService: FormatsService,
     private loaderCtrl: LoadingService
     ) { }
 
@@ -68,18 +68,9 @@ export class MeetingListComponent implements OnInit, OnChanges {
     this.meetingList = this.data;
     this.localMeetingType = this.meetingType;
 
-    if (this.localMeetingType === 'virt') {
-      // Get the formats
-      this.virtFormatsProvider.getAllVirtFormats().then((serviceGroupData) => {
-        this.formats = serviceGroupData;
-        this.formatMeetingList();
-      });
-    } else {
-      this.formatMeetingList();
-    }
+    this.formatMeetingList();
 
   }
-
 
   formatMeetingList() {
     for (let i = 0; i < 7; i++) {
@@ -97,8 +88,8 @@ export class MeetingListComponent implements OnInit, OnChanges {
     }
   }
 
-
   explodeFormats() {
+    console.log("localMeetingType = " + this.localMeetingType);
     if (this.localMeetingType === 'virt') {
 
       for (let i of this.meetingListGroupedByDay) {
@@ -115,7 +106,8 @@ export class MeetingListComponent implements OnInit, OnChanges {
       }
     } else {
       if (this.localMeetingType === 'regular') {
-        this.tomatoFormatsService.setExplodedFormatsOnMeetingList(this.meetingListGroupedByDay, this.formatLanguage);
+        console.log("Calling setExplodedFormatsOnMeetingList");
+        this.formatsService.setExplodedFormatsOnMeetingList(this.meetingListGroupedByDay, this.formatLanguage);
       }
     }
   }
@@ -296,7 +288,6 @@ export class MeetingListComponent implements OnInit, OnChanges {
       this.loader = this.loaderCtrl.present(loaderText);
     }
   }
-
 
   public dismissLoader() {
     if (this.loader) {

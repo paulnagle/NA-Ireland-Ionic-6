@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
+import { HTTP } from '@awesome-cordova-plugins/http/ngx';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AudioService {
 
-  constructor() { }
+  constructor(public http: HTTP) {
+  }
+
+  async getConventions() {
+    const speakersApiUrl = environment.speakersApiUrl;
+    const data = await this.http.get(speakersApiUrl, {}, {});
+
+    return JSON.parse(data.data);
+  }
 }

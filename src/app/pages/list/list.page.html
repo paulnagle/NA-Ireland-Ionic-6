@@ -1,214 +1,40 @@
 <ion-header>
   <ion-toolbar>
+
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      {{'LIST' | translate}}
-    </ion-title>
+
+    <div *ngIf="countyName != '' ; else BMLT_List">
+      <ion-title>{{ countyName }}</ion-title>
+      <ion-button color="primary" slot="end" size="small" (click)="showCountyStructure()">Back</ion-button>
+    </div>
+
+    <ng-template #BMLT_List>
+      <ion-title>
+        {{'MEETINGLIST' | translate}}
+      </ion-title>
+    </ng-template>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content no-padding>
 
-  <ion-item>
-    <ion-label>{{'GROUP.GROUPBY' | translate}}</ion-label>
-    <ion-select [(ngModel)]="HTMLGrouping">
-      <ion-select-option value="city" selected="true">{{'GROUP.COUNTY' | translate}} </ion-select-option>
-      <ion-select-option value="area">{{'GROUP.AREA' | translate}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <div *ngIf="HTMLGrouping == 'counties'">
+    <div *ngFor="let L1 of uniqueCounties; let i = index">
 
-  <div *ngIf="HTMLGrouping == 'area'">
-    <div *ngFor="let group1 of meetingListArea; let i = index" (click)="toggleGroup(i)"
-      [ngClass]="{active: isGroupShown(i)}">
-      <ion-item-divider sticky="true" color="primary">
-        <h3>{{ group1[0].service_body_bigint }}</h3>
-        <ion-icon color="light" slot="end"
-          [name]="isGroupShown(i) ? 'arrow-down-circle-outline' : 'arrow-forward-circle-outline'"></ion-icon>
+      <ion-item-divider sticky="true" (click)="getMeetingsByCounty(L1)" color="primary">
+        <h3>{{ L1 }}</h3>
+        <ion-icon size="large" color="secondary" slot="end" name="play"></ion-icon>
       </ion-item-divider>
-      <div *ngIf="isGroupShown(i)">
-        <ion-list *ngFor="let group2 of group1; let j = index">
-          <ion-card text-wrap>
-            <ion-card-header>
-              <ion-card-title>{{group2.meeting_name}}</ion-card-title>
-              <ion-card-subtitle no-padding>
-                <div ngSwitch="{{ group2.weekday_tinyint }}">
-                  <div *ngSwitchCase="'1'" [ngClass]="'one'">
-                    <ion-badge color="sunday"><b>{{'SUNDAY' | translate}} {{ group2.start_time }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'2'" [ngClass]="'one'">
-                    <ion-badge color="monday"><b>{{'MONDAY' | translate}} {{ group2.start_time }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'3'" [ngClass]="'one'">
-                    <ion-badge color="tuesday"><b>{{'TUESDAY' | translate}} {{ group2.start_time }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'4'" [ngClass]="'one'">
-                    <ion-badge color="wednesday"><b>{{'WEDNESDAY' | translate}} {{ group2.start_time }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'5'" [ngClass]="'one'">
-                    <ion-badge color="thursday"><b>{{'THURSDAY' | translate}} {{ group2.start_time }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'6'" [ngClass]="'one'">
-                    <ion-badge color="friday"><b>{{'FRIDAY' | translate}} {{ group2.start_time }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'7'" [ngClass]="'one'">
-                    <ion-badge color="saturday"><b>{{'SATURDAY' | translate}} {{ group2.start_time }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchDefault>Nothing Found.</div>
-                </div>
-              </ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-
-            <div *ngIf="group2.isTempClosed === 'TEMPCLOSED'">
-              <ion-chip  color="danger">
-                <ion-label>Temporarily closed</ion-label>
-                <ion-icon name="close"></ion-icon>
-              </ion-chip>
-            </div>
-
-              <div *ngIf="group2.location_text">{{group2.location_text}}<br></div>
-              <div *ngIf="group2.location_street">{{group2.location_street}}<br></div>
-              <div *ngIf="group2.location_city_subsection">{{group2.location_city_subsection}}<br></div>
-              <div *ngIf="group2.location_neighbourhood">{{group2.location_neighbourhood}}<br></div>
-              <div *ngIf="group2.location_municipality">{{group2.location_municipality}}<br></div>
-              <div *ngIf="group2.location_sub_province">{{group2.location_sub_province}}<br></div>
-              <div *ngIf="group2.location_province">{{group2.location_province}}<br></div>
-              <div *ngIf="group2.location_code_1">{{group2.location_code_1}}<br></div>
-              <div *ngIf="group2.location_info">{{group2.location_info}}<br></div>
-              <div *ngIf="group2.comments">{{group2.comments}}<br></div>
-              <div *ngIf="group2.contact_phone_1">{{group2.contact_phone_1  }}<br></div>
-              <div *ngIf="group2.contact_email_1">{{group2.contact_email_1  }}<br></div>
-              <div *ngIf="group2.train_lines">{{'TRAIN' | translate}} : {{group2.train_lines  }}<br></div>
-              <div *ngIf="group2.bus_lines">{{'BUS' | translate}} : {{group2.bus_lines  }}<br></div>
-              <div *ngIf="group2.formats"><i>{{'FORMATS' | translate}} : {{group2.formats  }}</i><br></div>
-              <br>
-
-              <div *ngIf="!group2.virtual_meeting_link  || group2.isHybrid === 'HYBRID'">
-                <ion-button expand="block"  (click)="openMapsLink(group2.latitude , group2.longitude)">
-                  <ion-ripple-effect></ion-ripple-effect>
-                  <ion-icon name="map"> </ion-icon>&nbsp;{{'MAP' | translate}}
-                </ion-button>
-              </div>
-  
-              <div *ngIf="group2.virtual_meeting_link">
-                <ion-button expand="block"   (click)="openLink(group2.virtual_meeting_link)">
-                  <ion-ripple-effect></ion-ripple-effect>
-                  <ion-icon name="cloud"> </ion-icon>&nbsp;{{'VIRTUAL_LINK' | translate }}
-                </ion-button>
-              </div>
-
-              <div *ngIf="group2.phone_meeting_number">
-                <ion-button expand="block"  *ngIf="group2.phone_meeting_number" (click)="dialNum(group2.phone_meeting_number)">
-                  <ion-ripple-effect></ion-ripple-effect>
-                  <ion-icon name="call" > </ion-icon>&nbsp;{{'PHONE_MEETING' | translate }}
-                </ion-button> 
-              </div>
-
-            </ion-card-content>
-          </ion-card>
-        </ion-list>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="HTMLGrouping == 'city'">
-    <div *ngFor="let group1 of meetingListCity; let i = index" (click)="toggleGroup(i)"
-      [ngClass]="{active: isGroupShown(i)}">
-      <ion-item-divider sticky="true" color="primary">
-        <div *ngIf=group1[0].location_sub_province>
-          <h3>{{ group1[0].location_sub_province }}</h3>
-        </div>
-        <div *ngIf=!group1[0].location_sub_province>
-          <h3>Virtual Meetings</h3>
-        </div>
-        <ion-icon color="light" slot="end"
-          [name]="isGroupShown(i) ?  'arrow-down-circle-outline' : 'arrow-forward-circle-outline'"></ion-icon>
-      </ion-item-divider>
-      <div *ngIf="isGroupShown(i)">
-        <ion-list *ngFor="let group2 of group1; let j = index">
-          <ion-card text-wrap>
-            <ion-card-header>
-              <ion-card-title>{{group2.meeting_name}}</ion-card-title>
-              <ion-card-subtitle no-padding>
-                <div ngSwitch="{{ group2.weekday_tinyint }}">
-                  <div *ngSwitchCase="'1'" [ngClass]="'one'">
-                    <ion-badge color="sunday"><b>Sunday {{ group2.start_time | slice:0:5 }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'2'" [ngClass]="'one'">
-                    <ion-badge color="monday"><b>Monday {{ group2.start_time | slice:0:5 }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'3'" [ngClass]="'one'">
-                    <ion-badge color="tuesday"><b>Tuesday {{ group2.start_time | slice:0:5 }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'4'" [ngClass]="'one'">
-                    <ion-badge color="wednesday"><b>Wednesday {{ group2.start_time | slice:0:5 }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'5'" [ngClass]="'one'">
-                    <ion-badge color="thursday"><b>Thursday {{ group2.start_time | slice:0:5 }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'6'" [ngClass]="'one'">
-                    <ion-badge color="friday"><b>Friday {{ group2.start_time | slice:0:5 }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchCase="'7'" [ngClass]="'one'">
-                    <ion-badge color="saturday"><b>Saturday {{ group2.start_time | slice:0:5 }} </b></ion-badge>
-                  </div>
-                  <div *ngSwitchDefault>Nothing Found.</div>
-                </div>
-              </ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-
-              <div *ngIf="group2.isTempClosed === 'TEMPCLOSED'">
-                <ion-chip  color="danger">
-                  <ion-label>Temporarily closed</ion-label>
-                  <ion-icon name="close"></ion-icon>
-                </ion-chip>
-              </div>
-
-              <div *ngIf="group2.location_text">{{group2.location_text}}<br></div>
-              <div *ngIf="group2.location_street">{{group2.location_street}}<br></div>
-              <div *ngIf="group2.location_city_subsection">{{group2.location_city_subsection}}<br></div>
-              <div *ngIf="group2.location_neighbourhood">{{group2.location_neighbourhood}}<br></div>
-              <div *ngIf="group2.location_municipality">{{group2.location_municipality}}<br></div>
-              <div *ngIf="group2.location_sub_province">{{group2.location_sub_province}}<br></div>
-              <div *ngIf="group2.location_province">{{group2.location_province}}<br></div>
-              <div *ngIf="group2.location_code_1">{{group2.location_code_1}}<br></div>
-              <div *ngIf="group2.location_info">{{group2.location_info}}<br></div>
-              <div *ngIf="group2.comments">{{group2.comments}}<br></div>
-              <div *ngIf="group2.contact_phone_1">{{group2.contact_phone_1  }}<br></div>
-              <div *ngIf="group2.contact_email_1">{{group2.contact_email_1  }}<br></div>
-              <div *ngIf="group2.train_lines">{{'TRAIN' | translate}} : {{group2.train_lines  }}<br></div>
-              <div *ngIf="group2.bus_lines">{{'BUS' | translate}} : {{group2.bus_lines  }}<br></div>
-              <div *ngIf="group2.formats"><i>{{'FORMATS' | translate}} : {{group2.formats  }}</i><br></div>
-              <br>
-
-              <div *ngIf="!group2.virtual_meeting_link  || group2.isHybrid === 'HYBRID'">
-                <ion-button expand="block" (click)="openMapsLink(group2.latitude , group2.longitude)">
-                  <ion-ripple-effect></ion-ripple-effect>
-                  <ion-icon name="map"> </ion-icon>&nbsp;{{'MAP' | translate}}
-                </ion-button>
-              </div>
-  
-              <div *ngIf="group2.virtual_meeting_link">
-                <ion-button expand="block" (click)="openLink(group2.virtual_meeting_link)">
-                  <ion-ripple-effect></ion-ripple-effect>
-                  <ion-icon name="cloud"> </ion-icon>&nbsp;{{'VIRTUAL_LINK' | translate }}
-                </ion-button>
-              </div>
-
-              <div *ngIf="group2.virtual_meeting_link">
-                <ion-button expand="block" *ngIf="group2.phone_meeting_number" (click)="dialNum(group2.phone_meeting_number)">
-                  <ion-ripple-effect></ion-ripple-effect>
-                  <ion-icon name="call" > </ion-icon>&nbsp;{{'PHONE_MEETING' | translate }}
-                </ion-button> 
-              </div>
-
-            </ion-card-content>
-          </ion-card>
-        </ion-list>
-      </div>
     </div>
   </div>
 
+  <div *ngIf="HTMLGrouping == 'meetings'">
+    <div *ngIf = "isLoaded">
+      <app-meeting-list [data]="meetingListCounty" meetingType='regular'></app-meeting-list>
+    </div>
+  </div>
+  
 </ion-content>

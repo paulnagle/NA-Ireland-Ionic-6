@@ -2,16 +2,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ListPageRoutingModule } from './list-routing.module';
-import { ListPage } from  './list.page';
+import { MapSearchPageRoutingModule } from './map-search-routing.module';
+import { MapSearchPage } from './map-search.page';
 import { TranslateModule } from '@ngx-translate/core';
+import { Base64 } from '@ionic-native/base64/ngx';
+import { ModalPage } from '../modal/modal.page';
+import { Routes } from '@angular/router';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { MeetingListProviderService } from '../../services/meeting-list-provider.service';
-import { ServiceGroupsProviderService } from '../../services/service-groups-provider.service';
-import { PipesModule } from 'src/app/pipes/pipes.module';
 import { ComponentModule } from '../../components/component/component.module';
-import { HTTP } from '@awesome-cordova-plugins/http/ngx';
-import { StorageService } from '../../services/storage.service';
+import { StorageService } from '../../services/storage.service'; 
+
+const routes: Routes = [
+  {
+    path: '',
+    component: MapSearchPage
+  }
+];
 
 @NgModule({
   imports: [
@@ -19,19 +26,21 @@ import { StorageService } from '../../services/storage.service';
     FormsModule,
     IonicModule,
     TranslateModule,
-    PipesModule,
-    ListPageRoutingModule,
+    MapSearchPageRoutingModule,
     ComponentModule
   ],
   declarations: [
-    ListPage
+    MapSearchPage,
+    ModalPage
+  ],
+  entryComponents: [
+    ModalPage
   ],
   providers: [
+    Base64,
     InAppBrowser,
     MeetingListProviderService,
-    ServiceGroupsProviderService,
-    HTTP,
     StorageService
   ]
 })
-export class ListPageModule {}
+export class MapSearchPageModule {}
