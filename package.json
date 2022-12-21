@@ -13,18 +13,18 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "~13.2.2",
-    "@angular/core": "~13.2.2",
-    "@angular/forms": "~13.2.2",
-    "@angular/platform-browser": "~13.2.2",
-    "@angular/platform-browser-dynamic": "~13.2.2",
-    "@angular/router": "~13.2.2",
-    "@awesome-cordova-plugins/http": "^5.46.0",
-    "@awesome-cordova-plugins/in-app-browser": "^5.46.0",
-    "@awesome-cordova-plugins/insomnia": "^5.46.0",
-    "@awesome-cordova-plugins/ionic-webview": "^5.46.0",
-    "@awesome-cordova-plugins/splash-screen": "^5.46.0",
-    "@awesome-cordova-plugins/status-bar": "^5.46.0",
+    "@angular/common": "~15.0.4",
+    "@angular/core": "~15.0.4",
+    "@angular/forms": "~15.0.4",
+    "@angular/platform-browser": "~15.0.4",
+    "@angular/platform-browser-dynamic": "~15.0.4",
+    "@angular/router": "~15.0.4",
+    "@awesome-cordova-plugins/http": "^6.2.0",
+    "@awesome-cordova-plugins/in-app-browser": "^6.2.0",
+    "@awesome-cordova-plugins/insomnia": "^6.2.0",
+    "@awesome-cordova-plugins/ionic-webview": "^6.2.0",
+    "@awesome-cordova-plugins/splash-screen": "^6.2.0",
+    "@awesome-cordova-plugins/status-bar": "^6.2.0",
     "@ionic-native/base64": "^5.36.0",
     "@ionic-native/google-maps": "^5.5.0",
     "@ionic/angular": "^6.4.0",
@@ -42,15 +42,15 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^13.3.10",
-    "@angular-eslint/builder": "~13.0.1",
-    "@angular-eslint/eslint-plugin": "~13.0.1",
-    "@angular-eslint/eslint-plugin-template": "~13.0.1",
-    "@angular-eslint/template-parser": "~13.0.1",
-    "@angular/cli": "~13.2.3",
-    "@angular/compiler": "~13.2.2",
-    "@angular/compiler-cli": "~13.2.2",
-    "@angular/language-service": "~13.2.2",
+    "@angular-devkit/build-angular": "^15.0.0",
+    "@angular-eslint/builder": "^15.0.0",
+    "@angular-eslint/eslint-plugin": "^15.0.0",
+    "@angular-eslint/eslint-plugin-template": "^15.0.0",
+    "@angular-eslint/template-parser": "^15.0.0",
+    "@angular/cli": "^15.0.0",
+    "@angular/compiler": "^15.0.0",
+    "@angular/compiler-cli": "^15.0.0",
+    "@angular/language-service": "^15.0.0",
     "@ionic/angular-toolkit": "^6.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
@@ -86,7 +86,7 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
-    "typescript": "~4.4.4"
+    "typescript": "~4.8.2"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -96,16 +96,11 @@
       "cordova-plugin-geolocation": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-googlemaps": {
-        "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
-        "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
-      },
+      "cordova-plugin-googlemaps": {},
       "com-badrit-base64": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-advanced-http": {
-        "ANDROIDBLACKLISTSECURESOCKETPROTOCOLS": "SSLv3,TLSv1"
-      },
+      "cordova-plugin-advanced-http": {},
       "cordova-plugin-insomnia": {}
     },
     "platforms": [
