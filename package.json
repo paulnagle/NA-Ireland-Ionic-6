@@ -58,8 +58,8 @@
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
     "com-badrit-base64": "^0.2.0",
+    "cordova-android": "^10.1.2",
     "cordova-androidx-build": "^1.0.4",
-    "cordova-ios": "^6.2.0",
     "cordova-plugin-advanced-http": "^3.3.1",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-file": "^7.0.0",
@@ -96,10 +96,7 @@
       "cordova-plugin-geolocation": {},
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-googlemaps": {
-        "LOCATION_WHEN_IN_USE_DESCRIPTION": "This app wants to get your location while this app runs only.",
-        "LOCATION_ALWAYS_USAGE_DESCRIPTION": "This app wants to get your location always, even this app runs in background."
-      },
+      "cordova-plugin-googlemaps": {},
       "com-badrit-base64": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-inappbrowser": {},
@@ -109,7 +106,7 @@
       "cordova-plugin-insomnia": {}
     },
     "platforms": [
-      "ios"
+      "android"
     ]
   }
 }

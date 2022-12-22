@@ -19,6 +19,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="android-compileSdkVersion" value="32" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDwPqrrBYFrtCIJ0IUL81tiIVwYJqUMKCw" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyA7ddO5YUH8xukCrGiabEjZdPmm3HmPG-0" />
     <platform name="android">
