@@ -71,7 +71,7 @@
     "cordova-plugin-insomnia": "^4.3.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^5.0.0",
-    "cordova-plugin-splashscreen": "^6.0.2",
+    "cordova-plugin-splashscreen": "^1.0.0",
     "cordova-plugin-statusbar": "^3.0.0",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "2.22.1",
@@ -94,7 +94,7 @@
     "plugins": {
       "cordova-plugin-device": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-splashscreen": {},
+      "org.apache.cordova.splashscreen": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-googlemaps": {},
       "com-badrit-base64": {},
@@ -107,8 +107,6 @@
       "cordova-plugin-androidx": {},
       "cordova-plugin-androidx-adapter": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }
