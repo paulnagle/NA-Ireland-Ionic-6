@@ -1,22 +1,27 @@
 <ion-header>
-  <ion-toolbar>
+
+  <ion-toolbar color="primary">
 
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <div *ngIf="countyName != '' ; else BMLT_List">
-      <ion-title>{{ countyName }}</ion-title>
-      <ion-button color="primary" slot="end" size="small" (click)="showCountyStructure()">Back</ion-button>
+    <div *ngIf="countyName != ''; else BMLT_List">
+      <ion-buttons slot="end">
+        <ion-button color="secondary" size="small" (click)="showCountyStructure()">Back</ion-button>
+      </ion-buttons>
     </div>
 
     <ng-template #BMLT_List>
+
       <ion-title>
         {{'MEETINGLIST' | translate}}
       </ion-title>
+
     </ng-template>
 
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content no-padding>
@@ -38,3 +43,11 @@
   </div>
   
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div *ngIf="countyName != ''">
+      <ion-title>{{ countyName }}</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-footer>

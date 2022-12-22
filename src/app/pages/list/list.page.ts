@@ -7,6 +7,7 @@ import { MeetingListProviderService } from '../../services/meeting-list-provider
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { firstBy } from 'thenby';
 
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.page.html',
@@ -47,7 +48,14 @@ export class ListPage {
         this.meetingListArea = JSON.parse('[]');
       } else {
         this.meetingListCounties = data;
+        console.log(this.meetingListCounties);
         this.isLoaded = true;
+        for (let i = 0; i < this.meetingListCounties.length; i++) {
+          if (this.meetingListCounties[i].location_sub_province == "") {
+            console.log("Found a virt mtg");
+            this.meetingListCounties[i].location_sub_province = "Online";
+          }
+        }
         this.uniqueCounties =( [...new Set(this.meetingListCounties.map(({location_sub_province})=>location_sub_province))]);
       }
       this.dismissLoader();
@@ -65,7 +73,11 @@ export class ListPage {
         this.meetingListCounty = JSON.parse('[]');
       } else {
         this.meetingListCounty = data;
-        this.meetingListCounty = this.meetingListCounty.filter(meeting => meeting.location_sub_province == countyName);
+        if (countyName == "Online") {
+          this.meetingListCounty = this.meetingListCounty.filter(meeting => meeting.location_sub_province == "");
+        } else {
+          this.meetingListCounty = this.meetingListCounty.filter(meeting => meeting.location_sub_province == countyName);
+        }
         this.isLoaded = true;
       }
       this.dismissLoader();

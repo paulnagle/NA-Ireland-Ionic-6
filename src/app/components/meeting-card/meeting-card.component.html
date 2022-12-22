@@ -94,11 +94,10 @@
       </ion-button>
     </div>
 
-    <div *ngIf="meeting.virtual_meeting_link">
-      <ion-button expand="block" *ngIf="meeting.phone_meeting_number" (click)="dialNum(meeting.phone_meeting_number)">
-        <ion-ripple-effect></ion-ripple-effect>
-        <ion-icon name="call" > </ion-icon>&nbsp;{{'PHONE_MEETING' | translate }}
-      </ion-button> 
+    <div *ngIf="meeting.phone_meeting_number">
+        <a href="tel:{{meeting.phone_meeting_number}}" class="button button-outline button-positive">
+          <ion-icon name="call" > </ion-icon>&nbsp;{{'PHONE_MEETING' | translate }}
+        </a>
     </div>
 
   </ion-card-content>

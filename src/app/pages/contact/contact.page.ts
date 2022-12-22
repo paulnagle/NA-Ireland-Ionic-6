@@ -16,8 +16,8 @@ export class ContactPage implements OnInit {
   serviceGroupNames: any;
   loadingText;
 
-  sourceCodeLink = 'https://github.com/paulnagle/NA-Ireland-Ionic-4';
-  sourceBugs = 'https://github.com/paulnagle/NA-Ireland-Ionic-4/issues';
+  sourceCodeLink = 'https://github.com/paulnagle/NA-Ireland-Ionic-6';
+  sourceBugs = 'https://github.com/paulnagle/NA-Ireland-Ionic-6/issues';
   bmltLink = 'https://bmlt.app/';
   fbGroupLink = 'https://www.facebook.com/groups/149214049107349/';
   naMeetingSearchAppIOS = 'https://apps.apple.com/us/app/na-meeting-search/id627643748';

@@ -35,7 +35,8 @@ export class MeetingCardComponent implements OnInit, AfterContentInit {
 
   public dialNum(url) {
     const telUrl = 'tel:' + url;
-    const browser = this.iab.create(telUrl, '_system');
+    window.open(telUrl);
+    // const browser = this.iab.create(telUrl, '_system');
   }
 
   isHybrid(meeting) {
