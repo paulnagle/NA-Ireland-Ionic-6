@@ -21,14 +21,16 @@ add_plugins() {
     ionic cordova plugin add cordova-plugin-splashscreen
     ionic cordova plugin add cordova-plugin-statusbar
     # ionic cordova plugin add cordova-plugin-googlemaps
-    ionic cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps
-    # ionic cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps.git#0b8ea76ad34fb2a202a9de1b9d0e051a82ad9443
+    # ionic cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps#multiple_maps
+    ionic cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps.git#0b8ea76ad34fb2a202a9de1b9d0e051a82ad9443
+    # ionic cordova plugin add https://github.com/mapsplugin/cordova-plugin-googlemaps.git#918eb5a1bfce9595e922b3ad2442ff81cb9a0fa0
     ionic cordova plugin add com-badrit-base64
     ionic cordova plugin add cordova-plugin-ionic-webview
     ionic cordova plugin add cordova-plugin-inappbrowser
-    ionic cordova plugin add cordova-plugin-geolocation
     ionic cordova plugin add cordova-plugin-advanced-http
     ionic cordova plugin add cordova-plugin-insomnia
+    ionic cordova plugin add cordova-plugin-androidx
+    ionic cordova plugin add cordova-plugin-androidx-adapter
 
 }
 
@@ -68,7 +70,6 @@ install_npm_deps() {
         @ionic-native/google-maps \
         @ionic-native/base64 \
         @awesome-cordova-plugins/in-app-browser \
-        @awesome-cordova-plugins/geolocation  \
         @awesome-cordova-plugins/http  \
         @awesome-cordova-plugins/splash-screen \
         @awesome-cordova-plugins/status-bar \
@@ -91,23 +92,26 @@ clean_old_build() {
     ionic cordova platform rm browser
 
     red_text "!! Removing cordova plugins"
-
     ionic cordova plugin rm cordova-plugin-inappbrowser
     ionic cordova plugin rm cordova-plugin-splashscreen
     ionic cordova plugin rm cordova-plugin-statusbar
-
     ionic cordova plugin rm cordova-plugin-googlemaps
     ionic cordova plugin rm cordova-plugin-advanced-http
     ionic cordova plugin rm com-badrit-base64
     ionic cordova plugin rm cordova-plugin-ionic-webview
     ionic cordova plugin rm cordova-plugin-insomnia
+    ionic cordova plugin rm cordova-plugin-androidx
+    ionic cordova plugin rm cordova-plugin-androidx-adapter
 
     red_text "!! Deleting platform folder"
     rm -rf platform
+
     red_text "!! Deleting node_module folder"
     rm -rf node_modules
+
     red_text "!! Deleting plugins folder"
     rm -rf plugins
+
     red_text "!! Deleting www folder"
     rm -rf www
 }
@@ -117,6 +121,7 @@ build_for() {
 
     red_text ">>>> Building for ${PLATFORM}"
     install_npm_deps
+
     red_text ">>>> ionic cordova platform add ${PLATFORM} --confirm --no-interactive"
     # if [[ ${PLATFORM} == "android" ]]; then
     #     ionic cordova platform add android@11 --confirm --no-interactive 
