@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-packageName="ie.nasouth.android.naireland" ios-CFBundleIdentifier="ie.nasouth.apple" version="77776.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-packageName="ie.nasouth.android.naireland" ios-CFBundleIdentifier="ie.nasouth.apple" version="77776.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>NA Ireland</name>
     <description>NA Ireland</description>
     <author email="info@na-ireland.org" href="https://www.na-ireland.org/">NA Ireland</author>
@@ -20,7 +20,6 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="android-targetSdkVersion" value="32" />
     <preference name="android-compileSdkVersion" value="32" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="GOOGLE_MAPS_ANDROID_API_KEY" value="AIzaSyDwPqrrBYFrtCIJ0IUL81tiIVwYJqUMKCw" />
     <preference name="GOOGLE_MAPS_IOS_API_KEY" value="AIzaSyA7ddO5YUH8xukCrGiabEjZdPmm3HmPG-0" />
     <platform name="android">
@@ -60,6 +59,7 @@
         <splash density="port-xhdpi" src="resources/android/splash/drawable-port-xhdpi-screen.png" />
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
+        <preference name="StatusBarOverlaysWebView" value="false" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -123,6 +123,7 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysAndWhenInUseUsageDescription">
             <string>We use your location to determine your distance from NA meetings.</string>
         </edit-config>
+        <preference name="StatusBarOverlaysWebView" value="true" />
     </platform>
     <plugin name="cordova-plugin-device" spec="2.0.2" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
