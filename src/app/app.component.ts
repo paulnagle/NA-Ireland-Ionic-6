@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx'
-import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { StorageService } from './services/storage.service'
 
 @Component({
@@ -45,8 +45,7 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.statusBar.overlaysWebView(false);
+      this.statusBar.backgroundColorByName("blue");
       this.splashScreen.hide();
     });
   }

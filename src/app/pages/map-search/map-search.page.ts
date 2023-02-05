@@ -20,7 +20,7 @@ export class MapSearchPage implements OnInit {
 
   meetingList: any = [];
   loader = null;
-  zoom = 8;
+  zoom = 14;
   mapLatitude: any = 34.2359855;
   mapLongitude: any = -118.5656689;
 
@@ -28,10 +28,10 @@ export class MapSearchPage implements OnInit {
   eagerMapLng: number;
 
   origLocation = { lat: 51.899, lng: -8.474 };
-  origZoom = 10;
+  origZoom = 14;
 
   targLocation = { lat: 51.899, lng: -8.474 };
-  targZoom = 10;
+  targZoom = 14;
 
   formattedAddress = '';
 
@@ -188,7 +188,13 @@ export class MapSearchPage implements OnInit {
           lat: this.mapLatitude,
           lng: this.mapLongitude
         },
-        zoom: 8
+        zoom: 12
+      },
+      preferences: {
+        zoom: {
+            minZoom: 12,
+            maxZoom: 22
+        }
       }
     };
 

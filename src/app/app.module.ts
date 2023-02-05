@@ -11,7 +11,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { SplashScreen } from '@awesome-cordova-plugins/splash-screen/ngx';
-import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { StorageService } from './services/storage.service';
 
