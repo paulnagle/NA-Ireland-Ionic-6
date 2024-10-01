@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+
+
+  <div *ngIf="HTMLGrouping == 'counties'">
+    <div *ngFor="let county of county_list">
+      <ion-item-divider sticky="true" (click)="getMeetingsByCounty(county)" color="primary">
+        <h3>{{ county }}</h3>
+        <ion-icon size="large" color="secondary" slot="end" name="play"></ion-icon>
+      </ion-item-divider>
+    </div>
+  </div>
+
+  <div *ngIf="HTMLGrouping == 'meetings'">
+    <div *ngIf = "isLoaded">
+      <app-meeting-list [data]="meetingListCounty" meetingType='regular'></app-meeting-list>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div *ngIf="areaName != ''">
+      <ion-title class="text-wrap">{{ areaName }}</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-footer>

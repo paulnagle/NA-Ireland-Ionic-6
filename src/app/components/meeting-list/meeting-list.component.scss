@@ -1,0 +1,24 @@
+.ion-1x { font-size: 15px !important;}
+ion-icon {
+    float: right;
+}
+
+ion-accordion.accordion-expanding,
+ion-accordion.accordion-expanded {
+  padding-top: 4px; 
+  padding-left: 4px; 
+  padding-right: 4px; 
+  padding-bottom: 4px;
+  border: 1px;
+  border-style: solid;
+  border-radius: 5px 5px 5px 5px;
+  border-color: var(--ion-color-primary);
+  ion-item[slot=header] {
+    border-radius: 5px 5px 5px 5px;
+    border-color: var(--ion-color-primary);
+  }
+}
+
+ion-list {
+  padding: 0px;
+}

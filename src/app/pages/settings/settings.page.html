@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{'SETTINGS' | translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list>
+
+    <ion-item>
+      <ion-select label="{{'LANGUAGE' | translate}}" aria-label="Language" [(ngModel)]="language" (ionChange)=selectLanguage() cancelText="{{'CANCEL' | translate}}">
+        <ion-select-option aria-label="English" value="en">English</ion-select-option>
+        <ion-select-option aria-label="Gaeilge" value="ie">Gaeilge</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="{{'TIMEDISPLAY' | translate}}" aria-label="Time" [(ngModel)]="timeDisplay" (ionChange)=selectTimeDisplay() cancelText="{{'CANCEL' | translate}}">
+        <ion-select-option aria-label="12hr" value="12hr">{{'12HR' | translate}}</ion-select-option>
+        <ion-select-option aria-label="24hr" value="24hr">{{'24HR' | translate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
+  </ion-list>
+
+</ion-content>

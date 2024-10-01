@@ -1,0 +1,59 @@
+<div *ngIf="isExpandAll() === false">
+  <ion-list>
+    <ion-item>
+      <ion-text>
+        <p class="ion-1x">&nbsp; {{ selectedDay | translate }} : {{ displayLower }} - {{ displayUpper }} </p>
+      </ion-text>
+    </ion-item>
+    <ion-item class="ion-1x">
+      <ion-select [(ngModel)]="selectedDay" (ionChange)=setDay() interface="popover" cancelText="{{'CANCEL' | translate}}">
+        <ion-select-option *ngFor="let selectedDay of days" [value]="selectedDay" >{{ selectedDay | translate }}</ion-select-option>
+      </ion-select>
+      <ion-range 
+        (ionKnobMoveEnd)=setHourRangeValues($event) 
+        dualKnobs="true" 
+        min="00" 
+        max="23" 
+        step="1" 
+        snaps="true" 
+        ticks="false"
+        pin="true" 
+        debounce="350"
+        [value]="{ lower:0, upper: 23 }">
+        <ion-icon size="small" slot="start" name="time-outline"></ion-icon>
+        <ion-icon size="start" slot="end" name="time-outline"></ion-icon>
+      </ion-range>
+    </ion-item>
+  </ion-list>
+</div>
+
+<ion-accordion-group  #accordionGroup>
+  <div *ngFor="let dailyList of meetingListGroupedByDay">
+    <ion-accordion  value="{{ dailyList[0].weekday_tinyint }}">
+      <ion-item slot="header" [color]="isToday(dailyList[0].weekday_tinyint) ? 'secondary' : 'primary'">
+      <div ngSwitch="{{ dailyList[0].weekday_tinyint }}">
+        <div *ngSwitchCase="'1'">
+          <ion-label>{{'SUNDAY' | translate}} ({{dayCount[0]}})</ion-label></div>
+        <div *ngSwitchCase="'2'">
+          <ion-label>{{'MONDAY' | translate}} ({{dayCount[1]}})</ion-label></div>
+        <div *ngSwitchCase="'3'">
+          <ion-label>{{'TUESDAY' | translate}} ({{dayCount[2]}})</ion-label></div>
+        <div *ngSwitchCase="'4'">
+          <ion-label>{{'WEDNESDAY' | translate}} ({{dayCount[3]}})</ion-label></div>
+        <div *ngSwitchCase="'5'">
+          <ion-label>{{'THURSDAY' | translate}} ({{dayCount[4]}})</ion-label></div>
+        <div *ngSwitchCase="'6'">
+          <ion-label>{{'FRIDAY' | translate}} ({{dayCount[5]}})</ion-label></div>
+        <div *ngSwitchCase="'7'">
+          <ion-label>{{'SATURDAY' | translate}} ({{dayCount[6]}})</ion-label></div>
+        <div *ngSwitchDefault>Nothing Found.</div>
+      </div>
+    </ion-item>
+    <div slot="content">
+      <ion-list *ngFor="let meeting of dailyList; let j = index">
+        <app-meeting-card [data]="meeting" MeetingType="{{ localMeetingType }}"></app-meeting-card>
+      </ion-list>
+    </div>
+  </ion-accordion>
+  </div>
+</ion-accordion-group>
