@@ -26,7 +26,7 @@ export class ListPage {
   county_list: any;
   meetingListArea: any = [];
   meetingListCounty: any = [];
-  countyName!: string;
+  countyName: string = '';
 
   constructor(
     private meetingListService: MeetingListService,
@@ -59,9 +59,7 @@ export class ListPage {
         }
         this.county_list=uniqueNames;
         Object.keys(this.county_list).forEach(k => this.county_list[k] = this.county_list[k] === '' ? 'Online' : this.county_list[k])
-        this.county_list.sort()
-        console.log("county_list :", uniqueNames);
- 
+        this.county_list.sort() 
         this.isLoaded = true;
       }
       this.dismissLoader();
@@ -72,10 +70,11 @@ export class ListPage {
   getMeetingsByCounty(countyName: string) {
     this.translate.get('FINDING_MTGS').subscribe(value => { this.presentLoader(value); });
     this.HTMLGrouping = 'meetings';
+    this.countyName = countyName;
     if (countyName == "Online") {
       countyName = "";
     }
-    console.log("countyName : ", countyName);
+
     this.meetingListService.getMeetingsByCounty(countyName).then((response: HttpResponse) => {
 
       if (JSON.stringify(response.data) === '{}') {  // empty result set!
@@ -90,7 +89,7 @@ export class ListPage {
         
         this.isLoaded = true;
       }
-      console.log(this.meetingListCounty)
+
       this.dismissLoader();
     });
   }
@@ -107,5 +106,12 @@ export class ListPage {
       this.loader = null;
     }
   }
+
+  showCountyStructure() {
+    this.HTMLGrouping = 'counties';
+    this.countyName = '';
+    // this.shownDay = null;
+  }
+
 
 }

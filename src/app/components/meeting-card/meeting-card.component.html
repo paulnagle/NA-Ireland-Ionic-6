@@ -59,7 +59,6 @@
       <div *ngIf="meeting.train_lines">{{'TRAIN' | translate}}: {{meeting.train_lines | tidyDelimiter }}<br></div>
       <div *ngIf="meeting.bus_lines">{{'BUS' | translate}}: {{meeting.bus_lines | tidyDelimiter }}<br></div>
     </div>
-    <div *ngIf="meeting.start_time_raw">start_time_raw : {{ meeting.start_time_raw }} </div>
 
     <div *ngIf="meeting.virtual_meeting_additional_info">{{meeting.virtual_meeting_additional_info}}<br></div>
     <div *ngIf="meeting.contact_phone_1">{{meeting.contact_phone_1.replace('Tel.#@-@#','') }}<br></div>

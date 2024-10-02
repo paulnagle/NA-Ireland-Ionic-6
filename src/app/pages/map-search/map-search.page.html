@@ -1,13 +1,23 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>map-search</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{'GOOGLE_MAPS' | translate}}
+    </ion-title>
   </ion-toolbar>
+  <ion-searchbar class="ion-no-padding" color="primary" placeholder="Tertiary" [debounce]="250" (ionInput)="updateSearchResults($event)" placeholder="search">
+  </ion-searchbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">map-search</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-list class="ion-no-padding" [hidden]="autocompleteItems.length == 0">
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+      {{ item.description }}
+    </ion-item>
+  </ion-list>
+
+  <capacitor-google-map id='map'></capacitor-google-map>
+
 </ion-content>
