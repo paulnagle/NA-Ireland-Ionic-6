@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingService } from '../../services/loading.service';
+import { JftService } from '../../services/jft.service';
+import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-jft',
@@ -7,9 +11,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JftPage implements OnInit {
 
-  constructor() { }
+  jft!: any;
+  englishjft!: any;
+  loader = null;
+  headers = null;
+  loadingText!: any;
+
+  constructor(
+    public loadingCtrl: LoadingService,
+    public JftProvider: JftService,
+    private translate: TranslateService,
+    private storage: StorageService
+  ) { }
 
   ngOnInit() {
+    this.loadingCtrl.present('Getting today\'s Just For Today');
+    this.jft = this.getJFT();
+  }
+  
+  getJFT() {
+    this.JftProvider.getEnglishJFT().then((data) => {
+      this.jft = data;
+      this.loadingCtrl.dismiss();
+    });
   }
 
 }

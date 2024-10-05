@@ -5,11 +5,13 @@
     </ion-buttons>
     <div *ngIf="countyName != ''; else BMLT_List">
       <ion-buttons slot="end">
-        <ion-button size="small" (click)="showCountyStructure()">
-          <ion-icon size="large" color="secondary" slot="start" name="caret-back-outline"></ion-icon>
-          <ion-title>Back to list</ion-title>
+        <ion-button (click)="showCountyStructure()">
+          <ion-icon size="large"  slot="start" name="caret-back-outline"></ion-icon>
+          <h4 color="secondary"> Back to list</h4>
         </ion-button>
+
       </ion-buttons>
+
     </div>
     <ng-template #BMLT_List>
       <ion-title>
@@ -26,7 +28,7 @@
     <div *ngFor="let county of county_list">
       <ion-item-divider sticky="true" (click)="getMeetingsByCounty(county)" color="primary">
         <h3>{{ county }}</h3>
-        <ion-icon size="large" color="secondary" slot="end" name="play"></ion-icon>
+        <ion-icon size="large" slot="end" name="play"></ion-icon>
       </ion-item-divider>
     </div>
   </div>

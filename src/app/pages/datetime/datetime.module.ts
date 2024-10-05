@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { DatetimePageRoutingModule } from './datetime-routing.module';
 
 import { DatetimePage } from './datetime.page';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DatetimePageRoutingModule
+    DatetimePageRoutingModule,
+    TranslateModule
   ],
   declarations: [DatetimePage]
 })

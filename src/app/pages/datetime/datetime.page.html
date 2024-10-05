@@ -1,13 +1,50 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>datetime</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{'DATETIME' | translate}}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">datetime</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <ion-item>
+    <ion-label>{{'ENTERCLEANDATE' | translate}}-> </ion-label>
+    <ion-datetime-button datetime="datetime" locale="en-ie"></ion-datetime-button>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime 
+          id="datetime" 
+          presentation="date" 
+          locale="en-ie" 
+          max="{{maxDisplayDate}}"
+          [(ngModel)]="myDate"
+          (ionChange)=getCleanTime()></ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+  </ion-item>
+
+  <ion-card *ngIf="cleanHumanized">
+    <ion-card-content>
+      <h1>{{ cleanHumanized.years}} {{ 'YEARS' | translate}}, {{ cleanHumanized.months }}  {{'MONTHS' | translate }}, {{ cleanHumanized.days }} {{ 'DAYS' | translate}}</h1>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="tag != 'none'">
+    <ion-card>
+      <ion-card-header>{{'BIRTHDAY' | translate}}</ion-card-header>
+      <ion-card-content>
+        <h1>{{ tagTime }} {{ tag | translate }}</h1>
+        <ion-img [src]='keytagImage'></ion-img>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
 </ion-content>
+

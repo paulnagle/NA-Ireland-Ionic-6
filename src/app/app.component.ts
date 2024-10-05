@@ -34,7 +34,6 @@ export class AppComponent {
   }
   async initializeApp() {
     this.translate.setDefaultLang('en');
-
     await SplashScreen.hide();
 
     const langValue = await this.storage.get('language');
