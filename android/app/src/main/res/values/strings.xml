@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NA-Ireland-Ionic-6</string>
+    <string name="title_activity_main">NA-Ireland-Ionic-6</string>
+    <string name="package_name">ie.nasouth.apple</string>
+    <string name="custom_url_scheme">ie.nasouth.apple</string>
+</resources>

@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'ie.nasouth.apple',
-  appName: 'NA-Ireland-Ionic-6',
+  appId: 'ie.nasouth.android.naireland',
+  appName: 'NA Ireland',
   webDir: 'www',
   plugins: {
     CapacitorHttp: {
