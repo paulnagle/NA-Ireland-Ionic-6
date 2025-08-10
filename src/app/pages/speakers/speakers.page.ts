@@ -8,6 +8,7 @@ import { Browser } from '@capacitor/browser';
   selector: 'app-speakers',
   templateUrl: './speakers.page.html',
   styleUrls: ['./speakers.page.scss'],
+  standalone: false
 })
 export class SpeakersPage implements OnInit {
 

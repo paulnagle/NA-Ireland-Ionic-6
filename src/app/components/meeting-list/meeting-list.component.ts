@@ -15,6 +15,7 @@ import { RangeCustomEvent } from '@ionic/angular';
   selector: 'app-meeting-list',
   templateUrl: './meeting-list.component.html',
   styleUrls: ['./meeting-list.component.scss'],
+  standalone: false
 })
 export class MeetingListComponent implements OnInit, OnChanges {
 

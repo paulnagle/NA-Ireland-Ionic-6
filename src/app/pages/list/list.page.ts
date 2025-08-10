@@ -12,6 +12,7 @@ import * as _ from 'lodash';
   selector: 'app-list',
   templateUrl: './list.page.html',
   styleUrls: ['./list.page.scss'],
+  standalone: false
 })
 export class ListPage {
 

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
   selector: 'app-meeting-card',
   templateUrl: './meeting-card.component.html',
   styleUrls: ['./meeting-card.component.scss'],
+  standalone: false
 })
 export class MeetingCardComponent implements OnInit, AfterContentInit {
 

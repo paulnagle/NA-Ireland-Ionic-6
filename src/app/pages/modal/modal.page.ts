@@ -9,6 +9,7 @@ import { StorageService } from '../../services/storage.service';
   selector: 'app-modal',
   templateUrl: './modal.page.html',
   styleUrls: ['./modal.page.scss'],
+  standalone: false
 })
 export class ModalPage implements OnInit {
   text!: string;

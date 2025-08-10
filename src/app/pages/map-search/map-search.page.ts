@@ -15,6 +15,7 @@ declare const google: any;
   selector: 'app-map-search',
   templateUrl: './map-search.page.html',
   styleUrls: ['./map-search.page.scss'],
+  standalone: false
 })
 export class MapSearchPage implements OnDestroy {
 

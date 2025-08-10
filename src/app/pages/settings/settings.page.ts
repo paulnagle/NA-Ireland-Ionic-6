@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
+  standalone: false
 })
 export class SettingsPage implements OnInit {
 

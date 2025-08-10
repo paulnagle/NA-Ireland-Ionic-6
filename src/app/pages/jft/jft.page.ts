@@ -8,6 +8,7 @@ import { StorageService } from '../../services/storage.service';
   selector: 'app-jft',
   templateUrl: './jft.page.html',
   styleUrls: ['./jft.page.scss'],
+  standalone: false
 })
 export class JftPage implements OnInit {
 

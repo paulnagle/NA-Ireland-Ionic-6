@@ -8,6 +8,7 @@ import { Browser } from '@capacitor/browser';
   selector: 'app-events',
   templateUrl: './events.page.html',
   styleUrls: ['./events.page.scss'],
+  standalone: false
 })
 export class EventsPage implements OnInit {
 
