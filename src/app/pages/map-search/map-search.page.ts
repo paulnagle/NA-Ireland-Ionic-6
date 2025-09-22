@@ -11,12 +11,24 @@ import { GeocodeService } from '../../services/geocode.service';
 import { CameraConfig, CameraIdleCallbackData, LatLng, Point, Size } from '@capacitor/google-maps/dist/typings/definitions';
 
 declare const google: any;
+
+// Define our own interface to match what the API actually returns
+interface PlaceSuggestion {
+  description: string;
+  place_id: string;
+  structured_formatting?: {
+    main_text: string;
+    secondary_text: string;
+   };
+}
+
 @Component({
   selector: 'app-map-search',
   templateUrl: './map-search.page.html',
   styleUrls: ['./map-search.page.scss'],
   standalone: false
 })
+
 export class MapSearchPage implements OnDestroy {
 
   performSearch: boolean = true;
@@ -27,9 +39,8 @@ export class MapSearchPage implements OnDestroy {
   loader!: Promise<void> | Promise<boolean> | null;
   isLoaded = false;
 
-  GoogleAutocomplete!: { getPlacePredictions: (arg0: { input: any; }, arg1: (predictions: any, status: any) => void) => void; };
-  autocompleteItems: any[] = [];
-  autocomplete: { input: any; } = {input: ''};
+  autocompleteItems: PlaceSuggestion[] = [];
+  autocomplete: { input: string; } = {input: ''};
   language: string = 'en';
 
   mapRadius!: Number;
@@ -55,88 +66,44 @@ export class MapSearchPage implements OnDestroy {
     }
       
   ngOnDestroy() {
-    try {
-      if (this.map) {
-        this.map.removeAllMapListeners();
-        this.map.destroy();
-      }
-      this.currentMarkerIDs = [];
-      this.currentMarkerList = [];
-      this.currentMeetings = [];
-    } catch (error) {
-      console.error('Error in ngOnDestroy:', error);
-    }
+    this.map.removeAllMapListeners();
+    this.map.destroy();
+    this.currentMarkerIDs = [];
+    this.currentMarkerList = [];
+    this.currentMeetings = [];
+    // this.map = null;
   }
 
   async ionViewDidEnter() {
-    try {
-      console.log('ionViewDidEnter: Starting map initialization');
-      
-      // Check if Google Maps API is loaded
-      if (typeof google === 'undefined' || !google.maps || !google.maps.places) {
-        console.error('Google Maps API not loaded properly');
-        // Try to load Google Maps API dynamically
-        await this.loadGoogleMapsAPI();
-        return;
+    this.storage.get('language').then(langValue => {
+      if (langValue) {
+        this.language = langValue;
+        this.storage.get('savedAddressLat').then(value => {
+          if (value) {
+            this.addressLatitude = value;
+            this.storage.get('savedAddressLng').then(value => {
+              if (value) {
+                this.addressLongitude = value;
+                setTimeout(async () => {
+                  await this.createMap();
+                }, 500);
+              } else {
+                console.log('No saved location values found');
+              }
+            });
+          } else {
+            this.locatePhone();
+            setTimeout(async () => {
+              await this.createMap();
+            }, 500);
+          }
+        });
+      } else {
+        this.language = 'en';
+        setTimeout(async () => {
+          await this.createMap();
+        }, 500);
       }
-
-      console.log('Google Maps API is available');
-      this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
-
-      this.storage.get('language').then(langValue => {
-        if (langValue) {
-          this.language = langValue;
-          this.storage.get('savedAddressLat').then(value => {
-            if (value) {
-              this.addressLatitude = value;
-              this.storage.get('savedAddressLng').then(value => {
-                if (value) {
-                  this.addressLongitude = value;
-                  console.log('Using saved location:', this.addressLatitude, this.addressLongitude);
-                  setTimeout(async () => {
-                    await this.createMap();
-                  }, 500);
-                } else {
-                  console.log('No saved location values found');
-                }
-              });
-            } else {
-              this.locatePhone();
-              setTimeout(async () => {
-                await this.createMap();
-              }, 500);
-            }
-          });
-        } else {
-          this.language = 'en';
-          setTimeout(async () => {
-            await this.createMap();
-          }, 500);
-        }
-      });
-    } catch (error) {
-      console.error('Error initializing map search page:', error);
-    }
-  }
-
-  private async loadGoogleMapsAPI(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAtwUjsIB14f0aHgdLk_JYnUrI0jvczMXw&libraries=places,geometry`;
-      script.async = true;
-      script.defer = true;
-      
-      script.onload = () => {
-        console.log('Google Maps API loaded successfully');
-        resolve();
-      };
-      
-      script.onerror = () => {
-        console.error('Failed to load Google Maps API');
-        reject(new Error('Failed to load Google Maps API'));
-      };
-      
-      document.head.appendChild(script);
     });
   }
 
@@ -154,7 +121,7 @@ export class MapSearchPage implements OnDestroy {
     }).catch((error) => {
       console.log('Error getting location', error);
       this.dismissLoader();
-      
+
       // Set default location if geolocation fails
       this.addressLatitude = 53.3498; // Dublin coordinates
       this.addressLongitude = -6.2603;
@@ -163,111 +130,69 @@ export class MapSearchPage implements OnDestroy {
 
 
   async createMap(): Promise<void> {
-    try {
-      const mapRef: HTMLElement = document.getElementById('map')!;
-      
-      if (!mapRef) {
-        console.error('Map element not found');
-        return;
+    const mapRef: HTMLElement = document.getElementById('map')!;
+
+    let mapLatitude: any = 34.2359855;
+    let mapLongitude: any = -118.5656689;
+    if (this.addressLatitude) { mapLatitude = this.addressLatitude }
+    if (this.addressLongitude) { mapLongitude = this.addressLongitude}
+    let currentLatLng: LatLng = { lat: mapLatitude, lng: mapLongitude }
+
+    const mapArgs = {
+      id: 'google-map',
+      element: mapRef,
+      apiKey: 'AIzaSyAtwUjsIB14f0aHgdLk_JYnUrI0jvczMXw',
+      forceCreate: true,
+      language: this.language,
+      config: {
+        center: currentLatLng,
+        zoom: 8
       }
-
-      // Wait a bit for the element to be properly rendered on Android
-      await new Promise(resolve => setTimeout(resolve, 100));
-
-      let mapLatitude: any = 53.3498; // Default to Dublin
-      let mapLongitude: any = -6.2603;
-      if (this.addressLatitude) { mapLatitude = this.addressLatitude }
-      if (this.addressLongitude) { mapLongitude = this.addressLongitude}
-      let currentLatLng: LatLng = { lat: mapLatitude, lng: mapLongitude }
-
-      console.log('Creating map with coordinates:', currentLatLng);
-
-      const mapArgs = {
-        id: 'google-map',
-        element: mapRef,
-        apiKey: 'AIzaSyAtwUjsIB14f0aHgdLk_JYnUrI0jvczMXw',
-        forceCreate: true,
-        language: this.language,
-        config: {
-          center: currentLatLng,
-          zoom: 8,
-          minZoom: 8,
-          maxZoom: 20,
-          heading: 0,
-          disableDefaultUI: false,
-          zoomControl: true,
-          mapTypeId: 'roadmap'
-        }
-      }
-
-      console.log('Map args:', mapArgs);
-
-      await GoogleMap.create(mapArgs).then(map => {
-        console.log('Map created successfully');
-        this.map = map;
-
-        // Add a small delay before setting up listeners
-        setTimeout(() => {
-          this.map.setOnCameraIdleListener((event) => {
-            if (this.performSearch === false) {
-              this.performSearch = true;
-              return;
-            }
-            if (event.zoom <=7) {
-              let cameraConfig: CameraConfig = {zoom: 8}
-              this.map.setCamera(cameraConfig);
-              this.performSearch = false;
-              return;
-            }
-
-            this.translate.get('FINDING_MTGS').subscribe(value => {
-              this.presentLoader(value);
-            });
-
-            // Check if google.maps.geometry is available
-            if (typeof google !== 'undefined' && google.maps && google.maps.geometry) {
-              let mapRadiusMeters = google.maps.geometry.spherical.computeDistanceBetween(event.bounds.center,event.bounds.southwest);
-              this.mapRadius = Math.ceil(Number(mapRadiusMeters)/1000);
-            } else {
-              // Fallback calculation
-              this.mapRadius = 10; // Default 10km radius
-            }
-
-            if (this.currentMarkerIDs.length > 0) {
-              this.map.removeMarkers(this.currentMarkerIDs).then(result => {
-                this.currentMarkerIDs = []
-                this.map.disableClustering().then(clusteringDisabled => {
-                  this.getMeetings(event);
-                });
-              });
-            } else {
-              this.getMeetings(event);
-            }
-          });  // setOnCameraIdleListener
-
-          this.map.setOnMarkerClickListener((event) => {
-            this.performSearch = false
-            this.openMeetingModal(event.title)
-          }); // setOnMarkerClickListener
-
-          this.map.setOnBoundsChangedListener(event => {
-          }); // setOnBoundsChangedListener
-        }, 500);
-
-      }).catch(error => {
-        console.error('Error creating map:', error);
-        // Try to show a fallback message or retry
-        this.showMapError();
-      }); // create map
-    } catch (error) {
-      console.error('Error in createMap:', error);
-      this.showMapError();
     }
-  }
 
-  private showMapError() {
-    console.error('Failed to load Google Maps. Please check your internet connection and try again.');
-    // You could show a user-friendly error message here
+    await GoogleMap.create(mapArgs).then(map => {
+      this.map = map;
+
+      this.map.setOnCameraIdleListener((event) => {
+        if (this.performSearch === false) {
+          this.performSearch = true;
+          return;
+        }
+        if (event.zoom <=7) {
+          let cameraConfig: CameraConfig = {zoom: 8}
+          this.map.setCamera(cameraConfig);
+          this.performSearch = false;
+          return;
+        }
+
+        this.translate.get('FINDING_MTGS').subscribe(value => {
+          this.presentLoader(value);
+        });
+
+        let mapRadiusMeters = google.maps.geometry.spherical.computeDistanceBetween(event.bounds.center,event.bounds.southwest);
+        this.mapRadius = Math.ceil(Number(mapRadiusMeters)/1000);
+
+        if (this.currentMarkerIDs.length > 0) {
+          this.map.removeMarkers(this.currentMarkerIDs).then(result => {
+            this.currentMarkerIDs = []
+            this.map.disableClustering().then(clusteringDisabled => {
+              this.getMeetings(event);
+            });
+          });
+        } else {
+          this.getMeetings(event);
+        }
+      });  // setOnCameraIdleListener
+
+      this.map.setOnMarkerClickListener((event) => {
+        this.performSearch = false
+        this.openMeetingModal(event.title)
+      }); // setOnMarkerClickListener
+
+      this.map.setOnBoundsChangedListener(event => {
+      }); // setOnBoundsChangedListener
+
+    }); // create map
   }
 
 
@@ -342,26 +267,17 @@ export class MapSearchPage implements OnDestroy {
         }
       }
       this.addMarkers();
-    }).catch(error => {
-      console.error('Error getting meetings:', error);
-      this.dismissLoader();
     });
   }
 
 
   addMarkers() {
     if (this.currentMarkerList.length > 0) {
-      this.map.addMarkers(this.currentMarkerList).then((markerIDs: string[]) => {
+      this.map.addMarkers(this.currentMarkerList).then(markerIDs => {
         this.currentMarkerIDs = markerIDs;
-        this.map.enableClustering().then((clusteringEnabled: any) => {
+        this.map.enableClustering().then(clusteringEnabled => {
           this.dismissLoader()
-        }).catch(error => {
-          console.error('Error enabling clustering:', error);
-          this.dismissLoader();
         });
-      }).catch(error => {
-        console.error('Error adding markers:', error);
-        this.dismissLoader();
       });
     } else {
       this.dismissLoader()
@@ -396,22 +312,46 @@ export class MapSearchPage implements OnDestroy {
   }
 
 
-  selectSearchResult(item: { description: string }) {
+  async selectSearchResult(item: PlaceSuggestion) {
     this.autocompleteItems = [];
     this.autocomplete.input = item.description;
 
-    // Show loader while geocoding
-    this.translate.get('LOCATING').subscribe(value => { this.presentLoader(value); });
+    // Get the place ID from the suggestion
+    const placeId = item.place_id;
+    
+    if (placeId) {
+      this.translate.get('LOCATING').subscribe(value => { this.presentLoader(value); });
+      
+      try {
+        // Import the Places library
+        const { Place } = await google.maps.importLibrary("places") as google.maps.PlacesLibrary;
+        
+        // Create a new Place instance using the place ID
+        const place = new Place({
+          id: placeId,
+        });
 
-    this.GeocodeService.convertAddress(item.description).subscribe({
-      next: (geocode_reponse: any) => {
-        if (geocode_reponse && geocode_reponse.results && geocode_reponse.results[0]) {
-          this.addressLatitude = geocode_reponse.results[0].geometry.location.lat;
-          this.addressLongitude = geocode_reponse.results[0].geometry.location.lng;
+        // Call fetchFields with the desired fields
+        await place.fetchFields({ fields: ['location'] });
+        
+        // After fetching, access the location directly from the place object
+        if (place && place.location) {
+          // Check if lat and lng are functions or direct values
+          if (typeof place.location.lat === 'function' && typeof place.location.lng === 'function') {
+            this.addressLatitude = place.location.lat();
+            this.addressLongitude = place.location.lng();
+          } else {
+            this.addressLatitude = place.location.lat;
+            this.addressLongitude = place.location.lng;
+          }
+          
+          console.log('Location found:', this.addressLatitude, this.addressLongitude);
+          
           this.dismissLoader();
           
-          // Check if map exists before setting camera
-          if (this.map) {
+          // Check if coordinates are valid numbers before setting camera
+          if (!isNaN(this.addressLatitude) && !isNaN(this.addressLongitude) &&
+              isFinite(this.addressLatitude) && isFinite(this.addressLongitude)) {
             this.map.setCamera({
               coordinate: {
                 lat: this.addressLatitude,
@@ -419,84 +359,112 @@ export class MapSearchPage implements OnDestroy {
               },
               zoom: 10
             });
+          } else {
+            console.error('Invalid coordinates:', this.addressLatitude, this.addressLongitude);
+            // Fallback to geocoding if coordinates are invalid
+            this.geocodeAddress(item.description);
           }
         } else {
-          console.log('No geocoding results found');
-          this.dismissLoader();
+          console.error('No location data in place object');
+          // Fallback to geocoding if place details fails
+          this.geocodeAddress(item.description);
         }
-      },
-      error: (error) => {
-        console.error('Geocoding error:', error);
+      } catch (error) {
+        console.error('Error fetching place details:', error);
+        
+        // Log additional debugging information
+        console.log('Place ID:', placeId);
+        console.log('Item description:', item.description);
+        
+        // Fallback to geocoding if place details fails
+        this.geocodeAddress(item.description);
+      }
+    } else {
+      // Fallback to geocoding if no place_id is available
+      this.geocodeAddress(item.description);
+    }
+  }
+  
+  geocodeAddress(address: string) {
+    this.GeocodeService.convertAddress(address).subscribe((geocode_reponse: any) => {
+      if (geocode_reponse.results[0]) {
+        this.addressLatitude = geocode_reponse.results[0].geometry.location.lat;
+        this.addressLongitude = geocode_reponse.results[0].geometry.location.lng;
+        this.dismissLoader();
+        this.map.setCamera({
+          coordinate: {
+            lat: this.addressLatitude,
+            lng: this.addressLongitude,
+          },
+          zoom: 10
+        });
+      } else {
         this.dismissLoader();
       }
+      
     });
   }
 
 
-  updateSearchResults(event: any) {
+  async updateSearchResults(event: any) {
     this.autocomplete.input = event.detail.value;
     if (this.autocomplete.input === '') {
       this.autocompleteItems = [];
       return;
     }
 
-    // Check if GoogleAutocomplete is available
-    if (!this.GoogleAutocomplete || !this.GoogleAutocomplete.getPlacePredictions) {
-      console.error('Google Autocomplete service not available');
-      // Fallback: use geocoding service directly
-      this.fallbackSearch(event.detail.value);
-      return;
-    }
-
-    let config = {
-      types: ['geocode'],
+    const request = {
       input: event.detail.value,
+      types: ['geocode'],
       language: this.language
-    }
+    };
 
-    try {
-      this.GoogleAutocomplete.getPlacePredictions(config, (predictions, status) => {
-        this.autocompleteItems = [];
-        
-        // Check if status is OK and predictions exist
-        if (status === google.maps.places.PlacesServiceStatus.OK && predictions) {
-          this.zone.run(() => {
-            predictions.forEach((prediction: any) => {
-              this.autocompleteItems.push(prediction);
+    // Using the new Places API (New)
+      this.zone.run(async () => {
+        try {
+          // Create a session token
+          const token = new google.maps.places.AutocompleteSessionToken();
+          
+          // Create an extended request with sessionToken
+          const extendedRequest = {
+            input: request.input,
+            language: request.language,
+            sessionToken: token
+          };
+          
+          // Fetch autocomplete suggestions using the static method
+          const response = await google.maps.places.AutocompleteSuggestion.fetchAutocompleteSuggestions(extendedRequest);
+          
+          if (response && response.suggestions && response.suggestions.length > 0) {
+            // Convert the suggestions to the format expected by the app
+            this.autocompleteItems = response.suggestions.map((suggestion: any) => {
+              return {
+                description: suggestion.placePrediction.text.toString(),
+                place_id: suggestion.placePrediction.placeId,
+                structured_formatting: {
+                  main_text: suggestion.placePrediction.text.toString(),
+                  secondary_text: suggestion.placePrediction.secondaryText?.toString() || ''
+                }
+              };
             });
-          });
-        } else {
-          console.log('No predictions found or status not OK:', status);
-          // Fallback to geocoding
-          this.fallbackSearch(event.detail.value);
+          } else {
+            this.autocompleteItems = [];
+          }
+        } catch (error) {
+          console.error('Error getting place suggestions:', error);
+          this.autocompleteItems = [];
         }
       });
-    } catch (error) {
-      console.error('Error in updateSearchResults:', error);
-      this.autocompleteItems = [];
-      // Fallback to geocoding
-      this.fallbackSearch(event.detail.value);
-    }
-  }
-
-  private fallbackSearch(searchTerm: string) {
-    // Simple fallback: create a mock prediction that can be used for geocoding
-    const mockPrediction = {
-      description: searchTerm,
-      place_id: null
-    };
-    this.zone.run(() => {
-      this.autocompleteItems = [mockPrediction];
-    });
   }
 
 
   presentLoader(loaderText: any) {
     if (!this.loader) {
-      this.loader = this.loaderCtrl.present(loaderText);
+      // Convert to string if it's not already
+      const textMessage = typeof loaderText === 'string' ? loaderText : JSON.stringify(loaderText);
+      this.loader = this.loaderCtrl.present(textMessage);
     }
   }
-
 
   dismissLoader() {
     if (this.loader) {
@@ -511,28 +479,22 @@ export class MapSearchPage implements OnDestroy {
       this.meeting = response.data;
       this.meeting.filter((i: any) => i.start_time_raw = this.convertTo12Hr(i.start_time));
       this.openModal(this.meeting);
-    }).catch(error => {
-      console.error('Error getting meeting details:', error);
     });
   }
 
 
   async openModal(meeting: any) {
-    try {
-      const modal = await this.modalCtrl.create({
-        component: ModalPage,
-        componentProps: {
-          data: this.meeting
-        }
-      });
+    const modal = await this.modalCtrl.create({
+      component: ModalPage,
+      componentProps: {
+        data: this.meeting
+      }
+    });
 
-      modal.onDidDismiss().then((dataReturned) => {
-      });
+    modal.onDidDismiss().then((dataReturned) => {
+    });
 
-      return await modal.present();
-    } catch (error) {
-      console.error('Error opening modal:', error);
-    }
+    return await modal.present();
   }
 
   public convertTo12Hr(timeString: any) {
