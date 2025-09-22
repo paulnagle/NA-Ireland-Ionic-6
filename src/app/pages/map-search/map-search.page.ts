@@ -192,7 +192,7 @@ export class MapSearchPage implements OnDestroy {
           center: currentLatLng,
           zoom: 8,
           minZoom: 8,
-          maxZoom: 18,
+          maxZoom: 20,
           heading: 0,
           disableDefaultUI: false,
           zoomControl: true,
