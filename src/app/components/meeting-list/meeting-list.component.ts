@@ -7,7 +7,7 @@ import { VirtFormatsService } from '../../services/virt-formats.service';
 import { TomatoFormatsService } from '../../services/tomato-formats.service';
 import { MeetingListService } from '../../services/meeting-list.service';
 import { LoadingService } from 'src/app/services/loading.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import 'moment-timezone';
 import { RangeCustomEvent } from '@ionic/angular';
 

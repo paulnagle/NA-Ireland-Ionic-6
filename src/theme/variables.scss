@@ -14,7 +14,8 @@
     --ion-background-color: #ffffff;
   
     --ion-font-family: 'Plex'; 
-  
+
+
   ion-card {
       --background: #eeeeee;
       --color: #ffffff;
@@ -30,7 +31,7 @@
   }
   
   ion-card-subtitle {
-      --color: #000000;
+      --color: #009;
   }
   
   ion-card-content {
@@ -49,6 +50,16 @@
   .icon-inner {
     --color: #3880ff;
   }
+
+  --ion-color: #009;
+  --color: #009;
+  h3 {
+    color: #009;
+  }
+
+ ion-icon {
+    color: #009;
+}
   
     /** primary **/
     --ion-color-primary: #009;
