@@ -11,13 +11,18 @@
   </ion-searchbar>
 </ion-header>
 
-<ion-content>
-  <ion-list class="ion-no-padding" [hidden]="autocompleteItems.length == 0">
-    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
-      {{ item.description }}
-    </ion-item>
-  </ion-list>
+<ion-content style="--background: transparent;">
+  <!-- Suggestions list with higher z-index -->
+  <div class="suggestions-container">
+    <ion-list class="ion-no-padding" [hidden]="autocompleteItems.length == 0">
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+        {{ item.description }}
+      </ion-item>
+    </ion-list>
+  </div>
 
-  <capacitor-google-map id='map'></capacitor-google-map>
-
+  <!-- Map container with transparent background -->
+  <div class="map-container" style="background-color: transparent;">
+    <capacitor-google-map id='map' style="background-color: transparent;"></capacitor-google-map>
+  </div>
 </ion-content>

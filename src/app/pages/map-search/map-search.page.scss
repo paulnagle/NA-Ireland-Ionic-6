@@ -1,7 +1,80 @@
-capacitor-google-map {
-  display: inline-block;
+.suggestions-container {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+}
+
+ion-list {
+  position: relative;
+  z-index: 10;
+  background-color: white;
+  margin-bottom: 0;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.map-container {
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: transparent !important;
+}
+
+capacitor-google-map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: transparent !important;
+}
+
+ion-content {
+  --background: transparent !important;
+}
+
+ion-content::part(scroll) {
+  height: 100%;
+  background-color: transparent !important;
+}
+
+ion-content::part(background) {
+  background-color: transparent !important;
+}
+
+/* Android-specific styles */
+:host-context(.md) {
+  background-color: transparent !important;
+}
+
+:host-context(.md) ion-content {
+  --background: transparent !important;
+}
+
+:host-context(.md) capacitor-google-map {
+  z-index: 0;
+  background-color: transparent !important;
+}
+
+:host-context(.md) .map-container {
+  z-index: 0;
+  background-color: transparent !important;
+}
+
+:host-context(.md) ion-list {
+  z-index: 10;
+}
+
+:host-context(.md) ion-content::part(background) {
+  background-color: transparent !important;
+}
+
+:host-context(.md) ion-content::part(scroll) {
+  background-color: transparent !important;
 }
 
 ion-searchbar {

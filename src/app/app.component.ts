@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from './services/storage.service';
 import { Router } from '@angular/router';
 import { SplashScreen } from '@capacitor/splash-screen';
-
+import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 
 @Component({
   selector: 'app-root',
@@ -44,5 +44,15 @@ export class AppComponent {
       this.translate.use('en');
       this.storage.set('language', 'en');
     }
+
+    await EdgeToEdge.setBackgroundColor({ color: '#000090' });
+
   }
+
+
 }
+
+
+
+
+

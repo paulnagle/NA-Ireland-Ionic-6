@@ -97,7 +97,9 @@ export class ListPage {
 
   presentLoader(loaderText: any) {
     if (!this.loader) {
-      this.loader = this.loaderCtrl.present(loaderText);
+      // Convert to string if it's not already
+      const textMessage = typeof loaderText === 'string' ? loaderText : JSON.stringify(loaderText);
+      this.loader = this.loaderCtrl.present(textMessage);
     }
   }
 
