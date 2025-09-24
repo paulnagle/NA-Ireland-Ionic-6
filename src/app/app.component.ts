@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from './services/storage.service';
 import { Router } from '@angular/router';
 import { SplashScreen } from '@capacitor/splash-screen';
-import { StatusBar, Style } from '@capacitor/status-bar';
+import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
 
 @Component({
   selector: 'app-root',
@@ -45,15 +45,14 @@ export class AppComponent {
       this.storage.set('language', 'en');
     }
 
-    StatusBar.setOverlaysWebView({ overlay: false });
-
-    const setStatusBarStyleLight = async () => {
-      await StatusBar.setStyle({ style: Style.Light });
-    };
-
-    const showStatusBar = async () => {
-      await StatusBar.show();
-    };
+    await EdgeToEdge.setBackgroundColor({ color: '#000090' });
 
   }
+
+
 }
+
+
+
+
+

@@ -64,6 +64,34 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+/* Android-specific styles for Google Maps */
+html.md {
+  background-color: transparent !important;
+  --background: transparent !important;
+}
+
+body.md {
+  background-color: transparent !important;
+  --background: transparent !important;
+}
+
+ion-app.md {
+  background-color: transparent !important;
+  --background: transparent !important;
+}
+
+ion-content.md {
+  --background: transparent !important;
+}
+
+.md ion-content::part(background) {
+  background: transparent !important;
+}
+
+.md ion-content::part(scroll) {
+  background: transparent !important;
+}
+
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------

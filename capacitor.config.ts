@@ -7,8 +7,13 @@ const config: CapacitorConfig = {
   plugins: {
     CapacitorHttp: {
       enabled: true,
-    }
-  }
+    },
+    StatusBar: {
+      overlaysWebView: false,
+      style: 'DARK',
+      backgroundColor: "#000090"
+   }, 
+  },
 };
 
 export default config;

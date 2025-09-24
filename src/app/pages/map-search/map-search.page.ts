@@ -1,6 +1,6 @@
 import { Component, NgZone, OnDestroy } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { MeetingListService } from '../../services/meeting-list.service';
 import { LoadingService } from '../../services/loading.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -55,13 +55,14 @@ export class MapSearchPage implements OnDestroy {
   debounceTimestamp: number = 0;
 
   constructor(
-    private translate: TranslateService, 
-    private storage: StorageService, 
-    private loaderCtrl: LoadingService, 
+    private translate: TranslateService,
+    private storage: StorageService,
+    private loaderCtrl: LoadingService,
     private GeocodeService: GeocodeService,
     private meetingListService: MeetingListService,
     private modalCtrl: ModalController,
-    private zone: NgZone) {
+    private zone: NgZone,
+    private platform: Platform) {
 
     }
       
@@ -75,36 +76,45 @@ export class MapSearchPage implements OnDestroy {
   }
 
   async ionViewDidEnter() {
-    this.storage.get('language').then(langValue => {
+    // Wait for the view to be fully rendered
+    setTimeout(async () => {
+      await this.initializeMapWithSettings();
+    }, 1000);
+  }
+
+  async initializeMapWithSettings() {
+    try {
+      const langValue = await this.storage.get('language');
       if (langValue) {
         this.language = langValue;
-        this.storage.get('savedAddressLat').then(value => {
-          if (value) {
-            this.addressLatitude = value;
-            this.storage.get('savedAddressLng').then(value => {
-              if (value) {
-                this.addressLongitude = value;
-                setTimeout(async () => {
-                  await this.createMap();
-                }, 500);
-              } else {
-                console.log('No saved location values found');
-              }
-            });
+        const savedLat = await this.storage.get('savedAddressLat');
+        if (savedLat) {
+          this.addressLatitude = savedLat;
+          const savedLng = await this.storage.get('savedAddressLng');
+          if (savedLng) {
+            this.addressLongitude = savedLng;
+            await this.createMap();
           } else {
-            this.locatePhone();
-            setTimeout(async () => {
-              await this.createMap();
-            }, 500);
+            console.log('No saved longitude value found');
+            await this.locatePhone();
+            await this.createMap();
           }
-        });
+        } else {
+          await this.locatePhone();
+          await this.createMap();
+        }
       } else {
         this.language = 'en';
-        setTimeout(async () => {
-          await this.createMap();
-        }, 500);
+        await this.locatePhone();
+        await this.createMap();
       }
-    });
+    } catch (error) {
+      console.error('Error initializing map:', error);
+      // Fallback to default location
+      this.addressLatitude = 53.3498; // Dublin coordinates
+      this.addressLongitude = -6.2603;
+      await this.createMap();
+    }
   }
 
 
@@ -130,28 +140,60 @@ export class MapSearchPage implements OnDestroy {
 
 
   async createMap(): Promise<void> {
-    const mapRef: HTMLElement = document.getElementById('map')!;
-
-    let mapLatitude: any = 34.2359855;
-    let mapLongitude: any = -118.5656689;
-    if (this.addressLatitude) { mapLatitude = this.addressLatitude }
-    if (this.addressLongitude) { mapLongitude = this.addressLongitude}
-    let currentLatLng: LatLng = { lat: mapLatitude, lng: mapLongitude }
-
-    const mapArgs = {
-      id: 'google-map',
-      element: mapRef,
-      apiKey: 'AIzaSyAtwUjsIB14f0aHgdLk_JYnUrI0jvczMXw',
-      forceCreate: true,
-      language: this.language,
-      config: {
-        center: currentLatLng,
-        zoom: 8
+    try {
+      // Make sure the element exists
+      const mapRef: HTMLElement = document.getElementById('map')!;
+      if (!mapRef) {
+        console.error('Map element not found');
+        return;
       }
-    }
 
-    await GoogleMap.create(mapArgs).then(map => {
-      this.map = map;
+      // Set default coordinates if needed
+      let mapLatitude: number = 34.2359855;
+      let mapLongitude: number = -118.5656689;
+      
+      if (this.addressLatitude) { mapLatitude = Number(this.addressLatitude); }
+      if (this.addressLongitude) { mapLongitude = Number(this.addressLongitude); }
+      
+      // Ensure coordinates are valid numbers
+      if (isNaN(mapLatitude) || isNaN(mapLongitude)) {
+        console.error('Invalid coordinates, using defaults');
+        mapLatitude = 34.2359855;
+        mapLongitude = -118.5656689;
+      }
+      
+      let currentLatLng: LatLng = { lat: mapLatitude, lng: mapLongitude };
+
+      console.log('Creating map with coordinates:', currentLatLng);
+
+      // Create map with explicit styling for Android
+      const mapArgs = {
+        id: 'google-map',
+        element: mapRef,
+        apiKey: 'AIzaSyAtwUjsIB14f0aHgdLk_JYnUrI0jvczMXw',
+        forceCreate: true,
+        language: this.language,
+        config: {
+          center: currentLatLng,
+          zoom: 8,
+          styles: [], // Default styles
+          disableDefaultUI: false,
+          backgroundColor: 'transparent', // Transparent background
+          mapId: 'DEMO_MAP_ID' // Optional: Use a custom map ID if you have one
+        }
+      };
+
+      // For Android, ensure the map container is visible
+      if (this.platform.is('android')) {
+        console.log('Running on Android, applying specific settings');
+        document.documentElement.style.backgroundColor = 'transparent';
+        document.body.style.backgroundColor = 'transparent';
+        mapRef.style.backgroundColor = 'transparent';
+      }
+
+      // Create the map
+      this.map = await GoogleMap.create(mapArgs);
+      console.log('Map created successfully');
 
       this.map.setOnCameraIdleListener((event) => {
         if (this.performSearch === false) {
@@ -191,8 +233,10 @@ export class MapSearchPage implements OnDestroy {
 
       this.map.setOnBoundsChangedListener(event => {
       }); // setOnBoundsChangedListener
-
-    }); // create map
+      
+    } catch (error) {
+      console.error('Error creating map:', error);
+    }
   }
 
 
